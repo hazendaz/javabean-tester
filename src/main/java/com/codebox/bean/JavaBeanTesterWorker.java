@@ -23,6 +23,7 @@ import org.mockito.cglib.beans.BeanCopier;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -165,7 +166,7 @@ class JavaBeanTesterWorker<T, E> {
     }
 
     /**
-     * Tests the get/set/equals/hashCode/toString methods of the specified class.
+     * Tests the get/set/equals/hashCode/toString methods and constructors of the specified class.
      *
      * @throws IntrospectionException
      *             thrown if the getterSetterTests or equalsHashCodeToSTringSymmetricTest method throws this exception
@@ -179,6 +180,7 @@ class JavaBeanTesterWorker<T, E> {
      */
     public void test() throws IntrospectionException, InstantiationException, IllegalAccessException {
         getterSetterTests(clazz.newInstance());
+        constructorsTest();
         if (checkEquals == CanEquals.ON) {
             equalsHashCodeToStringSymmetricTest();
         }
@@ -190,8 +192,7 @@ class JavaBeanTesterWorker<T, E> {
      * @param instance
      *            the instance of class under test.
      * @throws IntrospectionException
-     *             thrown if the Introspector.getBeanInfo() method throws this exception for the class under
-     *             test.
+     *             thrown if the Introspector.getBeanInfo() method throws this exception for the class under test.
      */
     void getterSetterTests(final T instance) throws IntrospectionException {
         final PropertyDescriptor[] props = Introspector.getBeanInfo(clazz).getPropertyDescriptors();
@@ -244,6 +245,44 @@ class JavaBeanTesterWorker<T, E> {
                     }
                 }
             }
+        }
+    }
+
+    void constructorsTest() {
+        for (Constructor<?> constructor : clazz.getConstructors()) {
+            Class<?>[] types = constructor.getParameterTypes();
+
+            Object[] values = new Object[constructor.getParameterTypes().length];
+
+            for (int i = 0; i < values.length; i++) {
+                try {
+                    values[i] = buildValue(types[i], LoadType.STANDARD_DATA);
+                } catch (InstantiationException e) {
+                    Assert.fail(String.format("An exception was thrown while testing the constructor %s: %s",
+                            constructor.getName(), e.toString()));
+                } catch (IllegalAccessException e) {
+                    Assert.fail(String.format("An exception was thrown while testing the constructor %s: %s",
+                            constructor.getName(), e.toString()));
+                } catch (InvocationTargetException e) {
+                    Assert.fail(String.format("An exception was thrown while testing the constructor %s: %s",
+                            constructor.getName(), e.toString()));
+                }
+            }
+
+            try {
+                constructor.newInstance(values);
+            } catch (InstantiationException e) {
+                Assert.fail(String.format("An exception was thrown while testing the constructor %s: %s",
+                        constructor.getName(), e.toString()));
+            } catch (IllegalAccessException e) {
+                Assert.fail(String.format("An exception was thrown while testing the constructor %s: %s",
+                        constructor.getName(), e.toString()));
+            } catch (InvocationTargetException e) {
+                Assert.fail(String.format("An exception was thrown while testing the constructor %s: %s",
+                        constructor.getName(), e.toString()));
+            }
+
+            // TODO: Add checking of new object properties
         }
     }
 
@@ -374,8 +413,7 @@ class JavaBeanTesterWorker<T, E> {
      * @param expected
      *            the instance expected for tests.
      * @throws IntrospectionException
-     *             thrown if the Introspector.getBeanInfo() method throws this exception for the class under
-     *             test.
+     *             thrown if the Introspector.getBeanInfo() method throws this exception for the class under test.
      */
     void equalsTests(final T instance, final T expected) throws IntrospectionException {
 
