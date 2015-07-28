@@ -91,7 +91,7 @@ public final class JavaBeanTester {
             throws IntrospectionException {
 
         @SuppressWarnings("unchecked")
-        JavaBeanTesterWorker<T, Object> worker = new JavaBeanTesterWorker<T, Object>((Class<T>) instance.getClass());
+        JavaBeanTesterWorker<T, Object> worker = new JavaBeanTesterWorker<T, Object>((Class<T>) instance.getClass(), Object.class);
         worker.setLoadData(loadData);
         worker.equalsTests(instance, expected);
     }
@@ -174,7 +174,7 @@ public final class JavaBeanTester {
      * @return A builder implementing the fluent API to configure JavaBeanTester
      */
     public static <T> JavaBeanTesterBuilder<T, ?> builder(Class<T> clazz) {
-        return new JavaBeanTesterBuilder<T, Object>(clazz);
+        return new JavaBeanTesterBuilder<T, Object>(clazz, Object.class);
     }
 
     /**
