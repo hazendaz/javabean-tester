@@ -298,7 +298,7 @@
                         <dependency>
                             <groupId>net.trajano.wagon</groupId>
                             <artifactId>wagon-git</artifactId>
-                            <version>2.0.3</version> <!-- Do not use 2.0.4 as it does not work with ssh -->
+                            <version>2.0.4</version> <!-- Do not use 2.0.4 as it does not work with ssh -->
                         </dependency>
                         <dependency>
                             <groupId>org.apache.maven.wagon</groupId>
