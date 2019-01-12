@@ -721,6 +721,78 @@
         </pluginManagement>
 
         <plugins>
+            <!-- Testing to see if I can get this working! -->
+            <plugin>
+                <groupId>com.github.hazendaz.maven</groupId>
+                <artifactId>jautodoc-maven-plugin</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>jautodoc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+ 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>jautodoc</id>
+                        <phase>process-sources</phase>
+                        <configuration>
+                            <target>
+                              <taskdef name="jautodoc" classname="net.sf.jautodoc.ant.JAutodocTask" classpathref="maven.plugin.classpath"/>
+                              <jautodoc srcdir="src" includes="**/*.java"/>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <!-- Jautodoc -->
+                <dependencies>
+                    <dependency>
+                        <groupId>net.sf.jautodoc</groupId>
+                        <artifactId>velocity</artifactId>
+                        <version>1.14.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>net.sf.jautodoc</groupId>
+                        <artifactId>jautodoc</artifactId>
+                        <version>1.14.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>net.sf.jautodoc</groupId>
+                        <artifactId>jautodoc-ant</artifactId>
+                        <version>1.14.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.eclipse.jdt</groupId>
+                        <artifactId>org.eclipse.jdt.core</artifactId>
+                        <version>3.16.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.eclipse.platform</groupId>
+                        <artifactId>org.eclipse.jface</artifactId>
+                        <version>3.15.0</version>
+                        <exclusions>
+                            <exclusion>
+                                <groupId>org.eclipse.platform</groupId>
+                                <artifactId>org.eclipse.swt.gtk.linux.aarch64</artifactId>
+                            </exclusion>
+                            <exclusion>
+                                <groupId>org.eclipse.platform</groupId>
+                                <artifactId>org.eclipse.swt.gtk.linux.arm</artifactId>
+                            </exclusion>
+                        </exclusions>
+                    </dependency>
+                </dependencies>
+            </plugin>
+ 
             <!-- Build Plugins -->
             <plugin>
                 <groupId>io.github.git-commit-id</groupId>
