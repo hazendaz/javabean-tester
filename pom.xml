@@ -164,7 +164,7 @@
         <signature.version>1.0</signature.version>
 
         <!-- Version Properties -->
-        <jmockit.version>1.46</jmockit.version>
+        <jmockit.version>1.48</jmockit.version>
 
         <!-- Surefire Argline -->
         <argLine>-javaagent:${settings.localRepository}/org/jmockit/jmockit/${jmockit.version}/jmockit-${jmockit.version}.jar</argLine>
