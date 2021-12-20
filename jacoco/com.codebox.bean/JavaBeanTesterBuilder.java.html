@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JavaBeanTesterBuilder.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">javabean-tester</a> &gt; <a href="index.source.html" class="el_package">com.codebox.bean</a> &gt; <span class="el_source">JavaBeanTesterBuilder.java</span></div><h1>JavaBeanTesterBuilder.java</h1><pre class="source lang-java linenums">/*
  * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
  *
- * Copyright 2012-2021 Hazendaz.
+ * Copyright ${license.git.copyrightYears} Hazendaz.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of The Apache Software License,
@@ -73,11 +73,12 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      *
      * @param value
      *            the value
+     *
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; checkClear(final boolean value) {
-<span class="fc bfc" id="L79" title="All 2 branches covered.">        this.worker.setCheckClear(value ? CheckClear.ON : CheckClear.OFF);</span>
-<span class="fc" id="L80">        return this;</span>
+<span class="fc bfc" id="L80" title="All 2 branches covered.">        this.worker.setCheckClear(value ? CheckClear.ON : CheckClear.OFF);</span>
+<span class="fc" id="L81">        return this;</span>
     }
 
     /**
@@ -86,7 +87,7 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; checkConstructor() {
-<span class="fc" id="L89">        return this.checkConstructor(true);</span>
+<span class="fc" id="L90">        return this.checkConstructor(true);</span>
     }
 
     /**
@@ -94,11 +95,12 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      *
      * @param value
      *            the value
+     *
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; checkConstructor(final boolean value) {
-<span class="fc bfc" id="L100" title="All 2 branches covered.">        this.worker.setCheckConstructor(value ? CheckConstructor.ON : CheckConstructor.OFF);</span>
-<span class="fc" id="L101">        return this;</span>
+<span class="fc bfc" id="L102" title="All 2 branches covered.">        this.worker.setCheckConstructor(value ? CheckConstructor.ON : CheckConstructor.OFF);</span>
+<span class="fc" id="L103">        return this;</span>
     }
 
     /**
@@ -107,7 +109,7 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; checkEquals() {
-<span class="fc" id="L110">        return this.checkEquals(true);</span>
+<span class="fc" id="L112">        return this.checkEquals(true);</span>
     }
 
     /**
@@ -115,11 +117,12 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      *
      * @param value
      *            the value
+     *
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; checkEquals(final boolean value) {
-<span class="fc bfc" id="L121" title="All 2 branches covered.">        this.worker.setCheckEquals(value ? CheckEquals.ON : CheckEquals.OFF);</span>
-<span class="fc" id="L122">        return this;</span>
+<span class="fc bfc" id="L124" title="All 2 branches covered.">        this.worker.setCheckEquals(value ? CheckEquals.ON : CheckEquals.OFF);</span>
+<span class="fc" id="L125">        return this;</span>
     }
 
     /**
@@ -128,7 +131,7 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; checkSerializable() {
-<span class="fc" id="L131">        return this.checkSerializable(true);</span>
+<span class="fc" id="L134">        return this.checkSerializable(true);</span>
     }
 
     /**
@@ -136,11 +139,12 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      *
      * @param value
      *            the value
+     *
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; checkSerializable(final boolean value) {
-<span class="fc bfc" id="L142" title="All 2 branches covered.">        this.worker.setCheckSerializable(value ? CheckSerialize.ON : CheckSerialize.OFF);</span>
-<span class="fc" id="L143">        return this;</span>
+<span class="fc bfc" id="L146" title="All 2 branches covered.">        this.worker.setCheckSerializable(value ? CheckSerialize.ON : CheckSerialize.OFF);</span>
+<span class="fc" id="L147">        return this;</span>
     }
 
     /**
@@ -149,7 +153,7 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; loadData() {
-<span class="fc" id="L152">        return this.loadData(true);</span>
+<span class="fc" id="L156">        return this.loadData(true);</span>
     }
 
     /**
@@ -157,11 +161,12 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      *
      * @param value
      *            the value
+     *
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; loadData(final boolean value) {
-<span class="fc bfc" id="L163" title="All 2 branches covered.">        this.worker.setLoadData(value ? LoadData.ON : LoadData.OFF);</span>
-<span class="fc" id="L164">        return this;</span>
+<span class="fc bfc" id="L168" title="All 2 branches covered.">        this.worker.setLoadData(value ? LoadData.ON : LoadData.OFF);</span>
+<span class="fc" id="L169">        return this;</span>
     }
 
     /**
@@ -173,8 +178,8 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; skipStrictSerializable() {
-<span class="fc" id="L176">        this.worker.setSkipStrictSerializable(SkipStrictSerialize.ON);</span>
-<span class="fc" id="L177">        return this;</span>
+<span class="fc" id="L181">        this.worker.setSkipStrictSerializable(SkipStrictSerialize.ON);</span>
+<span class="fc" id="L182">        return this;</span>
     }
 
     /**
@@ -182,35 +187,36 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      *
      * @param propertyNames
      *            the property names
+     *
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; skip(final String... propertyNames) {
-<span class="fc bfc" id="L188" title="All 2 branches covered.">        if (propertyNames != null) {</span>
-<span class="fc" id="L189">            this.worker.getSkipThese().addAll(Arrays.asList(propertyNames));</span>
+<span class="fc bfc" id="L194" title="All 2 branches covered.">        if (propertyNames != null) {</span>
+<span class="fc" id="L195">            this.worker.getSkipThese().addAll(Arrays.asList(propertyNames));</span>
         }
-<span class="fc" id="L191">        return this;</span>
+<span class="fc" id="L197">        return this;</span>
     }
 
     /**
      * Test.
      */
     public void test() {
-<span class="fc" id="L198">        this.worker.test();</span>
-<span class="fc" id="L199">    }</span>
+<span class="fc" id="L204">        this.worker.test();</span>
+<span class="fc" id="L205">    }</span>
 
     /**
      * Private Constructor Test.
      */
     public void testPrivateConstructor() {
-<span class="fc" id="L205">        ConstructorInstance.inaccessible(this.worker.getClazz());</span>
-<span class="fc" id="L206">    }</span>
+<span class="fc" id="L211">        ConstructorInstance.inaccessible(this.worker.getClazz());</span>
+<span class="fc" id="L212">    }</span>
 
     /**
      * Tests the equals/hashCode/toString methods of the specified class.
      */
     public void testObjectMethods() {
-<span class="fc" id="L212">        this.worker.equalsHashCodeToStringSymmetricTest();</span>
-<span class="fc" id="L213">    }</span>
+<span class="fc" id="L218">        this.worker.equalsHashCodeToStringSymmetricTest();</span>
+<span class="fc" id="L219">    }</span>
 
     /**
      * Getter Setter Tests.
@@ -219,8 +225,8 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      *            the instance of class under test.
      */
     public void testInstance(final T instance) {
-<span class="fc" id="L222">        this.worker.getterSetterTests(instance);</span>
-<span class="fc" id="L223">    }</span>
+<span class="fc" id="L228">        this.worker.getterSetterTests(instance);</span>
+<span class="fc" id="L229">    }</span>
 
     /**
      * Test equals.
@@ -231,8 +237,8 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      *            the expected
      */
     public void testEquals(final T instance, final T expected) {
-<span class="fc" id="L234">        this.worker.equalsTests(instance, expected);</span>
-<span class="fc" id="L235">    }</span>
+<span class="fc" id="L240">        this.worker.equalsTests(instance, expected);</span>
+<span class="fc" id="L241">    }</span>
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
