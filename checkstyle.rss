@@ -23,7 +23,7 @@ under the License.
     <link>https://github.com/hazendaz/javabean-tester</link>
     <description>javabean-tester - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2012 - 2021 hazendaz</copyright>
+    <copyright>&#169;2012 - 2022 hazendaz</copyright>
     <item>
       <title>File: 18,
              Errors: 0,
@@ -74,20 +74,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/hazendaz/javabean-tester/checkstyle.html#com.codebox.bean.ValueBuilder.java">com/codebox/bean/ValueBuilder.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  3
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="https://github.com/hazendaz/javabean-tester/checkstyle.html#com.codebox.builders.ExtensionBuilder.java">com/codebox/builders/ExtensionBuilder.java</a>
                 </td>
                 <td>
@@ -130,6 +116,34 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="https://github.com/hazendaz/javabean-tester/checkstyle.html#com.codebox.bean.ValueBuilder.java">com/codebox/bean/ValueBuilder.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/hazendaz/javabean-tester/checkstyle.html#com.codebox.enums.SkipStrictSerialize.java">com/codebox/enums/SkipStrictSerialize.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="https://github.com/hazendaz/javabean-tester/checkstyle.html#com.codebox.bean.JavaBeanTester.java">com/codebox/bean/JavaBeanTester.java</a>
                 </td>
                 <td>
@@ -158,7 +172,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/hazendaz/javabean-tester/checkstyle.html#com.codebox.enums.SkipStrictSerialize.java">com/codebox/enums/SkipStrictSerialize.java</a>
+                  <a href="https://github.com/hazendaz/javabean-tester/checkstyle.html#com.codebox.enums.package-info.java">com/codebox/enums/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -173,20 +187,6 @@ under the License.
                           <tr>
                 <td>
                   <a href="https://github.com/hazendaz/javabean-tester/checkstyle.html#com.codebox.enums.CheckSerialize.java">com/codebox/enums/CheckSerialize.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/hazendaz/javabean-tester/checkstyle.html#com.codebox.enums.package-info.java">com/codebox/enums/package-info.java</a>
                 </td>
                 <td>
                   0
