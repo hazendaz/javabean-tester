@@ -45,6 +45,7 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 
 import org.junit.jupiter.api.Assertions;
+import org.meanbean.test.EqualsMethodTester;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -617,6 +618,14 @@ class JavaBeanTesterWorker<T, E> {
             Assertions.assertEquals(e, ext);
         } catch (final Exception e) {
             JavaBeanTesterWorker.logger.trace("Do nothing class is not mutable", e);
+        }
+
+        // We tried our best, let mean bean work this further
+        final EqualsMethodTester tester = new EqualsMethodTester();
+        try {
+            tester.testEqualsMethod(this.clazz);
+        } catch (final Exception e) {
+            JavaBeanTesterWorker.LOGGER.trace("Meanbean cannot test this bean", e);
         }
     }
 
