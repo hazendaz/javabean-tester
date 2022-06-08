@@ -16,8 +16,12 @@ package com.codebox.bean;
 
 import java.lang.reflect.Modifier;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.NamingStrategy;
+import net.bytebuddy.description.annotation.AnnotationDescription;
 import net.bytebuddy.description.modifier.Visibility;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;
@@ -59,6 +63,9 @@ public enum JavaBeanTester {
                 return "com.codebox.bean.Extended" + superClass.getSimpleName();
             }
         }).subclass(clazz).method(ElementMatchers.any()).intercept(SuperMethodCall.INSTANCE)
+                .annotateType(AnnotationDescription.Builder.ofType(Data.class).build())
+                .annotateType(AnnotationDescription.Builder.ofType(EqualsAndHashCode.class).define("callSuper", false)
+                        .build())
                 .method(ElementMatchers.isEquals()).intercept(EqualsMethod.requiringSuperClassEquality())
                 .method(ElementMatchers.isHashCode()).intercept(HashCodeMethod.usingSuperClassOffset())
                 .method(ElementMatchers.isToString()).intercept(ToStringMethod.prefixedBySimpleClassName())
