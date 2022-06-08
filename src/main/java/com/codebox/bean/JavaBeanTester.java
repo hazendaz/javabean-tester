@@ -12,9 +12,13 @@ import com.codebox.util.LombokBuilderUtil;
 
 import java.lang.reflect.Modifier;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.NamingStrategy;
 import net.bytebuddy.description.NamedElement;
+import net.bytebuddy.description.annotation.AnnotationDescription;
 import net.bytebuddy.description.modifier.Visibility;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;
@@ -62,6 +66,9 @@ public enum JavaBeanTester {
                 return clazz.getPackageName() + ".ByteBuddyExt" + superClass.getSimpleName();
             }
         }).subclass(clazz).method(ElementMatchers.isEquals())
+                .annotateType(AnnotationDescription.Builder.ofType(Data.class).build())
+                .annotateType(AnnotationDescription.Builder.ofType(EqualsAndHashCode.class).define("callSuper", false)
+                        .build())
                 .intercept(MethodDelegation.to(InstanceOfEqualsInterceptor.class)).method(ElementMatchers.isHashCode())
                 .intercept(HashCodeMethod.usingSuperClassOffset()).method(ElementMatchers.isToString())
                 .intercept(ToStringMethod.prefixedBySimpleClassName()).method(ElementMatchers.named("canEqual"))
