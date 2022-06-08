@@ -457,6 +457,24 @@ class JavaBeanTesterWorker<T, E> {
         Assertions.assertNotNull(y,
                 String.format("Create new instance of class '%s' resulted in null", this.clazz.getName()));
 
+        // Test Same
+        Assertions.assertSame(x, x);
+        Assertions.assertSame(y, y);
+        Assertions.assertSame(ext, ext);
+
+        // Test Not Same
+        Assertions.assertNotSame(x, y);
+        Assertions.assertNotSame(y, x);
+        Assertions.assertNotSame(x, ext);
+        Assertions.assertNotSame(y, ext);
+        Assertions.assertNotSame(ext, x);
+        Assertions.assertNotSame(ext, y);
+
+        // Test Equals Same
+        Assertions.assertEquals(x, x);
+        Assertions.assertEquals(y, y);
+        Assertions.assertEquals(ext, ext);
+
         // Test Equals, HashCode, and ToString on Empty Objects
         Assertions.assertEquals(x, y,
                 String.format(".equals() should be consistent for two empty objects of type %s", this.clazz.getName()));
