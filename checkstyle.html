@@ -62,6 +62,7 @@
                   <li><a href="pmd.html" title="PMD">PMD</a></li>
                   <li><a href="surefire-report.html" title="Surefire Report">Surefire Report</a></li>
                   <li><a href="spotbugs.html" title="SpotBugs">SpotBugs</a></li>
+                  <li><a href="jacoco/index.html" title="JaCoCo">JaCoCo</a></li>
                   <li><a href="dependency-updates-report.html" title="Dependency Updates Report">Dependency Updates Report</a></li>
                   <li><a href="plugin-updates-report.html" title="Plugin Updates Report">Plugin Updates Report</a></li>
                   <li><a href="property-updates-report.html" title="Property Updates Report">Property Updates Report</a></li>
@@ -95,7 +96,7 @@
           <ul class="breadcrumb">
         <li id="publishDate">Last Published: 2022-11-06<span class="divider">|</span>
 </li>
-          <li id="projectVersion">Version: 2.5.0-SNAPSHOT</li>
+          <li id="projectVersion">Version: 2.5.0-M2</li>
           </ul>
         </div>
       </header>
@@ -120,6 +121,7 @@
       <li><a href="pmd.html" title="PMD"><span class="none"></span>PMD</a></li>
       <li><a href="surefire-report.html" title="Surefire Report"><span class="none"></span>Surefire Report</a></li>
       <li><a href="spotbugs.html" title="SpotBugs"><span class="none"></span>SpotBugs</a></li>
+      <li><a href="jacoco/index.html" title="JaCoCo"><span class="none"></span>JaCoCo</a></li>
       <li><a href="dependency-updates-report.html" title="Dependency Updates Report"><span class="none"></span>Dependency Updates Report</a></li>
       <li><a href="plugin-updates-report.html" title="Plugin Updates Report"><span class="none"></span>Plugin Updates Report</a></li>
       <li><a href="property-updates-report.html" title="Property Updates Report"><span class="none"></span>Property Updates Report</a></li>
@@ -151,7 +153,7 @@
 <tr class="b">
 <td>18</td>
 <td>0</td>
-<td>15</td>
+<td>16</td>
 <td>0</td></tr></table></section><section>
 <h2><a name="Files"></a>Files</h2>
 <table border="0" class="table table-striped">
@@ -173,7 +175,7 @@
 <tr class="b">
 <td><a href="#com.codebox.bean.JavaBeanTesterWorker.java">com/codebox/bean/JavaBeanTesterWorker.java</a></td>
 <td>0</td>
-<td>6</td>
+<td>7</td>
 <td>0</td></tr>
 <tr class="a">
 <td><a href="#com.codebox.bean.ValueBuilder.java">com/codebox/bean/ValueBuilder.java</a></td>
@@ -210,7 +212,7 @@
 <li>sortImportsInGroupAlphabetically: <code>&quot;true&quot;</code></li>
 <li>customImportOrderRules: <code>&quot;STATIC###THIRD_PARTY_PACKAGE&quot;</code></li>
 <li>tokens: <code>&quot;IMPORT, STATIC_IMPORT, PACKAGE_DEF&quot;</code></li></ul></td>
-<td>14</td>
+<td>15</td>
 <td><figure><img src="images/icon_warning_sml.gif" alt="" /></figure>&#160;Warning</td></tr>
 <tr class="a">
 <td>sizes</td>
@@ -269,52 +271,58 @@
 <td>imports</td>
 <td>CustomImportOrder</td>
 <td>Extra separation in import group before 'javax.annotation.PostConstruct'</td>
-<td><a href="./xref/com/codebox/bean/JavaBeanTesterWorker.html#L46">46</a></td></tr>
+<td><a href="./xref/com/codebox/bean/JavaBeanTesterWorker.html#L47">47</a></td></tr>
 <tr class="a">
 <td><figure><img src="images/icon_warning_sml.gif" alt="" /></figure>&#160;Warning</td>
 <td>imports</td>
 <td>CustomImportOrder</td>
 <td>Extra separation in import group before 'lombok.Data'</td>
-<td><a href="./xref/com/codebox/bean/JavaBeanTesterWorker.html#L48">48</a></td></tr>
+<td><a href="./xref/com/codebox/bean/JavaBeanTesterWorker.html#L49">49</a></td></tr>
 <tr class="b">
 <td><figure><img src="images/icon_warning_sml.gif" alt="" /></figure>&#160;Warning</td>
 <td>imports</td>
 <td>CustomImportOrder</td>
 <td>Extra separation in import group before 'net.sf.cglib.beans.BeanCopier'</td>
-<td><a href="./xref/com/codebox/bean/JavaBeanTesterWorker.html#L50">50</a></td></tr>
+<td><a href="./xref/com/codebox/bean/JavaBeanTesterWorker.html#L51">51</a></td></tr>
 <tr class="a">
 <td><figure><img src="images/icon_warning_sml.gif" alt="" /></figure>&#160;Warning</td>
 <td>imports</td>
 <td>CustomImportOrder</td>
-<td>Extra separation in import group before 'org.junit.jupiter.api.Assertions'</td>
-<td><a href="./xref/com/codebox/bean/JavaBeanTesterWorker.html#L52">52</a></td></tr>
+<td>Extra separation in import group before 'nl.jqno.equalsverifier.EqualsVerifier'</td>
+<td><a href="./xref/com/codebox/bean/JavaBeanTesterWorker.html#L53">53</a></td></tr>
 <tr class="b">
+<td><figure><img src="images/icon_warning_sml.gif" alt="" /></figure>&#160;Warning</td>
+<td>imports</td>
+<td>CustomImportOrder</td>
+<td>Extra separation in import group before 'org.junit.jupiter.api.Assertions'</td>
+<td><a href="./xref/com/codebox/bean/JavaBeanTesterWorker.html#L55">55</a></td></tr>
+<tr class="a">
 <td><figure><img src="images/icon_warning_sml.gif" alt="" /></figure>&#160;Warning</td>
 <td>sizes</td>
 <td>LineLength</td>
 <td>Line is longer than 120 characters (found 128).</td>
-<td><a href="./xref/com/codebox/bean/JavaBeanTesterWorker.html#L250">250</a></td></tr></table></section><section>
+<td><a href="./xref/com/codebox/bean/JavaBeanTesterWorker.html#L253">253</a></td></tr></table></section><section>
 <h3 id="com.codebox.bean.ValueBuilder.java">com/codebox/bean/ValueBuilder.java</h3>
 <table border="0" class="table table-striped">
-<tr class="a">
+<tr class="b">
 <th>Severity</th>
 <th>Category</th>
 <th>Rule</th>
 <th>Message</th>
 <th>Line</th></tr>
-<tr class="b">
+<tr class="a">
 <td><figure><img src="images/icon_warning_sml.gif" alt="" /></figure>&#160;Warning</td>
 <td>imports</td>
 <td>CustomImportOrder</td>
 <td>Extra separation in import group before 'java.lang.reflect.Array'</td>
 <td><a href="./xref/com/codebox/bean/ValueBuilder.html#L22">22</a></td></tr>
-<tr class="a">
+<tr class="b">
 <td><figure><img src="images/icon_warning_sml.gif" alt="" /></figure>&#160;Warning</td>
 <td>imports</td>
 <td>CustomImportOrder</td>
 <td>Extra separation in import group before 'lombok.Data'</td>
 <td><a href="./xref/com/codebox/bean/ValueBuilder.html#L39">39</a></td></tr>
-<tr class="b">
+<tr class="a">
 <td><figure><img src="images/icon_warning_sml.gif" alt="" /></figure>&#160;Warning</td>
 <td>imports</td>
 <td>CustomImportOrder</td>
@@ -322,13 +330,13 @@
 <td><a href="./xref/com/codebox/bean/ValueBuilder.html#L41">41</a></td></tr></table></section><section>
 <h3 id="com.codebox.builders.ExtensionBuilder.java">com/codebox/builders/ExtensionBuilder.java</h3>
 <table border="0" class="table table-striped">
-<tr class="a">
+<tr class="b">
 <th>Severity</th>
 <th>Category</th>
 <th>Rule</th>
 <th>Message</th>
 <th>Line</th></tr>
-<tr class="b">
+<tr class="a">
 <td><figure><img src="images/icon_warning_sml.gif" alt="" /></figure>&#160;Warning</td>
 <td>imports</td>
 <td>CustomImportOrder</td>
@@ -336,19 +344,19 @@
 <td><a href="./xref/com/codebox/builders/ExtensionBuilder.html#L27">27</a></td></tr></table></section><section>
 <h3 id="com.codebox.instance.ClassInstance.java">com/codebox/instance/ClassInstance.java</h3>
 <table border="0" class="table table-striped">
-<tr class="a">
+<tr class="b">
 <th>Severity</th>
 <th>Category</th>
 <th>Rule</th>
 <th>Message</th>
 <th>Line</th></tr>
-<tr class="b">
+<tr class="a">
 <td><figure><img src="images/icon_warning_sml.gif" alt="" /></figure>&#160;Warning</td>
 <td>imports</td>
 <td>CustomImportOrder</td>
 <td>Extra separation in import group before 'java.lang.reflect.Constructor'</td>
 <td><a href="./xref/com/codebox/instance/ClassInstance.html#L21">21</a></td></tr>
-<tr class="a">
+<tr class="b">
 <td><figure><img src="images/icon_warning_sml.gif" alt="" /></figure>&#160;Warning</td>
 <td>imports</td>
 <td>CustomImportOrder</td>
@@ -356,13 +364,13 @@
 <td><a href="./xref/com/codebox/instance/ClassInstance.html#L25">25</a></td></tr></table></section><section>
 <h3 id="com.codebox.instance.ConstructorInstance.java">com/codebox/instance/ConstructorInstance.java</h3>
 <table border="0" class="table table-striped">
-<tr class="b">
+<tr class="a">
 <th>Severity</th>
 <th>Category</th>
 <th>Rule</th>
 <th>Message</th>
 <th>Line</th></tr>
-<tr class="a">
+<tr class="b">
 <td><figure><img src="images/icon_warning_sml.gif" alt="" /></figure>&#160;Warning</td>
 <td>imports</td>
 <td>CustomImportOrder</td>
