@@ -110,7 +110,12 @@
 <a class="jxr_linenumber" name="L102" href="#L102">102</a>     <em class="jxr_javadoccomment">/** The Local Time. */</em>
 <a class="jxr_linenumber" name="L103" href="#L103">103</a>     <strong class="jxr_keyword">private</strong> LocalTime localTime;
 <a class="jxr_linenumber" name="L104" href="#L104">104</a> 
-<a class="jxr_linenumber" name="L105" href="#L105">105</a> }
+<a class="jxr_linenumber" name="L105" href="#L105">105</a>     <em class="jxr_javadoccomment">/** SampleBean nesting would not cause stack overflow as no no-arg constructor. */</em>
+<a class="jxr_linenumber" name="L106" href="#L106">106</a>     <strong class="jxr_keyword">private</strong> <a name="SampleBean" href="../../../com/codebox/bean/SampleBean.html#SampleBean">SampleBean</a> sampleBean;
+<a class="jxr_linenumber" name="L107" href="#L107">107</a> 
+<a class="jxr_linenumber" name="L108" href="#L108">108</a>     <em class="jxr_javadoccomment">/** SampleDepthBean nesting would cause stack overflow. Fixed by not deeply testing in value builder. */</em>
+<a class="jxr_linenumber" name="L109" href="#L109">109</a>     <strong class="jxr_keyword">private</strong> <a name="SampleDepthBean" href="../../../com/codebox/bean/SampleDepthBean.html#SampleDepthBean">SampleDepthBean</a> sampleDepthBean;
+<a class="jxr_linenumber" name="L110" href="#L110">110</a> }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2012&#x2013;2022 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>

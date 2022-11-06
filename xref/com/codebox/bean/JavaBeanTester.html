@@ -67,10 +67,10 @@
 <a class="jxr_linenumber" name="L59" href="#L59">59</a>                  <strong class="jxr_keyword">return</strong> <span class="jxr_string">"com.codebox.bean.Extended"</span> + superClass.getSimpleName();
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>              }
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>          }).subclass(clazz).method(ElementMatchers.any()).intercept(SuperMethodCall.INSTANCE)
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>                  .method(ElementMatchers.named(<span class="jxr_string">"equals"</span>)).intercept(EqualsMethod.requiringSuperClassEquality())
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>                  .method(ElementMatchers.named(<span class="jxr_string">"hashCode"</span>)).intercept(HashCodeMethod.usingSuperClassOffset())
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>                  .method(ElementMatchers.named(<span class="jxr_string">"toString"</span>)).intercept(ToStringMethod.prefixedBySimpleClassName())
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>                  .defineField(<span class="jxr_string">"extension"</span>, String.<strong class="jxr_keyword">class</strong>, Visibility.PACKAGE_PRIVATE).make()
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>                  .method(ElementMatchers.isEquals()).intercept(EqualsMethod.requiringSuperClassEquality())
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>                  .method(ElementMatchers.isHashCode()).intercept(HashCodeMethod.usingSuperClassOffset())
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>                  .method(ElementMatchers.isToString()).intercept(ToStringMethod.prefixedBySimpleClassName())
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>                  .defineField(<span class="jxr_string">"javabeanExtension"</span>, String.<strong class="jxr_keyword">class</strong>, Visibility.PACKAGE_PRIVATE).make()
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>                  .load(clazz.getClassLoader(), ClassLoadingStrategy.Default.WRAPPER).getLoaded();
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>  
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>          <em class="jxr_comment">// Builder with proper extension class</em>
