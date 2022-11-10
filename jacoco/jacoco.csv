@@ -4,7 +4,7 @@ javabean-tester,com.codebox.instance,ConstructorInstance,21,35,1,1,5,9,1,2,0,2
 javabean-tester,com.codebox.instance,ClassInstance,50,93,2,10,8,16,2,7,0,3
 javabean-tester,com.codebox.bean,JavaBeanTester.new NamingStrategy.AbstractBase() {...},0,13,0,0,0,2,0,2,0,2
 javabean-tester,com.codebox.bean,ValueBuilder,85,402,16,99,3,91,14,65,5,16
-javabean-tester,com.codebox.bean,JavaBeanTesterWorker,576,1142,95,71,45,210,67,54,12,26
+javabean-tester,com.codebox.bean,JavaBeanTesterWorker,560,1177,94,74,43,217,67,55,12,26
 javabean-tester,com.codebox.bean,JavaBeanTesterBuilder,0,130,0,12,0,36,0,25,0,19
 javabean-tester,com.codebox.bean,JavaBeanTester,0,64,0,2,0,12,0,4,0,3
 javabean-tester,com.codebox.enums,SkipStrictSerialize,0,15,0,0,0,3,0,1,0,1

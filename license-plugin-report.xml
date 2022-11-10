@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<licensePluginReport goal="FORMAT" timestamp="1667759502893">
-    <module artifactId="javabean-tester" groupId="com.github.hazendaz" version="2.5.0-M2"/>
+<licensePluginReport goal="FORMAT" timestamp="1668041602464">
+    <module artifactId="javabean-tester" groupId="com.github.hazendaz" version="2.5.0-M3"/>
     <files>
         <file path=".mvn\extensions.xml" result="NOOP"/>
         <file path=".mvn\settings.xml" result="NOOP"/>
