@@ -62,6 +62,7 @@
                   <li><a href="pmd.html" title="PMD">PMD</a></li>
                   <li><a href="surefire-report.html" title="Surefire Report">Surefire Report</a></li>
                   <li><a title="SpotBugs">SpotBugs</a></li>
+                  <li><a href="jacoco/index.html" title="JaCoCo">JaCoCo</a></li>
                   <li><a href="dependency-updates-report.html" title="Dependency Updates Report">Dependency Updates Report</a></li>
                   <li><a href="plugin-updates-report.html" title="Plugin Updates Report">Plugin Updates Report</a></li>
                   <li><a href="property-updates-report.html" title="Property Updates Report">Property Updates Report</a></li>
@@ -95,7 +96,7 @@
           <ul class="breadcrumb">
         <li id="publishDate">Last Published: 2022-12-17<span class="divider">|</span>
 </li>
-          <li id="projectVersion">Version: 2.5.0-M4-SNAPSHOT</li>
+          <li id="projectVersion">Version: 2.5.0</li>
           </ul>
         </div>
       </header>
@@ -120,6 +121,7 @@
       <li><a href="pmd.html" title="PMD"><span class="none"></span>PMD</a></li>
       <li><a href="surefire-report.html" title="Surefire Report"><span class="none"></span>Surefire Report</a></li>
       <li class="active"><a><span class="none"></span>SpotBugs</a></li>
+      <li><a href="jacoco/index.html" title="JaCoCo"><span class="none"></span>JaCoCo</a></li>
       <li><a href="dependency-updates-report.html" title="Dependency Updates Report"><span class="none"></span>Dependency Updates Report</a></li>
       <li><a href="plugin-updates-report.html" title="Plugin Updates Report"><span class="none"></span>Plugin Updates Report</a></li>
       <li><a href="property-updates-report.html" title="Property Updates Report"><span class="none"></span>Property Updates Report</a></li>
@@ -153,7 +155,7 @@
 <th>Missing Classes</th></tr>
 <tr class="b">
 <td>40</td>
-<td>46</td>
+<td>52</td>
 <td>0</td>
 <td>0</td></tr></table></section><section>
 <h2><a name="Files"></a>Files</h2>
@@ -166,16 +168,16 @@
 <td>1</td></tr>
 <tr class="a">
 <td><a href="#com.codebox.bean.SampleBean">com.codebox.bean.SampleBean</a></td>
-<td>14</td></tr>
+<td>16</td></tr>
 <tr class="b">
 <td><a href="#com.codebox.bean.SampleDepthBean">com.codebox.bean.SampleDepthBean</a></td>
-<td>16</td></tr>
+<td>18</td></tr>
 <tr class="a">
 <td><a href="#com.codebox.bean.SampleExtensionBean">com.codebox.bean.SampleExtensionBean</a></td>
 <td>1</td></tr>
 <tr class="b">
 <td><a href="#com.codebox.bean.SampleValueObject">com.codebox.bean.SampleValueObject</a></td>
-<td>14</td></tr></table></section><a name="com.codebox.bean.NonDeserializableBean"></a><section>
+<td>16</td></tr></table></section><a name="com.codebox.bean.NonDeserializableBean"></a><section>
 <h3><a name="com.codebox.bean.NonDeserializableBean"></a>com.codebox.bean.NonDeserializableBean</h3>
 <table border="0" class="table table-striped">
 <tr class="a">
@@ -202,85 +204,97 @@
 <td>com.codebox.bean.SampleBean.getByteArray() may expose internal representation by returning SampleBean.byteArray</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleBean.html#L87">87</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleBean.html#L92">92</a></td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>com.codebox.bean.SampleBean.getConcurrentMap() may expose internal representation by returning SampleBean.concurrentMap</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleBean.html#L57">57</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleBean.html#L59">59</a></td>
 <td>Medium</td></tr>
 <tr class="b">
 <td>com.codebox.bean.SampleBean.getDate() may expose internal representation by returning SampleBean.date</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleBean.html#L111">111</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleBean.html#L119">119</a></td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>com.codebox.bean.SampleBean.getList() may expose internal representation by returning SampleBean.list</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleBean.html#L51">51</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleBean.html#L53">53</a></td>
 <td>Medium</td></tr>
 <tr class="b">
 <td>com.codebox.bean.SampleBean.getMap() may expose internal representation by returning SampleBean.map</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleBean.html#L54">54</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleBean.html#L56">56</a></td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>com.codebox.bean.SampleBean.getSampleDepthBean() may expose internal representation by returning SampleBean.sampleDepthBean</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleBean.html#L48">48</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleBean.html#L50">50</a></td>
 <td>Medium</td></tr>
 <tr class="b">
 <td>com.codebox.bean.SampleBean.getStringArray() may expose internal representation by returning SampleBean.stringArray</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleBean.html#L63">63</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleBean.html#L68">68</a></td>
 <td>Medium</td></tr>
 <tr class="a">
+<td>com.codebox.bean.SampleBean.getTreeSet() may expose internal representation by returning SampleBean.treeSet</td>
+<td>MALICIOUS_CODE</td>
+<td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleBean.html#L62">62</a></td>
+<td>Medium</td></tr>
+<tr class="b">
 <td>com.codebox.bean.SampleBean.setByteArray(Byte[]) may expose internal representation by storing an externally mutable object into SampleBean.byteArray</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleBean.html#L38">38</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleBean.html#L40">40</a></td>
 <td>Medium</td></tr>
-<tr class="b">
+<tr class="a">
 <td>com.codebox.bean.SampleBean.setConcurrentMap(ConcurrentMap) may expose internal representation by storing an externally mutable object into SampleBean.concurrentMap</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleBean.html#L38">38</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleBean.html#L40">40</a></td>
 <td>Medium</td></tr>
-<tr class="a">
+<tr class="b">
 <td>com.codebox.bean.SampleBean.setDate(Date) may expose internal representation by storing an externally mutable object into SampleBean.date</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleBean.html#L38">38</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleBean.html#L40">40</a></td>
 <td>Medium</td></tr>
-<tr class="b">
+<tr class="a">
 <td>com.codebox.bean.SampleBean.setList(List) may expose internal representation by storing an externally mutable object into SampleBean.list</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleBean.html#L38">38</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleBean.html#L40">40</a></td>
 <td>Medium</td></tr>
-<tr class="a">
+<tr class="b">
 <td>com.codebox.bean.SampleBean.setMap(Map) may expose internal representation by storing an externally mutable object into SampleBean.map</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleBean.html#L38">38</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleBean.html#L40">40</a></td>
 <td>Medium</td></tr>
-<tr class="b">
+<tr class="a">
 <td>com.codebox.bean.SampleBean.setSampleDepthBean(SampleDepthBean) may expose internal representation by storing an externally mutable object into SampleBean.sampleDepthBean</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleBean.html#L38">38</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleBean.html#L40">40</a></td>
 <td>Medium</td></tr>
-<tr class="a">
+<tr class="b">
 <td>com.codebox.bean.SampleBean.setStringArray(String[]) may expose internal representation by storing an externally mutable object into SampleBean.stringArray</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleBean.html#L38">38</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleBean.html#L40">40</a></td>
+<td>Medium</td></tr>
+<tr class="a">
+<td>com.codebox.bean.SampleBean.setTreeSet(TreeSet) may expose internal representation by storing an externally mutable object into SampleBean.treeSet</td>
+<td>MALICIOUS_CODE</td>
+<td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleBean.html#L40">40</a></td>
 <td>Medium</td></tr></table></section><a name="com.codebox.bean.SampleDepthBean"></a><section>
 <h3><a name="com.codebox.bean.SampleDepthBean"></a>com.codebox.bean.SampleDepthBean</h3>
 <table border="0" class="table table-striped">
@@ -294,97 +308,109 @@
 <td>com.codebox.bean.SampleDepthBean.getByteArray() may expose internal representation by returning SampleDepthBean.byteArray</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L70">70</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L79">79</a></td>
 <td>Medium</td></tr>
 <tr class="b">
 <td>com.codebox.bean.SampleDepthBean.getConcurrentMap() may expose internal representation by returning SampleDepthBean.concurrentMap</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L40">40</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L46">46</a></td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>com.codebox.bean.SampleDepthBean.getDate() may expose internal representation by returning SampleDepthBean.date</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L94">94</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L106">106</a></td>
 <td>Medium</td></tr>
 <tr class="b">
 <td>com.codebox.bean.SampleDepthBean.getList() may expose internal representation by returning SampleDepthBean.list</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L34">34</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L40">40</a></td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>com.codebox.bean.SampleDepthBean.getMap() may expose internal representation by returning SampleDepthBean.map</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L37">37</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L43">43</a></td>
 <td>Medium</td></tr>
 <tr class="b">
 <td>com.codebox.bean.SampleDepthBean.getSampleBean() may expose internal representation by returning SampleDepthBean.sampleBean</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L106">106</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L128">128</a></td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>com.codebox.bean.SampleDepthBean.getSampleDepthBean() may expose internal representation by returning SampleDepthBean.sampleDepthBean</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L109">109</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L131">131</a></td>
 <td>Medium</td></tr>
 <tr class="b">
 <td>com.codebox.bean.SampleDepthBean.getStringArray() may expose internal representation by returning SampleDepthBean.stringArray</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L46">46</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L55">55</a></td>
 <td>Medium</td></tr>
 <tr class="a">
+<td>com.codebox.bean.SampleDepthBean.getTreeSet() may expose internal representation by returning SampleDepthBean.treeSet</td>
+<td>MALICIOUS_CODE</td>
+<td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L49">49</a></td>
+<td>Medium</td></tr>
+<tr class="b">
 <td>com.codebox.bean.SampleDepthBean.setByteArray(Byte[]) may expose internal representation by storing an externally mutable object into SampleDepthBean.byteArray</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L30">30</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L36">36</a></td>
 <td>Medium</td></tr>
-<tr class="b">
+<tr class="a">
 <td>com.codebox.bean.SampleDepthBean.setConcurrentMap(ConcurrentMap) may expose internal representation by storing an externally mutable object into SampleDepthBean.concurrentMap</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L30">30</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L36">36</a></td>
 <td>Medium</td></tr>
-<tr class="a">
+<tr class="b">
 <td>com.codebox.bean.SampleDepthBean.setDate(Date) may expose internal representation by storing an externally mutable object into SampleDepthBean.date</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L30">30</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L36">36</a></td>
 <td>Medium</td></tr>
-<tr class="b">
+<tr class="a">
 <td>com.codebox.bean.SampleDepthBean.setList(List) may expose internal representation by storing an externally mutable object into SampleDepthBean.list</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L30">30</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L36">36</a></td>
 <td>Medium</td></tr>
-<tr class="a">
+<tr class="b">
 <td>com.codebox.bean.SampleDepthBean.setMap(Map) may expose internal representation by storing an externally mutable object into SampleDepthBean.map</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L30">30</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L36">36</a></td>
 <td>Medium</td></tr>
-<tr class="b">
+<tr class="a">
 <td>com.codebox.bean.SampleDepthBean.setSampleBean(SampleBean) may expose internal representation by storing an externally mutable object into SampleDepthBean.sampleBean</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L30">30</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L36">36</a></td>
 <td>Medium</td></tr>
-<tr class="a">
+<tr class="b">
 <td>com.codebox.bean.SampleDepthBean.setSampleDepthBean(SampleDepthBean) may expose internal representation by storing an externally mutable object into SampleDepthBean.sampleDepthBean</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L30">30</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L36">36</a></td>
 <td>Medium</td></tr>
-<tr class="b">
+<tr class="a">
 <td>com.codebox.bean.SampleDepthBean.setStringArray(String[]) may expose internal representation by storing an externally mutable object into SampleDepthBean.stringArray</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L30">30</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L36">36</a></td>
+<td>Medium</td></tr>
+<tr class="b">
+<td>com.codebox.bean.SampleDepthBean.setTreeSet(TreeSet) may expose internal representation by storing an externally mutable object into SampleDepthBean.treeSet</td>
+<td>MALICIOUS_CODE</td>
+<td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleDepthBean.html#L36">36</a></td>
 <td>Medium</td></tr></table></section><a name="com.codebox.bean.SampleExtensionBean"></a><section>
 <h3><a name="com.codebox.bean.SampleExtensionBean"></a>com.codebox.bean.SampleExtensionBean</h3>
 <table border="0" class="table table-striped">
@@ -412,85 +438,97 @@
 <td>com.codebox.bean.SampleValueObject.getByteArray() may expose internal representation by returning SampleValueObject.byteArray</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleValueObject.html#L84">84</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleValueObject.html#L93">93</a></td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>com.codebox.bean.SampleValueObject.getConcurrentMap() may expose internal representation by returning SampleValueObject.concurrentMap</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleValueObject.html#L54">54</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleValueObject.html#L60">60</a></td>
 <td>Medium</td></tr>
 <tr class="b">
 <td>com.codebox.bean.SampleValueObject.getDate() may expose internal representation by returning SampleValueObject.date</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleValueObject.html#L108">108</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleValueObject.html#L120">120</a></td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>com.codebox.bean.SampleValueObject.getList() may expose internal representation by returning SampleValueObject.list</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleValueObject.html#L48">48</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleValueObject.html#L54">54</a></td>
 <td>Medium</td></tr>
 <tr class="b">
 <td>com.codebox.bean.SampleValueObject.getMap() may expose internal representation by returning SampleValueObject.map</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleValueObject.html#L51">51</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleValueObject.html#L57">57</a></td>
 <td>Medium</td></tr>
 <tr class="a">
 <td>com.codebox.bean.SampleValueObject.getSampleDepthBean() may expose internal representation by returning SampleValueObject.sampleDepthBean</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleValueObject.html#L45">45</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleValueObject.html#L51">51</a></td>
 <td>Medium</td></tr>
 <tr class="b">
 <td>com.codebox.bean.SampleValueObject.getStringArray() may expose internal representation by returning SampleValueObject.stringArray</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleValueObject.html#L60">60</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleValueObject.html#L69">69</a></td>
 <td>Medium</td></tr>
 <tr class="a">
-<td>new com.codebox.bean.SampleValueObject(EmptyBean, SampleDepthBean, List, Map, ConcurrentMap, String, String[], Boolean, Integer, Long, Double, Float, Character, Byte, Byte[], boolean, int, long, double, float, char, byte, Date, LocalDate, LocalDateTime, LocalTime) may expose internal representation by storing an externally mutable object into SampleValueObject.byteArray</td>
+<td>com.codebox.bean.SampleValueObject.getTreeSet() may expose internal representation by returning SampleValueObject.treeSet</td>
 <td>MALICIOUS_CODE</td>
-<td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleValueObject.html#L38">38</a></td>
+<td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP">EI_EXPOSE_REP</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleValueObject.html#L63">63</a></td>
 <td>Medium</td></tr>
 <tr class="b">
-<td>new com.codebox.bean.SampleValueObject(EmptyBean, SampleDepthBean, List, Map, ConcurrentMap, String, String[], Boolean, Integer, Long, Double, Float, Character, Byte, Byte[], boolean, int, long, double, float, char, byte, Date, LocalDate, LocalDateTime, LocalTime) may expose internal representation by storing an externally mutable object into SampleValueObject.concurrentMap</td>
+<td>new com.codebox.bean.SampleValueObject(EmptyBean, SampleDepthBean, List, Map, ConcurrentMap, TreeSet, String, String[], Boolean, Integer, Long, Double, Float, Character, Byte, Byte[], boolean, int, long, double, float, char, byte, BigDecimal, Date, LocalDate, LocalDateTime, LocalTime, OffsetDateTime, ZonedDateTime, Boolean) may expose internal representation by storing an externally mutable object into SampleValueObject.byteArray</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleValueObject.html#L38">38</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleValueObject.html#L44">44</a></td>
 <td>Medium</td></tr>
 <tr class="a">
-<td>new com.codebox.bean.SampleValueObject(EmptyBean, SampleDepthBean, List, Map, ConcurrentMap, String, String[], Boolean, Integer, Long, Double, Float, Character, Byte, Byte[], boolean, int, long, double, float, char, byte, Date, LocalDate, LocalDateTime, LocalTime) may expose internal representation by storing an externally mutable object into SampleValueObject.date</td>
+<td>new com.codebox.bean.SampleValueObject(EmptyBean, SampleDepthBean, List, Map, ConcurrentMap, TreeSet, String, String[], Boolean, Integer, Long, Double, Float, Character, Byte, Byte[], boolean, int, long, double, float, char, byte, BigDecimal, Date, LocalDate, LocalDateTime, LocalTime, OffsetDateTime, ZonedDateTime, Boolean) may expose internal representation by storing an externally mutable object into SampleValueObject.concurrentMap</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleValueObject.html#L38">38</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleValueObject.html#L44">44</a></td>
 <td>Medium</td></tr>
 <tr class="b">
-<td>new com.codebox.bean.SampleValueObject(EmptyBean, SampleDepthBean, List, Map, ConcurrentMap, String, String[], Boolean, Integer, Long, Double, Float, Character, Byte, Byte[], boolean, int, long, double, float, char, byte, Date, LocalDate, LocalDateTime, LocalTime) may expose internal representation by storing an externally mutable object into SampleValueObject.list</td>
+<td>new com.codebox.bean.SampleValueObject(EmptyBean, SampleDepthBean, List, Map, ConcurrentMap, TreeSet, String, String[], Boolean, Integer, Long, Double, Float, Character, Byte, Byte[], boolean, int, long, double, float, char, byte, BigDecimal, Date, LocalDate, LocalDateTime, LocalTime, OffsetDateTime, ZonedDateTime, Boolean) may expose internal representation by storing an externally mutable object into SampleValueObject.date</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleValueObject.html#L38">38</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleValueObject.html#L44">44</a></td>
 <td>Medium</td></tr>
 <tr class="a">
-<td>new com.codebox.bean.SampleValueObject(EmptyBean, SampleDepthBean, List, Map, ConcurrentMap, String, String[], Boolean, Integer, Long, Double, Float, Character, Byte, Byte[], boolean, int, long, double, float, char, byte, Date, LocalDate, LocalDateTime, LocalTime) may expose internal representation by storing an externally mutable object into SampleValueObject.map</td>
+<td>new com.codebox.bean.SampleValueObject(EmptyBean, SampleDepthBean, List, Map, ConcurrentMap, TreeSet, String, String[], Boolean, Integer, Long, Double, Float, Character, Byte, Byte[], boolean, int, long, double, float, char, byte, BigDecimal, Date, LocalDate, LocalDateTime, LocalTime, OffsetDateTime, ZonedDateTime, Boolean) may expose internal representation by storing an externally mutable object into SampleValueObject.list</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleValueObject.html#L38">38</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleValueObject.html#L44">44</a></td>
 <td>Medium</td></tr>
 <tr class="b">
-<td>new com.codebox.bean.SampleValueObject(EmptyBean, SampleDepthBean, List, Map, ConcurrentMap, String, String[], Boolean, Integer, Long, Double, Float, Character, Byte, Byte[], boolean, int, long, double, float, char, byte, Date, LocalDate, LocalDateTime, LocalTime) may expose internal representation by storing an externally mutable object into SampleValueObject.sampleDepthBean</td>
+<td>new com.codebox.bean.SampleValueObject(EmptyBean, SampleDepthBean, List, Map, ConcurrentMap, TreeSet, String, String[], Boolean, Integer, Long, Double, Float, Character, Byte, Byte[], boolean, int, long, double, float, char, byte, BigDecimal, Date, LocalDate, LocalDateTime, LocalTime, OffsetDateTime, ZonedDateTime, Boolean) may expose internal representation by storing an externally mutable object into SampleValueObject.map</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleValueObject.html#L38">38</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleValueObject.html#L44">44</a></td>
 <td>Medium</td></tr>
 <tr class="a">
-<td>new com.codebox.bean.SampleValueObject(EmptyBean, SampleDepthBean, List, Map, ConcurrentMap, String, String[], Boolean, Integer, Long, Double, Float, Character, Byte, Byte[], boolean, int, long, double, float, char, byte, Date, LocalDate, LocalDateTime, LocalTime) may expose internal representation by storing an externally mutable object into SampleValueObject.stringArray</td>
+<td>new com.codebox.bean.SampleValueObject(EmptyBean, SampleDepthBean, List, Map, ConcurrentMap, TreeSet, String, String[], Boolean, Integer, Long, Double, Float, Character, Byte, Byte[], boolean, int, long, double, float, char, byte, BigDecimal, Date, LocalDate, LocalDateTime, LocalTime, OffsetDateTime, ZonedDateTime, Boolean) may expose internal representation by storing an externally mutable object into SampleValueObject.sampleDepthBean</td>
 <td>MALICIOUS_CODE</td>
 <td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
-<td><a href="./xref-test/com/codebox/bean/SampleValueObject.html#L38">38</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleValueObject.html#L44">44</a></td>
+<td>Medium</td></tr>
+<tr class="b">
+<td>new com.codebox.bean.SampleValueObject(EmptyBean, SampleDepthBean, List, Map, ConcurrentMap, TreeSet, String, String[], Boolean, Integer, Long, Double, Float, Character, Byte, Byte[], boolean, int, long, double, float, char, byte, BigDecimal, Date, LocalDate, LocalDateTime, LocalTime, OffsetDateTime, ZonedDateTime, Boolean) may expose internal representation by storing an externally mutable object into SampleValueObject.stringArray</td>
+<td>MALICIOUS_CODE</td>
+<td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleValueObject.html#L44">44</a></td>
+<td>Medium</td></tr>
+<tr class="a">
+<td>new com.codebox.bean.SampleValueObject(EmptyBean, SampleDepthBean, List, Map, ConcurrentMap, TreeSet, String, String[], Boolean, Integer, Long, Double, Float, Character, Byte, Byte[], boolean, int, long, double, float, char, byte, BigDecimal, Date, LocalDate, LocalDateTime, LocalTime, OffsetDateTime, ZonedDateTime, Boolean) may expose internal representation by storing an externally mutable object into SampleValueObject.treeSet</td>
+<td>MALICIOUS_CODE</td>
+<td><a class="externalLink" href="https://spotbugs.readthedocs.io/en/latest/bugDescriptions.html#EI_EXPOSE_REP2">EI_EXPOSE_REP2</a></td>
+<td><a href="./xref-test/com/codebox/bean/SampleValueObject.html#L44">44</a></td>
 <td>Medium</td></tr></table></section>
         </main>
       </div>
