@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ConstructorInstance.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">javabean-tester</a> &gt; <a href="index.source.html" class="el_package">com.codebox.instance</a> &gt; <span class="el_source">ConstructorInstance.java</span></div><h1>ConstructorInstance.java</h1><pre class="source lang-java linenums">/*
+ * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
+ *
+ * Copyright 2012-2023 Hazendaz.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of The Apache Software License,
+ * Version 2.0 which accompanies this distribution, and is available at
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
+ *
+ * Contributors:
+ *     CodeBox (Rob Dawson).
+ *     Hazendaz (Jeremy Landis).
+ */
+package com.codebox.instance;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
+import org.junit.jupiter.api.Assertions;
+
+/**
+ * The Constructor Instance.
+ */
+public final class ConstructorInstance {
+
+    /**
+     * Prevent Instantiation of a new constructor instance.
+     */
+    private ConstructorInstance() {
+        // Prevent Instantiation
+    }
+
+    /**
+     * New instance.
+     *
+     * @param constructor
+     *            the instance
+     *
+     * @return the Object
+     */
+    public static Object newInstance(final Constructor&lt;?&gt; constructor) {
+        try {
+<span class="fc" id="L44">            return constructor.newInstance();</span>
+<span class="nc" id="L45">        } catch (final InstantiationException | IllegalAccessException | InvocationTargetException e) {</span>
+<span class="nc" id="L46">            Assertions.fail(</span>
+<span class="nc" id="L47">                    String.format(&quot;An exception was thrown while testing the constructor (new instance) '%s': '%s'&quot;,</span>
+<span class="nc" id="L48">                            constructor.getName(), e.toString()));</span>
+        }
+<span class="nc" id="L50">        return null;</span>
+    }
+
+    /**
+     * Constructor inaccessibility test.
+     *
+     * @param clazz
+     *            the clazz
+     */
+    public static void inaccessible(final Class&lt;?&gt; clazz) {
+<span class="fc" id="L60">        final Constructor&lt;?&gt;[] ctors = clazz.getDeclaredConstructors();</span>
+<span class="fc" id="L61">        Assertions.assertEquals(1, ctors.length, &quot;Utility class should only have one constructor&quot;);</span>
+<span class="fc" id="L62">        final Constructor&lt;?&gt; ctor = ctors[0];</span>
+<span class="fc" id="L63">        Assertions.assertFalse(ctor.isAccessible(), &quot;Utility class constructor should be inaccessible&quot;);</span>
+        // Make accessible in order to test following assert.
+<span class="fc" id="L65">        ctor.setAccessible(true);</span>
+<span class="fc" id="L66">        final Object object = ConstructorInstance.newInstance(ctor);</span>
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">        Assertions.assertEquals(clazz, object == null ? &quot;null&quot; : object.getClass(),</span>
+                &quot;You would expect the constructor to return the expected type&quot;);
+<span class="fc" id="L69">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

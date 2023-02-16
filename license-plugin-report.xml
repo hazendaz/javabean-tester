@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<licensePluginReport goal="FORMAT" timestamp="1676521404390">
-    <module artifactId="javabean-tester" groupId="com.github.hazendaz" version="2.5.1-SNAPSHOT"/>
+<licensePluginReport goal="FORMAT" timestamp="1676523082584">
+    <module artifactId="javabean-tester" groupId="com.github.hazendaz" version="2.5.1"/>
     <files>
-        <file path=".mvn/extensions.xml" result="NOOP"/>
-        <file path=".mvn/settings.xml" result="NOOP"/>
+        <file path=".mvn\extensions.xml" result="NOOP"/>
+        <file path=".mvn\settings.xml" result="NOOP"/>
         <file path="format.xml" result="NOOP"/>
         <file path="pom.xml" result="NOOP"/>
-        <file path="src/main/java/com/codebox/bean/JavaBeanTester.java" result="NOOP"/>
-        <file path="src/main/java/com/codebox/bean/JavaBeanTesterBuilder.java" result="NOOP"/>
-        <file path="src/main/java/com/codebox/bean/JavaBeanTesterWorker.java" result="NOOP"/>
-        <file path="src/main/java/com/codebox/bean/ValueBuilder.java" result="NOOP"/>
-        <file path="src/main/java/com/codebox/bean/package-info.java" result="NOOP"/>
-        <file path="src/main/java/com/codebox/builders/ExtensionBuilder.java" result="NOOP"/>
-        <file path="src/main/java/com/codebox/builders/package-info.java" result="NOOP"/>
-        <file path="src/main/java/com/codebox/enums/CheckClear.java" result="NOOP"/>
-        <file path="src/main/java/com/codebox/enums/CheckConstructor.java" result="NOOP"/>
-        <file path="src/main/java/com/codebox/enums/CheckEquals.java" result="NOOP"/>
-        <file path="src/main/java/com/codebox/enums/CheckSerialize.java" result="NOOP"/>
-        <file path="src/main/java/com/codebox/enums/LoadData.java" result="NOOP"/>
-        <file path="src/main/java/com/codebox/enums/LoadType.java" result="NOOP"/>
-        <file path="src/main/java/com/codebox/enums/SkipStrictSerialize.java" result="NOOP"/>
-        <file path="src/main/java/com/codebox/enums/package-info.java" result="NOOP"/>
-        <file path="src/main/java/com/codebox/instance/ClassInstance.java" result="NOOP"/>
-        <file path="src/main/java/com/codebox/instance/ConstructorInstance.java" result="NOOP"/>
-        <file path="src/main/java/com/codebox/instance/package-info.java" result="NOOP"/>
-        <file path="src/site/site.xml" result="NOOP"/>
-        <file path="src/test/java/com/codebox/bean/EmptyBean.java" result="NOOP"/>
-        <file path="src/test/java/com/codebox/bean/JavaBeanTesterTest.java" result="NOOP"/>
-        <file path="src/test/java/com/codebox/bean/NonDeserializableBean.java" result="NOOP"/>
-        <file path="src/test/java/com/codebox/bean/NonSerializableBean.java" result="NOOP"/>
-        <file path="src/test/java/com/codebox/bean/ObjectMethodsTest.java" result="NOOP"/>
-        <file path="src/test/java/com/codebox/bean/PrivateConstructor.java" result="NOOP"/>
-        <file path="src/test/java/com/codebox/bean/PrivateConstructorTest.java" result="NOOP"/>
-        <file path="src/test/java/com/codebox/bean/SampleBean.java" result="NOOP"/>
-        <file path="src/test/java/com/codebox/bean/SampleDepthBean.java" result="NOOP"/>
-        <file path="src/test/java/com/codebox/bean/SampleExtensionBean.java" result="NOOP"/>
-        <file path="src/test/java/com/codebox/bean/SampleValueObject.java" result="NOOP"/>
-        <file path="src/test/java/com/codebox/bean/SerializableBean.java" result="NOOP"/>
-        <file path="src/test/java/com/codebox/builders/ExtensionBuilderTest.java" result="NOOP"/>
-        <file path="src/test/java/com/codebox/instance/ClassInstanceTest.java" result="NOOP"/>
-        <file path="src/test/java/com/codebox/instance/ConstructorInstanceTest.java" result="NOOP"/>
+        <file path="src\main\java\com\codebox\bean\JavaBeanTester.java" result="NOOP"/>
+        <file path="src\main\java\com\codebox\bean\JavaBeanTesterBuilder.java" result="NOOP"/>
+        <file path="src\main\java\com\codebox\bean\JavaBeanTesterWorker.java" result="NOOP"/>
+        <file path="src\main\java\com\codebox\bean\ValueBuilder.java" result="NOOP"/>
+        <file path="src\main\java\com\codebox\bean\package-info.java" result="NOOP"/>
+        <file path="src\main\java\com\codebox\builders\ExtensionBuilder.java" result="NOOP"/>
+        <file path="src\main\java\com\codebox\builders\package-info.java" result="NOOP"/>
+        <file path="src\main\java\com\codebox\enums\CheckClear.java" result="NOOP"/>
+        <file path="src\main\java\com\codebox\enums\CheckConstructor.java" result="NOOP"/>
+        <file path="src\main\java\com\codebox\enums\CheckEquals.java" result="NOOP"/>
+        <file path="src\main\java\com\codebox\enums\CheckSerialize.java" result="NOOP"/>
+        <file path="src\main\java\com\codebox\enums\LoadData.java" result="NOOP"/>
+        <file path="src\main\java\com\codebox\enums\LoadType.java" result="NOOP"/>
+        <file path="src\main\java\com\codebox\enums\SkipStrictSerialize.java" result="NOOP"/>
+        <file path="src\main\java\com\codebox\enums\package-info.java" result="NOOP"/>
+        <file path="src\main\java\com\codebox\instance\ClassInstance.java" result="NOOP"/>
+        <file path="src\main\java\com\codebox\instance\ConstructorInstance.java" result="NOOP"/>
+        <file path="src\main\java\com\codebox\instance\package-info.java" result="NOOP"/>
+        <file path="src\site\site.xml" result="NOOP"/>
+        <file path="src\test\java\com\codebox\bean\EmptyBean.java" result="NOOP"/>
+        <file path="src\test\java\com\codebox\bean\JavaBeanTesterTest.java" result="NOOP"/>
+        <file path="src\test\java\com\codebox\bean\NonDeserializableBean.java" result="NOOP"/>
+        <file path="src\test\java\com\codebox\bean\NonSerializableBean.java" result="NOOP"/>
+        <file path="src\test\java\com\codebox\bean\ObjectMethodsTest.java" result="NOOP"/>
+        <file path="src\test\java\com\codebox\bean\PrivateConstructor.java" result="NOOP"/>
+        <file path="src\test\java\com\codebox\bean\PrivateConstructorTest.java" result="NOOP"/>
+        <file path="src\test\java\com\codebox\bean\SampleBean.java" result="NOOP"/>
+        <file path="src\test\java\com\codebox\bean\SampleDepthBean.java" result="NOOP"/>
+        <file path="src\test\java\com\codebox\bean\SampleExtensionBean.java" result="NOOP"/>
+        <file path="src\test\java\com\codebox\bean\SampleValueObject.java" result="NOOP"/>
+        <file path="src\test\java\com\codebox\bean\SerializableBean.java" result="NOOP"/>
+        <file path="src\test\java\com\codebox\builders\ExtensionBuilderTest.java" result="NOOP"/>
+        <file path="src\test\java\com\codebox\instance\ClassInstanceTest.java" result="NOOP"/>
+        <file path="src\test\java\com\codebox\instance\ConstructorInstanceTest.java" result="NOOP"/>
     </files>
 </licensePluginReport>

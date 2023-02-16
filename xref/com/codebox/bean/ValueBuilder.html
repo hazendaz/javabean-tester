@@ -424,8 +424,8 @@
 <a class="jxr_linenumber" name="L416" href="#L416">416</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L417" href="#L417">417</a>     <strong class="jxr_keyword">private</strong> &lt;T&gt; <strong class="jxr_keyword">boolean</strong> containsSelf(<strong class="jxr_keyword">final</strong> Class&lt;T&gt; clazz) {
 <a class="jxr_linenumber" name="L418" href="#L418">418</a>         <strong class="jxr_keyword">final</strong> List&lt;Field&gt; fields = Arrays.asList(clazz.getDeclaredFields());
-<a class="jxr_linenumber" name="L419" href="#L419">419</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> i = 0; i &lt; fields.size(); i++) {
-<a class="jxr_linenumber" name="L420" href="#L420">420</a>             <strong class="jxr_keyword">if</strong> (fields.get(i).getType().equals(clazz)) {
+<a class="jxr_linenumber" name="L419" href="#L419">419</a>         <strong class="jxr_keyword">for</strong> (Field field : fields) {
+<a class="jxr_linenumber" name="L420" href="#L420">420</a>             <strong class="jxr_keyword">if</strong> (field.getType().equals(clazz)) {
 <a class="jxr_linenumber" name="L421" href="#L421">421</a>                 <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">true</strong>;
 <a class="jxr_linenumber" name="L422" href="#L422">422</a>             }
 <a class="jxr_linenumber" name="L423" href="#L423">423</a>         }
