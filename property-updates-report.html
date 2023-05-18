@@ -146,15 +146,15 @@
 <tr class="b">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
 <td># of properties using the latest version available</td>
-<td>4</td></tr>
+<td>5</td></tr>
 <tr class="a">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
 <td># of properties where the next version available is smaller than an incremental version update</td>
 <td>0</td></tr>
 <tr class="b">
-<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td><img src="images/icon_warning_sml.gif" alt="" /></td>
 <td># of properties where the next version available is an incremental version update</td>
-<td>0</td></tr>
+<td>1</td></tr>
 <tr class="a">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
 <td># of properties where the next version available is a minor version update</td>
@@ -183,6 +183,22 @@
 <td><b>4.0.0</b></td></tr>
 <tr class="a">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>${byte-buddy.version}</td>
+<td>1.14.4</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td></tr>
+<tr class="b">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
+<td>${jgit.version}</td>
+<td>6.5.0.202303070854-r</td>
+<td></td>
+<td><b>6.5.0.202303070854-r</b></td>
+<td></td>
+<td></td></tr>
+<tr class="a">
+<td><img src="images/icon_success_sml.gif" alt="" /></td>
 <td>${jmockit.version}</td>
 <td>1.50.0</td>
 <td></td>
@@ -191,8 +207,8 @@
 <td></td></tr>
 <tr class="b">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>${plexus-utils.version}</td>
-<td>3.5.1</td>
+<td>${license.version}</td>
+<td>4.2</td>
 <td></td>
 <td></td>
 <td></td>
@@ -207,8 +223,8 @@
 <td></td></tr>
 <tr class="b">
 <td><img src="images/icon_success_sml.gif" alt="" /></td>
-<td>${wagon.version}</td>
-<td>3.5.3</td>
+<td>${slf4j.version}</td>
+<td>2.0.7</td>
 <td></td>
 <td></td>
 <td></td>
@@ -255,6 +271,64 @@
 <tr class="b">
 <th width="30%">Always use reactor projects (even if older or -SNAPSHOT)</th>
 <td align="left">Yes</td></tr></table></section><section>
+<h3><a name="a.24.7Bbyte-buddy.version.7D"></a>${byte-buddy.version}</h3>
+<table border="0" class="table table-striped">
+<tr class="a">
+<th width="30%">Status</th>
+<td align="left"><img src="images/icon_success_sml.gif" alt="" />&#160;No newer versions available.</td></tr>
+<tr class="b">
+<th width="30%">Property</th>
+<td align="left">${byte-buddy.version}</td></tr>
+<tr class="a">
+<th width="30%">Associated artifacts</th>
+<td align="left">net.bytebuddy:byte-buddy<br />net.bytebuddy:byte-buddy-agent</td></tr>
+<tr class="b">
+<th width="30%">Current Version</th>
+<td align="left">1.14.4</td></tr>
+<tr class="a">
+<th width="30%">Allowed version range</th>
+<td align="left">1.14.4</td></tr>
+<tr class="b">
+<th width="30%">Infer associations from project</th>
+<td align="left">Yes</td></tr>
+<tr class="a">
+<th width="30%">Only use release versions</th>
+<td align="left">No</td></tr>
+<tr class="b">
+<th width="30%">Include projects from reactor</th>
+<td align="left">Yes</td></tr>
+<tr class="a">
+<th width="30%">Always use reactor projects (even if older or -SNAPSHOT)</th>
+<td align="left">Yes</td></tr></table></section><section>
+<h3><a name="a.24.7Bjgit.version.7D"></a>${jgit.version}</h3>
+<table border="0" class="table table-striped">
+<tr class="a">
+<th width="30%">Status</th>
+<td align="left"><img src="images/icon_warning_sml.gif" alt="" />&#160;There is at least one newer incremental version available. Incremental updates are typically passive.</td></tr>
+<tr class="b">
+<th width="30%">Property</th>
+<td align="left">${jgit.version}</td></tr>
+<tr class="a">
+<th width="30%">Associated artifacts</th>
+<td align="left">org.eclipse.jgit:org.eclipse.jgit</td></tr>
+<tr class="b">
+<th width="30%">Current Version</th>
+<td align="left">6.5.0.202303070854-r</td></tr>
+<tr class="a">
+<th width="30%">Allowed version range</th>
+<td align="left">6.5.0.202303070854-r</td></tr>
+<tr class="b">
+<th width="30%">Infer associations from project</th>
+<td align="left">Yes</td></tr>
+<tr class="a">
+<th width="30%">Only use release versions</th>
+<td align="left">No</td></tr>
+<tr class="b">
+<th width="30%">Include projects from reactor</th>
+<td align="left">Yes</td></tr>
+<tr class="a">
+<th width="30%">Always use reactor projects (even if older or -SNAPSHOT)</th>
+<td align="left">Yes</td></tr></table></section><section>
 <h3><a name="a.24.7Bjmockit.version.7D"></a>${jmockit.version}</h3>
 <table border="0" class="table table-striped">
 <tr class="a">
@@ -284,23 +358,23 @@
 <tr class="a">
 <th width="30%">Always use reactor projects (even if older or -SNAPSHOT)</th>
 <td align="left">Yes</td></tr></table></section><section>
-<h3><a name="a.24.7Bplexus-utils.version.7D"></a>${plexus-utils.version}</h3>
+<h3><a name="a.24.7Blicense.version.7D"></a>${license.version}</h3>
 <table border="0" class="table table-striped">
 <tr class="a">
 <th width="30%">Status</th>
 <td align="left"><img src="images/icon_success_sml.gif" alt="" />&#160;No newer versions available.</td></tr>
 <tr class="b">
 <th width="30%">Property</th>
-<td align="left">${plexus-utils.version}</td></tr>
+<td align="left">${license.version}</td></tr>
 <tr class="a">
 <th width="30%">Associated artifacts</th>
-<td align="left">org.codehaus.plexus:plexus-utils</td></tr>
+<td align="left">com.mycila:license-maven-plugin<br />com.mycila:license-maven-plugin-git</td></tr>
 <tr class="b">
 <th width="30%">Current Version</th>
-<td align="left">3.5.1</td></tr>
+<td align="left">4.2</td></tr>
 <tr class="a">
 <th width="30%">Allowed version range</th>
-<td align="left">3.5.1</td></tr>
+<td align="left">4.2</td></tr>
 <tr class="b">
 <th width="30%">Infer associations from project</th>
 <td align="left">Yes</td></tr>
@@ -323,7 +397,7 @@
 <td align="left">${scm.version}</td></tr>
 <tr class="a">
 <th width="30%">Associated artifacts</th>
-<td align="left">org.apache.maven.scm:maven-scm-api<br />org.apache.maven.scm:maven-scm-manager-plexus<br />org.apache.maven.scm:maven-scm-provider-gitexe</td></tr>
+<td align="left">org.apache.maven.scm:maven-scm-provider-jgit</td></tr>
 <tr class="b">
 <th width="30%">Current Version</th>
 <td align="left">2.0.1</td></tr>
@@ -342,23 +416,23 @@
 <tr class="a">
 <th width="30%">Always use reactor projects (even if older or -SNAPSHOT)</th>
 <td align="left">Yes</td></tr></table></section><section>
-<h3><a name="a.24.7Bwagon.version.7D"></a>${wagon.version}</h3>
+<h3><a name="a.24.7Bslf4j.version.7D"></a>${slf4j.version}</h3>
 <table border="0" class="table table-striped">
 <tr class="a">
 <th width="30%">Status</th>
 <td align="left"><img src="images/icon_success_sml.gif" alt="" />&#160;No newer versions available.</td></tr>
 <tr class="b">
 <th width="30%">Property</th>
-<td align="left">${wagon.version}</td></tr>
+<td align="left">${slf4j.version}</td></tr>
 <tr class="a">
 <th width="30%">Associated artifacts</th>
-<td align="left">org.apache.maven.wagon:wagon-scm<br />org.apache.maven.wagon:wagon-ssh</td></tr>
+<td align="left">org.slf4j:slf4j-api<br />org.slf4j:slf4j-simple</td></tr>
 <tr class="b">
 <th width="30%">Current Version</th>
-<td align="left">3.5.3</td></tr>
+<td align="left">2.0.7</td></tr>
 <tr class="a">
 <th width="30%">Allowed version range</th>
-<td align="left">3.5.3</td></tr>
+<td align="left">2.0.7</td></tr>
 <tr class="b">
 <th width="30%">Infer associations from project</th>
 <td align="left">Yes</td></tr>
