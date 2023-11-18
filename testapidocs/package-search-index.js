@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.codebox.bean"},{"l":"com.codebox.builders"},{"l":"com.codebox.instance"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"com.codebox.javabean.tester","l":"com.codebox.bean"},{"m":"com.codebox.javabean.tester","l":"com.codebox.builders"},{"m":"com.codebox.javabean.tester","l":"com.codebox.instance"}];updateSearchResults();

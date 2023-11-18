@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="" lang="">
 <head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>ConstructorInstance xref</title>
 <link type="text/css" rel="stylesheet" href="../../../stylesheet.css" />
@@ -9,7 +9,7 @@
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * JavaBean Tester (<a href="https://github.com/hazendaz/javabean-tester)" target="alexandria_uri">https://github.com/hazendaz/javabean-tester)</a></em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Copyright 2012-2021 Hazendaz.</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Copyright 2012-2023 Hazendaz.</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_comment"> * All rights reserved. This program and the accompanying materials</em>
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_comment"> * are made available under the terms of The Apache Software License,</em>
@@ -68,14 +68,16 @@
 <a class="jxr_linenumber" name="L60" href="#L60">60</a>          <strong class="jxr_keyword">final</strong> Constructor&lt;?&gt;[] ctors = clazz.getDeclaredConstructors();
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>          Assertions.assertEquals(1, ctors.length, <span class="jxr_string">"Utility class should only have one constructor"</span>);
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>          <strong class="jxr_keyword">final</strong> Constructor&lt;?&gt; ctor = ctors[0];
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>          Assertions.assertFalse(ctor.isAccessible(), <span class="jxr_string">"Utility class constructor should be inaccessible"</span>);
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>          <em class="jxr_comment">// Make accessible in order to test following assert.</em>
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>          Assertions.assertFalse(ctor.canAccess(<strong class="jxr_keyword">null</strong>), <span class="jxr_string">"Utility class constructor should be inaccessible"</span>);
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>          <em class="jxr_comment">// Make accessible 'true' in order to test following assert.</em>
 <a class="jxr_linenumber" name="L65" href="#L65">65</a>          ctor.setAccessible(<strong class="jxr_keyword">true</strong>);
 <a class="jxr_linenumber" name="L66" href="#L66">66</a>          <strong class="jxr_keyword">final</strong> Object object = ConstructorInstance.newInstance(ctor);
 <a class="jxr_linenumber" name="L67" href="#L67">67</a>          Assertions.assertEquals(clazz, object == <strong class="jxr_keyword">null</strong> ? <span class="jxr_string">"null"</span> : object.getClass(),
 <a class="jxr_linenumber" name="L68" href="#L68">68</a>                  <span class="jxr_string">"You would expect the constructor to return the expected type"</span>);
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>      }
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>  }
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>          <em class="jxr_comment">// Set accessible back to 'false'</em>
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>          ctor.setAccessible(false);
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>      }
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2012&#x2013;2023 <a href="https://github.com/hazendaz/">hazendaz</a>. All rights reserved.</div>
