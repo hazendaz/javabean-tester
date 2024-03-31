@@ -238,7 +238,7 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
 <span class="fc bfc" id="L238" title="All 4 branches covered.">                        if (this.clazz == Date.class &amp;&amp; prop.getName().equals(&quot;month&quot;)</span>
 <span class="pc bpc" id="L239" title="1 of 2 branches missed.">                                &amp;&amp; expectedValue.equals(Integer.valueOf(&quot;1&quot;))</span>
 <span class="pc bpc" id="L240" title="1 of 2 branches missed.">                                &amp;&amp; actualValue.equals(Integer.valueOf(&quot;2&quot;))) {</span>
-<span class="nc" id="L241">                            actualValue = Integer.valueOf(&quot;1&quot;);</span>
+<span class="fc" id="L241">                            actualValue = Integer.valueOf(&quot;1&quot;);</span>
                         }
 
 <span class="fc" id="L244">                        Assertions.assertEquals(expectedValue, actualValue,</span>
