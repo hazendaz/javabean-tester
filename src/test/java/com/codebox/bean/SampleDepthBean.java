@@ -105,10 +105,10 @@ public class SampleDepthBean {
     private BigDecimal bigDecimal;
 
     /** The uuid. */
-    UUID uuid;
+    private UUID uuid;
 
     /** The instant. */
-    Instant instant;
+    private Instant instant;
 
     /** The date. */
     private Date date;
