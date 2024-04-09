@@ -300,7 +300,15 @@ class JavaBeanTesterTest {
     }
 
     /**
-     * Test_temporary single mode.
+     * Test multi constructor.
+     */
+    @Test
+    void testMultiConstructor() {
+        JavaBeanTester.builder(MultiConstructorBean.class).test();
+    }
+
+    /**
+     * Test temporary single mode.
      */
     // TODO 1/12/2019 JWL Temporary until we start using internalized extension logic
     @Test
