@@ -92,6 +92,10 @@ public enum JavaBeanTester {
      * The Class CanEqualInterceptor.
      */
     public static class CanEqualInterceptor {
+
+        /**
+         * Can Equal Interceptor.
+         */
         public static boolean canEqual(final Object obj) {
             return obj instanceof NamedElement.WithRuntimeName;
         }
