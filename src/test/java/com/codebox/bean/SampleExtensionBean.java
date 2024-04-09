@@ -1,7 +1,7 @@
 /*
  * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
  *
- * Copyright 2012-2022 Hazendaz.
+ * Copyright 2012-2024 Hazendaz.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of The Apache Software License,
@@ -28,7 +28,7 @@ public class SampleExtensionBean extends SampleBean {
     private String extension;
 
     /**
-     * Instantiates a new sample bean. Causes JVM to not create a default no-arg constructor
+     * Instantiates a new sample bean. Causes JVM to not create a default no-arg constructor.
      *
      * @param newString
      *            the new string

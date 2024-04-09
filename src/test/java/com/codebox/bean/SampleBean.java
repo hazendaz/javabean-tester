@@ -146,7 +146,7 @@ public class SampleBean {
     private Boolean booleanWrapperIsSetter;
 
     /**
-     * Instantiates a new sample bean. Causes JVM to not create a default no-arg constructor
+     * Instantiates a new sample bean. Causes JVM to not create a default no-arg constructor.
      *
      * @param newString
      *            the new string
