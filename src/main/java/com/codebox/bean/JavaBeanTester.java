@@ -95,9 +95,13 @@ public enum JavaBeanTester {
 
         /**
          * Can Equal Interceptor.
+         *
+         * @param object
+         *            The object to check can equals
+         * @return boolean of can equals
          */
-        public static boolean canEqual(final Object obj) {
-            return obj instanceof NamedElement.WithRuntimeName;
+        public static boolean canEqual(final Object object) {
+            return object instanceof NamedElement.WithRuntimeName;
         }
 
     }
