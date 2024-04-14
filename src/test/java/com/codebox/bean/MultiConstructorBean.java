@@ -41,7 +41,7 @@ public class MultiConstructorBean implements Serializable {
     }
 
     /**
-     * Instantiates a new sample bean. Causes JVM to not create a default no-arg constructor.
+     * Instantiates a new multi constructor bean. Causes JVM to not create a default no-arg constructor.
      *
      * @param newStringOne
      *            the new string one
