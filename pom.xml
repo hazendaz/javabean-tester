@@ -183,7 +183,7 @@
 
         <!-- Version Properties -->
         <byte-buddy.version>1.14.15</byte-buddy.version>
-        <jmockit.version>1.52.0</jmockit.version>
+        <jmockit.version>1.53.0</jmockit.version>
         <license.version>4.5</license.version>
         <slf4j.version>2.0.13</slf4j.version>
 
