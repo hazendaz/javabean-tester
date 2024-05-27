@@ -92,8 +92,16 @@ import net.bytebuddy.matcher.ElementMatchers;
      * The Class CanEqualInterceptor.
      */
 <span class="nc" id="L94">    public static class CanEqualInterceptor {</span>
-        public static boolean canEqual(final Object obj) {
-<span class="fc" id="L96">            return obj instanceof NamedElement.WithRuntimeName;</span>
+
+        /**
+         * Can Equal Interceptor.
+         *
+         * @param object
+         *            The object to check can equals
+         * @return boolean of can equals
+         */
+        public static boolean canEqual(final Object object) {
+<span class="fc" id="L104">            return object instanceof NamedElement.WithRuntimeName;</span>
         }
 
     }
