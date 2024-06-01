@@ -384,7 +384,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
-                    <version>4.0.0-M14</version>
+                    <version>4.0.0-M15</version>
                     <configuration>
                         <!-- don't deploy site with maven-site-plugin (instead use scm publish during release) -->
                         <skipDeploy>true</skipDeploy>
