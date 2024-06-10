@@ -435,11 +435,18 @@ class JavaBeanTesterWorker<T, E> {
      * Process equals verifier symmetric test.
      */
     private void processEqualsVerifierSymmetricTest() {
-        // Run Equals Verifier
+        // Run Equals Verifier (base class)
         try {
             EqualsVerifier.simple().forClass(this.clazz).suppress(Warning.BIGDECIMAL_EQUALITY).verify();
         } catch (AssertionError e) {
             JavaBeanTesterWorker.logger.warn("EqualsVerifier attempt failed: {}", e.getMessage());
+        }
+
+        // Run Equals Verifier (extension class)
+        try {
+            EqualsVerifier.simple().forClass(this.extension).verify();
+        } catch (AssertionError e) {
+            JavaBeanTesterWorker.LOGGER.warn("EqualsVerifier attempt failed: {}", e.getMessage());
         }
     }
 
