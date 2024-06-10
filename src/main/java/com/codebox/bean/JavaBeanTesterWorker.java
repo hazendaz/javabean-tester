@@ -537,6 +537,9 @@ class JavaBeanTesterWorker<T, E> {
                 return value;
             });
             Assertions.assertEquals(e, x);
+
+            clazzBeanCopier.copy(y, e, null);
+            Assertions.assertEquals(e, y);
         } catch (final Exception e) {
             JavaBeanTesterWorker.logger.trace("Do nothing class is not mutable", e);
         }
