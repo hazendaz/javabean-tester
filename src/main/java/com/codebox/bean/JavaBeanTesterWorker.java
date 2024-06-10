@@ -1,7 +1,7 @@
 /*
  * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
  *
- * Copyright 2012-2023 Hazendaz.
+ * Copyright 2012-2024 Hazendaz.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of The Apache Software License,
@@ -544,6 +544,9 @@ class JavaBeanTesterWorker<T, E> {
             final T e = new ClassInstance<T>().newInstance(this.clazz);
             clazzBeanCopier.copy(x, e, null);
             Assertions.assertEquals(e, x);
+
+            clazzBeanCopier.copy(y, e, null);
+            Assertions.assertEquals(e, y);
         } catch (final Exception e) {
             JavaBeanTesterWorker.LOGGER.trace("Do nothing class is not mutable", e);
         }
