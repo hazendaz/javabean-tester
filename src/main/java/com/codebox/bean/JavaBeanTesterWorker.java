@@ -417,11 +417,18 @@ class JavaBeanTesterWorker<T, E> {
      * Tests the equals/hashCode/toString methods of the specified class.
      */
     public void equalsHashCodeToStringSymmetricTest() {
-        // Run Equals Verifier
+        // Run Equals Verifier (base class)
         try {
             EqualsVerifier.simple().forClass(this.clazz).suppress(Warning.BIGDECIMAL_EQUALITY).verify();
         } catch (AssertionError e) {
             JavaBeanTesterWorker.logger.warn("EqualsVerifier attempt failed: {}", e.getMessage());
+        }
+
+        // Run Equals Verifier (extension class)
+        try {
+            EqualsVerifier.simple().forClass(this.extension).verify();
+        } catch (AssertionError e) {
+            JavaBeanTesterWorker.LOGGER.warn("EqualsVerifier attempt failed: {}", e.getMessage());
         }
 
         // Create Instances
