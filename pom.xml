@@ -185,7 +185,7 @@
         <byte-buddy.version>1.14.18</byte-buddy.version>
         <jmockit.version>1.54.0</jmockit.version>
         <license.version>4.5</license.version>
-        <slf4j.version>2.0.14</slf4j.version>
+        <slf4j.version>2.0.15</slf4j.version>
 
         <!-- Surefire Argline -->
         <argLine>-javaagent:${settings.localRepository}/com/github/hazendaz/jmockit/jmockit/${jmockit.version}/jmockit-${jmockit.version}.jar</argLine>
