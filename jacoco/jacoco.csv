@@ -3,8 +3,8 @@ javabean-tester,com.codebox.builders,ExtensionBuilder,5,233,0,2,1,48,0,7,0,6
 javabean-tester,com.codebox.instance,ConstructorInstance,21,39,1,1,5,10,1,2,0,2
 javabean-tester,com.codebox.instance,ClassInstance,50,93,2,10,8,16,2,7,0,3
 javabean-tester,com.codebox.bean,JavaBeanTester.new NamingStrategy.AbstractBase() {...},0,13,0,0,0,2,0,2,0,2
-javabean-tester,com.codebox.bean,ValueBuilder,82,440,17,108,4,101,15,69,5,16
-javabean-tester,com.codebox.bean,JavaBeanTesterWorker,536,1166,93,75,42,218,66,56,12,26
+javabean-tester,com.codebox.bean,ValueBuilder,13,433,3,108,3,100,3,67,0,14
+javabean-tester,com.codebox.bean,JavaBeanTesterWorker,173,1132,15,75,35,216,15,47,0,17
 javabean-tester,com.codebox.bean,JavaBeanTester.CanEqualInterceptor,3,3,0,0,1,1,1,1,1,1
 javabean-tester,com.codebox.bean,JavaBeanTesterBuilder,0,130,0,12,0,36,0,25,0,19
 javabean-tester,com.codebox.bean,JavaBeanTester,0,67,0,2,0,12,0,4,0,3
