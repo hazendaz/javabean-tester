@@ -601,7 +601,7 @@
                 <plugin>
                     <groupId>net.revelc.code</groupId>
                     <artifactId>impsort-maven-plugin</artifactId>
-                    <version>1.11.0</version>
+                    <version>1.12.0</version>
                     <configuration>
                         <groups>au,com,de,io,jakarta,java,javax,lombok,mockit,net,nl,org</groups>
                         <staticGroups>java,*</staticGroups>
