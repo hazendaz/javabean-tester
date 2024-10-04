@@ -1,1 +1,1 @@
-moduleSearchIndex = [{"l":"com.codebox.javabean.tester"}];updateSearchResults();
+moduleSearchIndex = [];updateSearchResults();
