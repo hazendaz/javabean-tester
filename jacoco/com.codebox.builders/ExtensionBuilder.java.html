@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExtensionBuilder.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">javabean-tester</a> &gt; <a href="index.source.html" class="el_package">com.codebox.builders</a> &gt; <span class="el_source">ExtensionBuilder.java</span></div><h1>ExtensionBuilder.java</h1><pre class="source lang-java linenums">/*
+ * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
+ *
+ * Copyright 2012-2021 Hazendaz.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of The Apache Software License,
+ * Version 2.0 which accompanies this distribution, and is available at
+ * http://www.apache.org/licenses/LICENSE-2.0.txt
+ *
+ * Contributors:
+ *     CodeBox (Rob Dawson).
+ *     Hazendaz (Jeremy Landis).
+ */
+package com.codebox.builders;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import javassist.CannotCompileException;
+import javassist.ClassPool;
+import javassist.CtClass;
+import javassist.CtField;
+import javassist.CtMethod;
+import javassist.NotFoundException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * The Class ExtensionBuilder.
+ *
+ * @param &lt;T&gt;
+ *            the generic type
+ */
+<span class="fc" id="L36">public class ExtensionBuilder&lt;T&gt; {</span>
+
+    /** The Constant LOGGER. */
+<span class="fc" id="L39">    private static final Logger LOGGER = LoggerFactory.getLogger(ExtensionBuilder.class);</span>
+
+    /**
+     * Generate.
+     *
+     * @param clazz
+     *            the clazz
+     *
+     * @return the class
+     *
+     * @throws NotFoundException
+     *             the not found exception
+     * @throws CannotCompileException
+     *             the cannot compile exception
+     */
+    public Class&lt;?&gt; generate(final Class&lt;T&gt; clazz) throws NotFoundException, CannotCompileException {
+        try {
+            // If extension already recreated, return it
+<span class="nc" id="L57">            return Class.forName(clazz.getName() + &quot;Extension&quot;);</span>
+<span class="fc" id="L58">        } catch (final ClassNotFoundException e) {</span>
+            // No extension exists, so create it
+<span class="fc" id="L60">            ExtensionBuilder.LOGGER.trace(&quot;No extension exists, so create it&quot;, e);</span>
+        }
+
+<span class="fc" id="L63">        final ClassPool pool = ClassPool.getDefault();</span>
+<span class="fc" id="L64">        final CtClass cc = pool.makeClass(clazz.getName() + &quot;Extension&quot;);</span>
+
+        // add super class
+<span class="fc" id="L67">        cc.setSuperclass(ExtensionBuilder.resolveCtClass(clazz));</span>
+
+<span class="fc" id="L69">        final Map&lt;String, Class&lt;?&gt;&gt; properties = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L70">        properties.put(&quot;jbExtension1&quot;, String.class);</span>
+<span class="fc" id="L71">        properties.put(&quot;jbExtension2&quot;, String.class);</span>
+<span class="fc" id="L72">        properties.put(&quot;jbExtension3&quot;, String.class);</span>
+<span class="fc" id="L73">        properties.put(&quot;jbExtension4&quot;, String.class);</span>
+
+<span class="fc bfc" id="L75" title="All 2 branches covered.">        for (final Entry&lt;String, Class&lt;?&gt;&gt; entry : properties.entrySet()) {</span>
+
+            // Add field
+<span class="fc" id="L78">            cc.addField(new CtField(ExtensionBuilder.resolveCtClass(entry.getValue()), entry.getKey(), cc));</span>
+
+            // Add getter
+<span class="fc" id="L81">            cc.addMethod(ExtensionBuilder.generateGetter(cc, entry.getKey(), entry.getValue()));</span>
+
+            // Add setter
+<span class="fc" id="L84">            cc.addMethod(ExtensionBuilder.generateSetter(cc, entry.getKey(), entry.getValue()));</span>
+<span class="fc" id="L85">        }</span>
+
+<span class="fc" id="L87">        return cc.toClass();</span>
+    }
+
+    /**
+     * Generate getter.
+     *
+     * @param declaringClass
+     *            the declaring class
+     * @param fieldName
+     *            the field name
+     * @param fieldClass
+     *            the field class
+     *
+     * @return the ct method
+     *
+     * @throws CannotCompileException
+     *             the cannot compile exception
+     */
+    private static CtMethod generateGetter(final CtClass declaringClass, final String fieldName,
+            final Class&lt;?&gt; fieldClass) throws CannotCompileException {
+<span class="fc" id="L107">        final StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L108">        sb.append(&quot;public &quot;);</span>
+<span class="fc" id="L109">        sb.append(fieldClass.getName());</span>
+<span class="fc" id="L110">        sb.append(&quot; get&quot;);</span>
+<span class="fc" id="L111">        sb.append(fieldName.substring(0, 1).toUpperCase());</span>
+<span class="fc" id="L112">        sb.append(fieldName.substring(1));</span>
+<span class="fc" id="L113">        sb.append(&quot;(){&quot;);</span>
+<span class="fc" id="L114">        sb.append(&quot;return this.&quot;);</span>
+<span class="fc" id="L115">        sb.append(fieldName);</span>
+<span class="fc" id="L116">        sb.append(&quot;;&quot;);</span>
+<span class="fc" id="L117">        sb.append(&quot;}&quot;);</span>
+<span class="fc" id="L118">        return CtMethod.make(sb.toString(), declaringClass);</span>
+    }
+
+    /**
+     * Generate setter.
+     *
+     * @param declaringClass
+     *            the declaring class
+     * @param fieldName
+     *            the field name
+     * @param fieldClass
+     *            the field class
+     *
+     * @return the ct method
+     *
+     * @throws CannotCompileException
+     *             the cannot compile exception
+     */
+    private static CtMethod generateSetter(final CtClass declaringClass, final String fieldName,
+            final Class&lt;?&gt; fieldClass) throws CannotCompileException {
+<span class="fc" id="L138">        final StringBuilder sb = new StringBuilder();</span>
+<span class="fc" id="L139">        sb.append(&quot;public void set&quot;);</span>
+<span class="fc" id="L140">        sb.append(fieldName.substring(0, 1).toUpperCase());</span>
+<span class="fc" id="L141">        sb.append(fieldName.substring(1));</span>
+<span class="fc" id="L142">        sb.append(&quot;(&quot;);</span>
+<span class="fc" id="L143">        sb.append(fieldClass.getName());</span>
+<span class="fc" id="L144">        sb.append(&quot; &quot;);</span>
+<span class="fc" id="L145">        sb.append(fieldName);</span>
+<span class="fc" id="L146">        sb.append(&quot;)&quot;);</span>
+<span class="fc" id="L147">        sb.append(&quot;{&quot;);</span>
+<span class="fc" id="L148">        sb.append(&quot;this.&quot;);</span>
+<span class="fc" id="L149">        sb.append(fieldName);</span>
+<span class="fc" id="L150">        sb.append(&quot;=&quot;);</span>
+<span class="fc" id="L151">        sb.append(fieldName);</span>
+<span class="fc" id="L152">        sb.append(&quot;;&quot;);</span>
+<span class="fc" id="L153">        sb.append(&quot;}&quot;);</span>
+<span class="fc" id="L154">        return CtMethod.make(sb.toString(), declaringClass);</span>
+    }
+
+    /**
+     * Resolve ct class.
+     *
+     * @param clazz
+     *            the clazz
+     *
+     * @return the ct class
+     *
+     * @throws NotFoundException
+     *             the not found exception
+     */
+    private static CtClass resolveCtClass(final Class&lt;?&gt; clazz) throws NotFoundException {
+<span class="fc" id="L169">        return ClassPool.getDefault().get(clazz.getName());</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
