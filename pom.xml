@@ -304,7 +304,7 @@
                             <path>
                                 <groupId>org.hibernate.validator</groupId>
                                 <artifactId>hibernate-validator-annotation-processor</artifactId>
-                                <version>8.0.1.Final</version>
+                                <version>8.0.2.Final</version>
                             </path>
                         </annotationProcessorPaths>
 
