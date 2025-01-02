@@ -1,7 +1,7 @@
 # javabean-tester
 
 [![Java CI](https://github.com/hazendaz/javabean-tester/workflows/Java%20CI/badge.svg)](https://github.com/hazendaz/javabean-tester/workflows/Java%20CI)
-[![Coverage Status](https://coveralls.io/repos/hazendaz/javabean-tester/badge.svg?branch=master&service=github)](https://coveralls.io/github/hazendaz/javabean-tester?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/hazendaz/javabean-tester/badge.svg?branch=master)](https://coveralls.io/github/hazendaz/javabean-tester?branch=master)
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
 [![Maven central](https://maven-badges.herokuapp.com/maven-central/com.github.hazendaz/javabean-tester/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.hazendaz/javabean-tester)
 [![Project Stats](https://www.openhub.net/p/javabean-tester/widgets/project_thin_badge.gif)](https://www.openhub.net/p/javabean-tester)
