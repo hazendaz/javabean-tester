@@ -183,7 +183,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- Version Properties -->
-        <byte-buddy.version>1.17.4</byte-buddy.version>
+        <byte-buddy.version>1.17.5</byte-buddy.version>
         <jmockit.version>1.55.0</jmockit.version>
         <license.version>5.0.0</license.version>
         <slf4j.version>2.0.17</slf4j.version>
