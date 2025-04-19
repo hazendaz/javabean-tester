@@ -573,7 +573,7 @@
                 <plugin>
                     <groupId>com.github.hazendaz.maven</groupId>
                     <artifactId>coveralls-maven-plugin</artifactId>
-                    <version>4.6.0</version>
+                    <version>4.7.0</version>
                 </plugin>
                 <plugin>
                     <groupId>com.github.ekryd.sortpom</groupId>
