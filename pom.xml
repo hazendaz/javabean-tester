@@ -1063,7 +1063,7 @@
                                             <pluginExecutionFilter>
                                                 <groupId>com.mycila</groupId>
                                                 <artifactId>license-maven-plugin</artifactId>
-                                                <versionRange>[4.6,)</versionRange>
+                                                <versionRange>[5.0.0,)</versionRange>
                                                 <goals>
                                                     <goal>format</goal>
                                                 </goals>
