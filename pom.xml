@@ -300,7 +300,7 @@
                             <path>
                                 <groupId>org.hibernate.validator</groupId>
                                 <artifactId>hibernate-validator-annotation-processor</artifactId>
-                                <version>8.0.2.Final</version>
+                                <version>9.0.0.Final</version>
                             </path>
                         </annotationProcessorPaths>
 
