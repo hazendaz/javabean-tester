@@ -1168,9 +1168,9 @@
 
         <!-- Run lombok-edge when necessary for newer support. -->
         <profile>
-            <id>jdk22on</id>
+            <id>jdk25on</id>
             <activation>
-                <jdk>[22,)</jdk>
+                <jdk>[25,)</jdk>
             </activation>
 
             <dependencies>
