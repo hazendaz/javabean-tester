@@ -49,6 +49,7 @@ import lombok.Data;
 import net.sf.cglib.beans.BeanCopier;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
@@ -415,7 +416,7 @@ class JavaBeanTesterWorker<T, E> {
     public void equalsHashCodeToStringSymmetricTest() {
         // Run Equals Verifier
         try {
-            EqualsVerifier.simple().forClass(this.clazz).verify();
+            EqualsVerifier.simple().forClass(this.clazz).suppress(Warning.BIGDECIMAL_EQUALITY).verify();
         } catch (AssertionError e) {
             JavaBeanTesterWorker.LOGGER.warn("EqualsVerifier attempt failed: {}", e.getMessage());
         }
