@@ -16,6 +16,7 @@ package com.codebox.instance;
 
 import java.lang.reflect.InvocationTargetException;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -58,7 +59,7 @@ class ClassInstanceTest {
         Mockito.when(mockClazz.getDeclaredConstructor()).thenReturn(Object.class.getDeclaredConstructor());
         Mockito.when(mockClazz.getDeclaredConstructor().newInstance()).thenThrow(new InstantiationException());
 
-        this.classInstance.newInstance(this.mockClazz);
+        Assertions.assertThrows(InstantiationException.class, () -> this.classInstance.newInstance(this.mockClazz));
     }
 
     /**
@@ -79,7 +80,7 @@ class ClassInstanceTest {
         Mockito.when(mockClazz.getDeclaredConstructor()).thenReturn(Object.class.getDeclaredConstructor());
         Mockito.when(mockClazz.getDeclaredConstructor().newInstance()).thenThrow(new IllegalAccessException());
 
-        this.classInstance.newInstance(this.mockClazz);
+        Assertions.assertThrows(InstantiationException.class, () -> this.classInstance.newInstance(this.mockClazz));
     }
 
 }

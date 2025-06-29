@@ -56,9 +56,7 @@ class ConstructorInstanceTest {
             throws InstantiationException, IllegalAccessException, InvocationTargetException {
         Mockito.when(mockConstructor.newInstance()).thenThrow(new InstantiationException());
 
-        Assertions.assertThrows(InstantiationException.class, () -> {
-            ConstructorInstance.newInstance(mockConstructor);
-        });
+        Assertions.assertThrows(InstantiationException.class, () -> ConstructorInstance.newInstance(mockConstructor));
     }
 
     /**
@@ -76,9 +74,7 @@ class ConstructorInstanceTest {
             throws InstantiationException, IllegalAccessException, InvocationTargetException {
         Mockito.when(mockConstructor.newInstance()).thenThrow(new IllegalAccessException());
 
-        Assertions.assertThrows(IllegalAccessException.class, () -> {
-            ConstructorInstance.newInstance(mockConstructor);
-        });
+        Assertions.assertThrows(IllegalAccessException.class, () -> ConstructorInstance.newInstance(mockConstructor));
     }
 
     /**
@@ -96,9 +92,8 @@ class ConstructorInstanceTest {
             throws InstantiationException, IllegalAccessException, InvocationTargetException {
         Mockito.when(mockConstructor.newInstance()).thenThrow(new InvocationTargetException(new Exception()));
 
-        Assertions.assertThrows(InvocationTargetException.class, () -> {
-            ConstructorInstance.newInstance(mockConstructor);
-        });
+        Assertions.assertThrows(InvocationTargetException.class,
+                () -> ConstructorInstance.newInstance(mockConstructor));
     }
 
 }
