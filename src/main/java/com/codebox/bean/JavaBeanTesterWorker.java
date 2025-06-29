@@ -357,7 +357,7 @@ class JavaBeanTesterWorker<T, E> {
      * @return true, if successful
      */
     boolean implementsSerializable(final T object) {
-        return object instanceof Serializable || object instanceof Externalizable;
+        return object instanceof Externalizable || object instanceof Serializable;
     }
 
     /**
