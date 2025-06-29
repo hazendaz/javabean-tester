@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExtensionBuilder.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">javabean-tester</a> &gt; <a href="index.source.html" class="el_package">com.codebox.builders</a> &gt; <span class="el_source">ExtensionBuilder.java</span></div><h1>ExtensionBuilder.java</h1><pre class="source lang-java linenums">/*
  * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
  *
- * Copyright 2012-2021 Hazendaz.
+ * Copyright 2012-2025 Hazendaz.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of The Apache Software License,
@@ -104,18 +104,13 @@ import org.slf4j.LoggerFactory;
      */
     private static CtMethod generateGetter(final CtClass declaringClass, final String fieldName,
             final Class&lt;?&gt; fieldClass) throws CannotCompileException {
-<span class="fc" id="L107">        final StringBuilder sb = new StringBuilder();</span>
-<span class="fc" id="L108">        sb.append(&quot;public &quot;);</span>
-<span class="fc" id="L109">        sb.append(fieldClass.getName());</span>
-<span class="fc" id="L110">        sb.append(&quot; get&quot;);</span>
-<span class="fc" id="L111">        sb.append(fieldName.substring(0, 1).toUpperCase());</span>
-<span class="fc" id="L112">        sb.append(fieldName.substring(1));</span>
-<span class="fc" id="L113">        sb.append(&quot;(){&quot;);</span>
-<span class="fc" id="L114">        sb.append(&quot;return this.&quot;);</span>
-<span class="fc" id="L115">        sb.append(fieldName);</span>
-<span class="fc" id="L116">        sb.append(&quot;;&quot;);</span>
-<span class="fc" id="L117">        sb.append(&quot;}&quot;);</span>
-<span class="fc" id="L118">        return CtMethod.make(sb.toString(), declaringClass);</span>
+<span class="fc" id="L107">        String methodSrc = &quot;&quot;&quot;</span>
+                public %s get%s() {
+                    return this.%s;
+                }
+<span class="fc" id="L111">                &quot;&quot;&quot;.formatted(fieldClass.getName(), fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1),</span>
+                fieldName);
+<span class="fc" id="L113">        return CtMethod.make(methodSrc, declaringClass);</span>
     }
 
     /**
@@ -135,23 +130,13 @@ import org.slf4j.LoggerFactory;
      */
     private static CtMethod generateSetter(final CtClass declaringClass, final String fieldName,
             final Class&lt;?&gt; fieldClass) throws CannotCompileException {
-<span class="fc" id="L138">        final StringBuilder sb = new StringBuilder();</span>
-<span class="fc" id="L139">        sb.append(&quot;public void set&quot;);</span>
-<span class="fc" id="L140">        sb.append(fieldName.substring(0, 1).toUpperCase());</span>
-<span class="fc" id="L141">        sb.append(fieldName.substring(1));</span>
-<span class="fc" id="L142">        sb.append(&quot;(&quot;);</span>
-<span class="fc" id="L143">        sb.append(fieldClass.getName());</span>
-<span class="fc" id="L144">        sb.append(&quot; &quot;);</span>
-<span class="fc" id="L145">        sb.append(fieldName);</span>
-<span class="fc" id="L146">        sb.append(&quot;)&quot;);</span>
-<span class="fc" id="L147">        sb.append(&quot;{&quot;);</span>
-<span class="fc" id="L148">        sb.append(&quot;this.&quot;);</span>
-<span class="fc" id="L149">        sb.append(fieldName);</span>
-<span class="fc" id="L150">        sb.append(&quot;=&quot;);</span>
-<span class="fc" id="L151">        sb.append(fieldName);</span>
-<span class="fc" id="L152">        sb.append(&quot;;&quot;);</span>
-<span class="fc" id="L153">        sb.append(&quot;}&quot;);</span>
-<span class="fc" id="L154">        return CtMethod.make(sb.toString(), declaringClass);</span>
+<span class="fc" id="L133">        String methodSrc = &quot;&quot;&quot;</span>
+                public void set%s(%s %s) {
+                    this.%s = %s;
+                }
+<span class="fc" id="L137">                &quot;&quot;&quot;.formatted(fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1), fieldClass.getName(),</span>
+                fieldName, fieldName, fieldName);
+<span class="fc" id="L139">        return CtMethod.make(methodSrc, declaringClass);</span>
     }
 
     /**
@@ -166,7 +151,7 @@ import org.slf4j.LoggerFactory;
      *             the not found exception
      */
     private static CtClass resolveCtClass(final Class&lt;?&gt; clazz) throws NotFoundException {
-<span class="fc" id="L169">        return ClassPool.getDefault().get(clazz.getName());</span>
+<span class="fc" id="L154">        return ClassPool.getDefault().get(clazz.getName());</span>
     }
 
 }

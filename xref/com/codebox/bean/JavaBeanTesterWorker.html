@@ -9,7 +9,7 @@
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * JavaBean Tester (<a href="https://github.com/hazendaz/javabean-tester)" target="alexandria_uri">https://github.com/hazendaz/javabean-tester)</a></em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Copyright 2012-2023 Hazendaz.</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Copyright 2012-2025 Hazendaz.</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_comment"> * All rights reserved. This program and the accompanying materials</em>
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_comment"> * are made available under the terms of The Apache Software License,</em>
@@ -45,18 +45,18 @@
 <a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Constructor;
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.InvocationTargetException;
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Method;
-<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <strong class="jxr_keyword">import</strong> java.util.ArrayList;
-<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">import</strong> java.util.Arrays;
-<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <strong class="jxr_keyword">import</strong> java.util.Date;
-<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <strong class="jxr_keyword">import</strong> java.util.HashSet;
-<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <strong class="jxr_keyword">import</strong> java.util.List;
-<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <strong class="jxr_keyword">import</strong> java.util.Set;
-<a class="jxr_linenumber" name="L46" href="#L46">46</a>  
-<a class="jxr_linenumber" name="L47" href="#L47">47</a>  <strong class="jxr_keyword">import</strong> lombok.Data;
-<a class="jxr_linenumber" name="L48" href="#L48">48</a>  
-<a class="jxr_linenumber" name="L49" href="#L49">49</a>  <strong class="jxr_keyword">import</strong> net.sf.cglib.beans.BeanCopier;
-<a class="jxr_linenumber" name="L50" href="#L50">50</a>  
-<a class="jxr_linenumber" name="L51" href="#L51">51</a>  <strong class="jxr_keyword">import</strong> nl.jqno.equalsverifier.EqualsVerifier;
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <strong class="jxr_keyword">import</strong> java.lang.reflect.Modifier;
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">import</strong> java.util.ArrayList;
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <strong class="jxr_keyword">import</strong> java.util.Arrays;
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <strong class="jxr_keyword">import</strong> java.util.Date;
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <strong class="jxr_keyword">import</strong> java.util.HashSet;
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <strong class="jxr_keyword">import</strong> java.util.List;
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  <strong class="jxr_keyword">import</strong> java.util.Set;
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>  
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>  <strong class="jxr_keyword">import</strong> lombok.Data;
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>  
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>  <strong class="jxr_keyword">import</strong> nl.jqno.equalsverifier.EqualsVerifier;
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>  <strong class="jxr_keyword">import</strong> nl.jqno.equalsverifier.Warning;
 <a class="jxr_linenumber" name="L52" href="#L52">52</a>  
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>  <strong class="jxr_keyword">import</strong> org.junit.jupiter.api.Assertions;
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>  <strong class="jxr_keyword">import</strong> org.slf4j.Logger;
@@ -365,7 +365,7 @@
 <a class="jxr_linenumber" name="L357" href="#L357">357</a> <em class="jxr_javadoccomment">     * @return true, if successful</em>
 <a class="jxr_linenumber" name="L358" href="#L358">358</a> <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="L359" href="#L359">359</a>     <strong class="jxr_keyword">boolean</strong> implementsSerializable(<strong class="jxr_keyword">final</strong> T object) {
-<a class="jxr_linenumber" name="L360" href="#L360">360</a>         <strong class="jxr_keyword">return</strong> object instanceof Serializable || object instanceof Externalizable;
+<a class="jxr_linenumber" name="L360" href="#L360">360</a>         <strong class="jxr_keyword">return</strong> object instanceof Externalizable || object instanceof Serializable;
 <a class="jxr_linenumber" name="L361" href="#L361">361</a>     }
 <a class="jxr_linenumber" name="L362" href="#L362">362</a> 
 <a class="jxr_linenumber" name="L363" href="#L363">363</a>     <em class="jxr_javadoccomment">/**</em>
@@ -423,7 +423,7 @@
 <a class="jxr_linenumber" name="L415" href="#L415">415</a>     <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> equalsHashCodeToStringSymmetricTest() {
 <a class="jxr_linenumber" name="L416" href="#L416">416</a>         <em class="jxr_comment">// Run Equals Verifier</em>
 <a class="jxr_linenumber" name="L417" href="#L417">417</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L418" href="#L418">418</a>             EqualsVerifier.simple().forClass(<strong class="jxr_keyword">this</strong>.clazz).verify();
+<a class="jxr_linenumber" name="L418" href="#L418">418</a>             EqualsVerifier.simple().forClass(<strong class="jxr_keyword">this</strong>.clazz).suppress(Warning.BIGDECIMAL_EQUALITY).verify();
 <a class="jxr_linenumber" name="L419" href="#L419">419</a>         } <strong class="jxr_keyword">catch</strong> (AssertionError e) {
 <a class="jxr_linenumber" name="L420" href="#L420">420</a>             JavaBeanTesterWorker.LOGGER.warn(<span class="jxr_string">"EqualsVerifier attempt failed: {}"</span>, e.getMessage());
 <a class="jxr_linenumber" name="L421" href="#L421">421</a>         }
@@ -529,159 +529,173 @@
 <a class="jxr_linenumber" name="L521" href="#L521">521</a> 
 <a class="jxr_linenumber" name="L522" href="#L522">522</a>         <em class="jxr_comment">// Create Immutable Instance</em>
 <a class="jxr_linenumber" name="L523" href="#L523">523</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L524" href="#L524">524</a>             <strong class="jxr_keyword">final</strong> BeanCopier clazzBeanCopier = BeanCopier.create(<strong class="jxr_keyword">this</strong>.clazz, <strong class="jxr_keyword">this</strong>.clazz, <strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L525" href="#L525">525</a>             <strong class="jxr_keyword">final</strong> T e = <strong class="jxr_keyword">new</strong> ClassInstance&lt;T&gt;().newInstance(<strong class="jxr_keyword">this</strong>.clazz);
-<a class="jxr_linenumber" name="L526" href="#L526">526</a>             clazzBeanCopier.copy(x, e, <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L527" href="#L527">527</a>             Assertions.assertEquals(e, x);
-<a class="jxr_linenumber" name="L528" href="#L528">528</a>         } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> Exception e) {
-<a class="jxr_linenumber" name="L529" href="#L529">529</a>             JavaBeanTesterWorker.LOGGER.trace(<span class="jxr_string">"Do nothing class is not mutable"</span>, e);
-<a class="jxr_linenumber" name="L530" href="#L530">530</a>         }
-<a class="jxr_linenumber" name="L531" href="#L531">531</a> 
-<a class="jxr_linenumber" name="L532" href="#L532">532</a>         <em class="jxr_comment">// Create Extension Immutable Instance</em>
-<a class="jxr_linenumber" name="L533" href="#L533">533</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L534" href="#L534">534</a>             <strong class="jxr_keyword">final</strong> BeanCopier extensionBeanCopier = BeanCopier.create(<strong class="jxr_keyword">this</strong>.extension, <strong class="jxr_keyword">this</strong>.extension, <strong class="jxr_keyword">true</strong>);
-<a class="jxr_linenumber" name="L535" href="#L535">535</a>             <strong class="jxr_keyword">final</strong> E e = <strong class="jxr_keyword">new</strong> ClassInstance&lt;E&gt;().newInstance(<strong class="jxr_keyword">this</strong>.extension);
-<a class="jxr_linenumber" name="L536" href="#L536">536</a>             extensionBeanCopier.copy(ext, e, <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L537" href="#L537">537</a>             Assertions.assertEquals(e, ext);
-<a class="jxr_linenumber" name="L538" href="#L538">538</a>         } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> Exception e) {
-<a class="jxr_linenumber" name="L539" href="#L539">539</a>             JavaBeanTesterWorker.LOGGER.trace(<span class="jxr_string">"Do nothing class is not mutable"</span>, e);
+<a class="jxr_linenumber" name="L524" href="#L524">524</a>             <strong class="jxr_keyword">final</strong> T e = <strong class="jxr_keyword">new</strong> ClassInstance&lt;T&gt;().newInstance(<strong class="jxr_keyword">this</strong>.clazz);
+<a class="jxr_linenumber" name="L525" href="#L525">525</a>             ByteBuddyBeanCopier.copy(x, e, (value, targetType) -&gt; {
+<a class="jxr_linenumber" name="L526" href="#L526">526</a>                 <strong class="jxr_keyword">if</strong> (targetType == <strong class="jxr_keyword">boolean</strong>.<strong class="jxr_keyword">class</strong>) {
+<a class="jxr_linenumber" name="L527" href="#L527">527</a>                     <strong class="jxr_keyword">return</strong> value == <strong class="jxr_keyword">null</strong> ? Boolean.FALSE : value;
+<a class="jxr_linenumber" name="L528" href="#L528">528</a>                 }
+<a class="jxr_linenumber" name="L529" href="#L529">529</a>                 <strong class="jxr_keyword">return</strong> value;
+<a class="jxr_linenumber" name="L530" href="#L530">530</a>             });
+<a class="jxr_linenumber" name="L531" href="#L531">531</a>             Assertions.assertEquals(e, x);
+<a class="jxr_linenumber" name="L532" href="#L532">532</a>         } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> Exception e) {
+<a class="jxr_linenumber" name="L533" href="#L533">533</a>             JavaBeanTesterWorker.LOGGER.trace(<span class="jxr_string">"Do nothing class is not mutable"</span>, e);
+<a class="jxr_linenumber" name="L534" href="#L534">534</a>         }
+<a class="jxr_linenumber" name="L535" href="#L535">535</a> 
+<a class="jxr_linenumber" name="L536" href="#L536">536</a>         <em class="jxr_comment">// If class is final, use Object.class for comparison needs</em>
+<a class="jxr_linenumber" name="L537" href="#L537">537</a>         <strong class="jxr_keyword">if</strong> (Modifier.isFinal(clazz.getModifiers())) {
+<a class="jxr_linenumber" name="L538" href="#L538">538</a>             JavaBeanTesterWorker.LOGGER.trace(<span class="jxr_string">"Final object does not go through final equals check"</span>);
+<a class="jxr_linenumber" name="L539" href="#L539">539</a>             <strong class="jxr_keyword">return</strong>;
 <a class="jxr_linenumber" name="L540" href="#L540">540</a>         }
-<a class="jxr_linenumber" name="L541" href="#L541">541</a>     }
-<a class="jxr_linenumber" name="L542" href="#L542">542</a> 
-<a class="jxr_linenumber" name="L543" href="#L543">543</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L544" href="#L544">544</a> <em class="jxr_javadoccomment">     * Equals Tests will traverse one object changing values until all have been tested against another object. This is</em>
-<a class="jxr_linenumber" name="L545" href="#L545">545</a> <em class="jxr_javadoccomment">     * done to effectively test all paths through equals.</em>
-<a class="jxr_linenumber" name="L546" href="#L546">546</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L547" href="#L547">547</a> <em class="jxr_javadoccomment">     * @param instance</em>
-<a class="jxr_linenumber" name="L548" href="#L548">548</a> <em class="jxr_javadoccomment">     *            the class instance under test.</em>
-<a class="jxr_linenumber" name="L549" href="#L549">549</a> <em class="jxr_javadoccomment">     * @param expected</em>
-<a class="jxr_linenumber" name="L550" href="#L550">550</a> <em class="jxr_javadoccomment">     *            the instance expected for tests.</em>
-<a class="jxr_linenumber" name="L551" href="#L551">551</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L552" href="#L552">552</a>     <strong class="jxr_keyword">void</strong> equalsTests(<strong class="jxr_keyword">final</strong> T instance, <strong class="jxr_keyword">final</strong> T expected) {
-<a class="jxr_linenumber" name="L553" href="#L553">553</a> 
-<a class="jxr_linenumber" name="L554" href="#L554">554</a>         <em class="jxr_comment">// Perform hashCode test dependent on data coming in</em>
-<a class="jxr_linenumber" name="L555" href="#L555">555</a>         <em class="jxr_comment">// Assert.assertEquals(expected.hashCode(), instance.hashCode());</em>
-<a class="jxr_linenumber" name="L556" href="#L556">556</a>         <strong class="jxr_keyword">if</strong> (expected.hashCode() == instance.hashCode()) {
-<a class="jxr_linenumber" name="L557" href="#L557">557</a>             Assertions.assertEquals(expected.hashCode(), instance.hashCode());
-<a class="jxr_linenumber" name="L558" href="#L558">558</a>         } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L559" href="#L559">559</a>             Assertions.assertNotEquals(expected.hashCode(), instance.hashCode());
-<a class="jxr_linenumber" name="L560" href="#L560">560</a>         }
-<a class="jxr_linenumber" name="L561" href="#L561">561</a> 
-<a class="jxr_linenumber" name="L562" href="#L562">562</a>         <strong class="jxr_keyword">final</strong> <a name="ValueBuilder" href="../../../com/codebox/bean/ValueBuilder.html#ValueBuilder">ValueBuilder</a> valueBuilder = <strong class="jxr_keyword">new</strong> <a name="ValueBuilder" href="../../../com/codebox/bean/ValueBuilder.html#ValueBuilder">ValueBuilder</a>();
-<a class="jxr_linenumber" name="L563" href="#L563">563</a>         valueBuilder.setLoadData(<strong class="jxr_keyword">this</strong>.loadData);
-<a class="jxr_linenumber" name="L564" href="#L564">564</a> 
-<a class="jxr_linenumber" name="L565" href="#L565">565</a>         <strong class="jxr_keyword">final</strong> PropertyDescriptor[] props = <strong class="jxr_keyword">this</strong>.getProps(instance.getClass());
-<a class="jxr_linenumber" name="L566" href="#L566">566</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> PropertyDescriptor prop : props) {
-<a class="jxr_linenumber" name="L567" href="#L567">567</a>             Method getter = prop.getReadMethod();
-<a class="jxr_linenumber" name="L568" href="#L568">568</a>             <strong class="jxr_keyword">final</strong> Method setter = prop.getWriteMethod();
-<a class="jxr_linenumber" name="L569" href="#L569">569</a> 
-<a class="jxr_linenumber" name="L570" href="#L570">570</a>             <em class="jxr_comment">// Java Metro Bug Patch (Boolean Wrapper usage of 'is' possible</em>
-<a class="jxr_linenumber" name="L571" href="#L571">571</a>             <strong class="jxr_keyword">if</strong> (getter == <strong class="jxr_keyword">null</strong> &amp;&amp; setter != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L572" href="#L572">572</a>                 <strong class="jxr_keyword">final</strong> String isBooleanWrapper = <span class="jxr_string">"is"</span> + setter.getName().substring(3);
-<a class="jxr_linenumber" name="L573" href="#L573">573</a>                 <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L574" href="#L574">574</a>                     getter = <strong class="jxr_keyword">this</strong>.clazz.getMethod(isBooleanWrapper);
-<a class="jxr_linenumber" name="L575" href="#L575">575</a>                 } <strong class="jxr_keyword">catch</strong> (NoSuchMethodException | SecurityException e) {
-<a class="jxr_linenumber" name="L576" href="#L576">576</a>                     <em class="jxr_comment">// Do nothing</em>
-<a class="jxr_linenumber" name="L577" href="#L577">577</a>                 }
-<a class="jxr_linenumber" name="L578" href="#L578">578</a>             }
-<a class="jxr_linenumber" name="L579" href="#L579">579</a> 
-<a class="jxr_linenumber" name="L580" href="#L580">580</a>             <strong class="jxr_keyword">if</strong> (getter != <strong class="jxr_keyword">null</strong> &amp;&amp; setter != <strong class="jxr_keyword">null</strong>) {
-<a class="jxr_linenumber" name="L581" href="#L581">581</a>                 <em class="jxr_comment">// We have both a get and set method for this property</em>
-<a class="jxr_linenumber" name="L582" href="#L582">582</a>                 <strong class="jxr_keyword">final</strong> Class&lt;?&gt; returnType = getter.getReturnType();
-<a class="jxr_linenumber" name="L583" href="#L583">583</a>                 <strong class="jxr_keyword">final</strong> Class&lt;?&gt;[] params = setter.getParameterTypes();
-<a class="jxr_linenumber" name="L584" href="#L584">584</a> 
-<a class="jxr_linenumber" name="L585" href="#L585">585</a>                 <strong class="jxr_keyword">if</strong> (params.length == 1 &amp;&amp; params[0] == returnType) {
-<a class="jxr_linenumber" name="L586" href="#L586">586</a>                     <em class="jxr_comment">// The set method has 1 argument, which is of the same type as the return type of the get method, so</em>
-<a class="jxr_linenumber" name="L587" href="#L587">587</a>                     <em class="jxr_comment">// we can test this property</em>
-<a class="jxr_linenumber" name="L588" href="#L588">588</a>                     <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L589" href="#L589">589</a>                         <em class="jxr_comment">// Save original value</em>
-<a class="jxr_linenumber" name="L590" href="#L590">590</a>                         <strong class="jxr_keyword">final</strong> Object original = getter.invoke(instance);
-<a class="jxr_linenumber" name="L591" href="#L591">591</a> 
-<a class="jxr_linenumber" name="L592" href="#L592">592</a>                         <em class="jxr_comment">// Build a value of the correct type to be passed to the set method using alternate test</em>
-<a class="jxr_linenumber" name="L593" href="#L593">593</a>                         Object value = valueBuilder.buildValue(returnType, LoadType.ALTERNATE_DATA);
-<a class="jxr_linenumber" name="L594" href="#L594">594</a> 
-<a class="jxr_linenumber" name="L595" href="#L595">595</a>                         <em class="jxr_comment">// Call the set method, then check the same value comes back out of the get method</em>
-<a class="jxr_linenumber" name="L596" href="#L596">596</a>                         setter.invoke(instance, value);
-<a class="jxr_linenumber" name="L597" href="#L597">597</a> 
-<a class="jxr_linenumber" name="L598" href="#L598">598</a>                         <em class="jxr_comment">// Check equals depending on data</em>
-<a class="jxr_linenumber" name="L599" href="#L599">599</a>                         <strong class="jxr_keyword">if</strong> (instance.equals(expected)) {
-<a class="jxr_linenumber" name="L600" href="#L600">600</a>                             Assertions.assertEquals(expected, instance);
-<a class="jxr_linenumber" name="L601" href="#L601">601</a>                         } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L602" href="#L602">602</a>                             Assertions.assertNotEquals(expected, instance);
-<a class="jxr_linenumber" name="L603" href="#L603">603</a>                         }
-<a class="jxr_linenumber" name="L604" href="#L604">604</a> 
-<a class="jxr_linenumber" name="L605" href="#L605">605</a>                         <em class="jxr_comment">// Build a value of the correct type to be passed to the set method using null test</em>
-<a class="jxr_linenumber" name="L606" href="#L606">606</a>                         value = valueBuilder.buildValue(returnType, LoadType.NULL_DATA);
-<a class="jxr_linenumber" name="L607" href="#L607">607</a> 
-<a class="jxr_linenumber" name="L608" href="#L608">608</a>                         <em class="jxr_comment">// Call the set method, then check the same value comes back out of the get method</em>
-<a class="jxr_linenumber" name="L609" href="#L609">609</a>                         setter.invoke(instance, value);
-<a class="jxr_linenumber" name="L610" href="#L610">610</a> 
-<a class="jxr_linenumber" name="L611" href="#L611">611</a>                         <em class="jxr_comment">// Check equals depending on data</em>
-<a class="jxr_linenumber" name="L612" href="#L612">612</a>                         <strong class="jxr_keyword">if</strong> (instance.equals(expected)) {
-<a class="jxr_linenumber" name="L613" href="#L613">613</a>                             Assertions.assertEquals(expected, instance);
-<a class="jxr_linenumber" name="L614" href="#L614">614</a>                         } <strong class="jxr_keyword">else</strong> {
-<a class="jxr_linenumber" name="L615" href="#L615">615</a>                             Assertions.assertNotEquals(expected, instance);
-<a class="jxr_linenumber" name="L616" href="#L616">616</a>                         }
-<a class="jxr_linenumber" name="L617" href="#L617">617</a> 
-<a class="jxr_linenumber" name="L618" href="#L618">618</a>                         <em class="jxr_comment">// Reset to original value</em>
-<a class="jxr_linenumber" name="L619" href="#L619">619</a>                         setter.invoke(instance, original);
-<a class="jxr_linenumber" name="L620" href="#L620">620</a> 
-<a class="jxr_linenumber" name="L621" href="#L621">621</a>                     } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> IllegalAccessException | IllegalArgumentException | InvocationTargetException
-<a class="jxr_linenumber" name="L622" href="#L622">622</a>                             | SecurityException e) {
-<a class="jxr_linenumber" name="L623" href="#L623">623</a>                         Assertions.fail(
-<a class="jxr_linenumber" name="L624" href="#L624">624</a>                                 String.format(<span class="jxr_string">"An exception was thrown while testing the property (equals) '%s': '%s'"</span>,
-<a class="jxr_linenumber" name="L625" href="#L625">625</a>                                         prop.getName(), e.toString()));
-<a class="jxr_linenumber" name="L626" href="#L626">626</a>                     }
-<a class="jxr_linenumber" name="L627" href="#L627">627</a>                 }
-<a class="jxr_linenumber" name="L628" href="#L628">628</a>             }
-<a class="jxr_linenumber" name="L629" href="#L629">629</a>         }
-<a class="jxr_linenumber" name="L630" href="#L630">630</a>     }
+<a class="jxr_linenumber" name="L541" href="#L541">541</a> 
+<a class="jxr_linenumber" name="L542" href="#L542">542</a>         <em class="jxr_comment">// Create Extension Immutable Instance</em>
+<a class="jxr_linenumber" name="L543" href="#L543">543</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L544" href="#L544">544</a>             <strong class="jxr_keyword">final</strong> E e = <strong class="jxr_keyword">new</strong> ClassInstance&lt;E&gt;().newInstance(<strong class="jxr_keyword">this</strong>.extension);
+<a class="jxr_linenumber" name="L545" href="#L545">545</a>             ByteBuddyBeanCopier.copy(ext, e, (value, targetType) -&gt; {
+<a class="jxr_linenumber" name="L546" href="#L546">546</a>                 <strong class="jxr_keyword">if</strong> (targetType == <strong class="jxr_keyword">boolean</strong>.<strong class="jxr_keyword">class</strong>) {
+<a class="jxr_linenumber" name="L547" href="#L547">547</a>                     <strong class="jxr_keyword">return</strong> value == <strong class="jxr_keyword">null</strong> ? Boolean.FALSE : value;
+<a class="jxr_linenumber" name="L548" href="#L548">548</a>                 }
+<a class="jxr_linenumber" name="L549" href="#L549">549</a>                 <strong class="jxr_keyword">return</strong> value;
+<a class="jxr_linenumber" name="L550" href="#L550">550</a>             });
+<a class="jxr_linenumber" name="L551" href="#L551">551</a>             Assertions.assertEquals(e, ext);
+<a class="jxr_linenumber" name="L552" href="#L552">552</a>         } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> Exception e) {
+<a class="jxr_linenumber" name="L553" href="#L553">553</a>             JavaBeanTesterWorker.LOGGER.trace(<span class="jxr_string">"Do nothing class is not mutable"</span>, e);
+<a class="jxr_linenumber" name="L554" href="#L554">554</a>         }
+<a class="jxr_linenumber" name="L555" href="#L555">555</a>     }
+<a class="jxr_linenumber" name="L556" href="#L556">556</a> 
+<a class="jxr_linenumber" name="L557" href="#L557">557</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L558" href="#L558">558</a> <em class="jxr_javadoccomment">     * Equals Tests will traverse one object changing values until all have been tested against another object. This is</em>
+<a class="jxr_linenumber" name="L559" href="#L559">559</a> <em class="jxr_javadoccomment">     * done to effectively test all paths through equals.</em>
+<a class="jxr_linenumber" name="L560" href="#L560">560</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L561" href="#L561">561</a> <em class="jxr_javadoccomment">     * @param instance</em>
+<a class="jxr_linenumber" name="L562" href="#L562">562</a> <em class="jxr_javadoccomment">     *            the class instance under test.</em>
+<a class="jxr_linenumber" name="L563" href="#L563">563</a> <em class="jxr_javadoccomment">     * @param expected</em>
+<a class="jxr_linenumber" name="L564" href="#L564">564</a> <em class="jxr_javadoccomment">     *            the instance expected for tests.</em>
+<a class="jxr_linenumber" name="L565" href="#L565">565</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L566" href="#L566">566</a>     <strong class="jxr_keyword">void</strong> equalsTests(<strong class="jxr_keyword">final</strong> T instance, <strong class="jxr_keyword">final</strong> T expected) {
+<a class="jxr_linenumber" name="L567" href="#L567">567</a> 
+<a class="jxr_linenumber" name="L568" href="#L568">568</a>         <em class="jxr_comment">// Perform hashCode test dependent on data coming in</em>
+<a class="jxr_linenumber" name="L569" href="#L569">569</a>         <em class="jxr_comment">// Assert.assertEquals(expected.hashCode(), instance.hashCode());</em>
+<a class="jxr_linenumber" name="L570" href="#L570">570</a>         <strong class="jxr_keyword">if</strong> (expected.hashCode() == instance.hashCode()) {
+<a class="jxr_linenumber" name="L571" href="#L571">571</a>             Assertions.assertEquals(expected.hashCode(), instance.hashCode());
+<a class="jxr_linenumber" name="L572" href="#L572">572</a>         } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L573" href="#L573">573</a>             Assertions.assertNotEquals(expected.hashCode(), instance.hashCode());
+<a class="jxr_linenumber" name="L574" href="#L574">574</a>         }
+<a class="jxr_linenumber" name="L575" href="#L575">575</a> 
+<a class="jxr_linenumber" name="L576" href="#L576">576</a>         <strong class="jxr_keyword">final</strong> <a name="ValueBuilder" href="../../../com/codebox/bean/ValueBuilder.html#ValueBuilder">ValueBuilder</a> valueBuilder = <strong class="jxr_keyword">new</strong> <a name="ValueBuilder" href="../../../com/codebox/bean/ValueBuilder.html#ValueBuilder">ValueBuilder</a>();
+<a class="jxr_linenumber" name="L577" href="#L577">577</a>         valueBuilder.setLoadData(<strong class="jxr_keyword">this</strong>.loadData);
+<a class="jxr_linenumber" name="L578" href="#L578">578</a> 
+<a class="jxr_linenumber" name="L579" href="#L579">579</a>         <strong class="jxr_keyword">final</strong> PropertyDescriptor[] props = <strong class="jxr_keyword">this</strong>.getProps(instance.getClass());
+<a class="jxr_linenumber" name="L580" href="#L580">580</a>         <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> PropertyDescriptor prop : props) {
+<a class="jxr_linenumber" name="L581" href="#L581">581</a>             Method getter = prop.getReadMethod();
+<a class="jxr_linenumber" name="L582" href="#L582">582</a>             <strong class="jxr_keyword">final</strong> Method setter = prop.getWriteMethod();
+<a class="jxr_linenumber" name="L583" href="#L583">583</a> 
+<a class="jxr_linenumber" name="L584" href="#L584">584</a>             <em class="jxr_comment">// Java Metro Bug Patch (Boolean Wrapper usage of 'is' possible</em>
+<a class="jxr_linenumber" name="L585" href="#L585">585</a>             <strong class="jxr_keyword">if</strong> (getter == <strong class="jxr_keyword">null</strong> &amp;&amp; setter != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L586" href="#L586">586</a>                 <strong class="jxr_keyword">final</strong> String isBooleanWrapper = <span class="jxr_string">"is"</span> + setter.getName().substring(3);
+<a class="jxr_linenumber" name="L587" href="#L587">587</a>                 <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L588" href="#L588">588</a>                     getter = <strong class="jxr_keyword">this</strong>.clazz.getMethod(isBooleanWrapper);
+<a class="jxr_linenumber" name="L589" href="#L589">589</a>                 } <strong class="jxr_keyword">catch</strong> (NoSuchMethodException | SecurityException e) {
+<a class="jxr_linenumber" name="L590" href="#L590">590</a>                     <em class="jxr_comment">// Do nothing</em>
+<a class="jxr_linenumber" name="L591" href="#L591">591</a>                 }
+<a class="jxr_linenumber" name="L592" href="#L592">592</a>             }
+<a class="jxr_linenumber" name="L593" href="#L593">593</a> 
+<a class="jxr_linenumber" name="L594" href="#L594">594</a>             <strong class="jxr_keyword">if</strong> (getter != <strong class="jxr_keyword">null</strong> &amp;&amp; setter != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L595" href="#L595">595</a>                 <em class="jxr_comment">// We have both a get and set method for this property</em>
+<a class="jxr_linenumber" name="L596" href="#L596">596</a>                 <strong class="jxr_keyword">final</strong> Class&lt;?&gt; returnType = getter.getReturnType();
+<a class="jxr_linenumber" name="L597" href="#L597">597</a>                 <strong class="jxr_keyword">final</strong> Class&lt;?&gt;[] params = setter.getParameterTypes();
+<a class="jxr_linenumber" name="L598" href="#L598">598</a> 
+<a class="jxr_linenumber" name="L599" href="#L599">599</a>                 <strong class="jxr_keyword">if</strong> (params.length == 1 &amp;&amp; params[0] == returnType) {
+<a class="jxr_linenumber" name="L600" href="#L600">600</a>                     <em class="jxr_comment">// The set method has 1 argument, which is of the same type as the return type of the get method, so</em>
+<a class="jxr_linenumber" name="L601" href="#L601">601</a>                     <em class="jxr_comment">// we can test this property</em>
+<a class="jxr_linenumber" name="L602" href="#L602">602</a>                     <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L603" href="#L603">603</a>                         <em class="jxr_comment">// Save original value</em>
+<a class="jxr_linenumber" name="L604" href="#L604">604</a>                         <strong class="jxr_keyword">final</strong> Object original = getter.invoke(instance);
+<a class="jxr_linenumber" name="L605" href="#L605">605</a> 
+<a class="jxr_linenumber" name="L606" href="#L606">606</a>                         <em class="jxr_comment">// Build a value of the correct type to be passed to the set method using alternate test</em>
+<a class="jxr_linenumber" name="L607" href="#L607">607</a>                         Object value = valueBuilder.buildValue(returnType, LoadType.ALTERNATE_DATA);
+<a class="jxr_linenumber" name="L608" href="#L608">608</a> 
+<a class="jxr_linenumber" name="L609" href="#L609">609</a>                         <em class="jxr_comment">// Call the set method, then check the same value comes back out of the get method</em>
+<a class="jxr_linenumber" name="L610" href="#L610">610</a>                         setter.invoke(instance, value);
+<a class="jxr_linenumber" name="L611" href="#L611">611</a> 
+<a class="jxr_linenumber" name="L612" href="#L612">612</a>                         <em class="jxr_comment">// Check equals depending on data</em>
+<a class="jxr_linenumber" name="L613" href="#L613">613</a>                         <strong class="jxr_keyword">if</strong> (instance.equals(expected)) {
+<a class="jxr_linenumber" name="L614" href="#L614">614</a>                             Assertions.assertEquals(expected, instance);
+<a class="jxr_linenumber" name="L615" href="#L615">615</a>                         } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L616" href="#L616">616</a>                             Assertions.assertNotEquals(expected, instance);
+<a class="jxr_linenumber" name="L617" href="#L617">617</a>                         }
+<a class="jxr_linenumber" name="L618" href="#L618">618</a> 
+<a class="jxr_linenumber" name="L619" href="#L619">619</a>                         <em class="jxr_comment">// Build a value of the correct type to be passed to the set method using null test</em>
+<a class="jxr_linenumber" name="L620" href="#L620">620</a>                         value = valueBuilder.buildValue(returnType, LoadType.NULL_DATA);
+<a class="jxr_linenumber" name="L621" href="#L621">621</a> 
+<a class="jxr_linenumber" name="L622" href="#L622">622</a>                         <em class="jxr_comment">// Call the set method, then check the same value comes back out of the get method</em>
+<a class="jxr_linenumber" name="L623" href="#L623">623</a>                         setter.invoke(instance, value);
+<a class="jxr_linenumber" name="L624" href="#L624">624</a> 
+<a class="jxr_linenumber" name="L625" href="#L625">625</a>                         <em class="jxr_comment">// Check equals depending on data</em>
+<a class="jxr_linenumber" name="L626" href="#L626">626</a>                         <strong class="jxr_keyword">if</strong> (instance.equals(expected)) {
+<a class="jxr_linenumber" name="L627" href="#L627">627</a>                             Assertions.assertEquals(expected, instance);
+<a class="jxr_linenumber" name="L628" href="#L628">628</a>                         } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L629" href="#L629">629</a>                             Assertions.assertNotEquals(expected, instance);
+<a class="jxr_linenumber" name="L630" href="#L630">630</a>                         }
 <a class="jxr_linenumber" name="L631" href="#L631">631</a> 
-<a class="jxr_linenumber" name="L632" href="#L632">632</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L633" href="#L633">633</a> <em class="jxr_javadoccomment">     * Class has setters.</em>
-<a class="jxr_linenumber" name="L634" href="#L634">634</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L635" href="#L635">635</a> <em class="jxr_javadoccomment">     * @param clazz</em>
-<a class="jxr_linenumber" name="L636" href="#L636">636</a> <em class="jxr_javadoccomment">     *            the clazz</em>
-<a class="jxr_linenumber" name="L637" href="#L637">637</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L638" href="#L638">638</a> <em class="jxr_javadoccomment">     * @return true, if successful</em>
-<a class="jxr_linenumber" name="L639" href="#L639">639</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L640" href="#L640">640</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> classHasSetters(<strong class="jxr_keyword">final</strong> Class&lt;T&gt; clazz) {
-<a class="jxr_linenumber" name="L641" href="#L641">641</a>         <strong class="jxr_keyword">return</strong> Arrays.stream(<strong class="jxr_keyword">this</strong>.getProps(clazz))
-<a class="jxr_linenumber" name="L642" href="#L642">642</a>                 .anyMatch(propertyDescriptor -&gt; propertyDescriptor.getWriteMethod() != <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="L643" href="#L643">643</a>     }
-<a class="jxr_linenumber" name="L644" href="#L644">644</a> 
-<a class="jxr_linenumber" name="L645" href="#L645">645</a>     <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="L646" href="#L646">646</a> <em class="jxr_javadoccomment">     * Gets the props.</em>
-<a class="jxr_linenumber" name="L647" href="#L647">647</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L648" href="#L648">648</a> <em class="jxr_javadoccomment">     * @param clazz</em>
-<a class="jxr_linenumber" name="L649" href="#L649">649</a> <em class="jxr_javadoccomment">     *            the clazz</em>
-<a class="jxr_linenumber" name="L650" href="#L650">650</a> <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="L651" href="#L651">651</a> <em class="jxr_javadoccomment">     * @return the props</em>
-<a class="jxr_linenumber" name="L652" href="#L652">652</a> <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="L653" href="#L653">653</a>     <strong class="jxr_keyword">private</strong> PropertyDescriptor[] getProps(<strong class="jxr_keyword">final</strong> Class&lt;?&gt; clazz) {
-<a class="jxr_linenumber" name="L654" href="#L654">654</a>         <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L655" href="#L655">655</a>             <strong class="jxr_keyword">final</strong> List&lt;PropertyDescriptor&gt; usedProps = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;(
-<a class="jxr_linenumber" name="L656" href="#L656">656</a>                     Introspector.getBeanInfo(clazz).getPropertyDescriptors().length);
-<a class="jxr_linenumber" name="L657" href="#L657">657</a>             <strong class="jxr_keyword">final</strong> List&lt;PropertyDescriptor&gt; props = Arrays
-<a class="jxr_linenumber" name="L658" href="#L658">658</a>                     .asList(Introspector.getBeanInfo(clazz).getPropertyDescriptors());
-<a class="jxr_linenumber" name="L659" href="#L659">659</a>             nextProp: <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> PropertyDescriptor prop : props) {
-<a class="jxr_linenumber" name="L660" href="#L660">660</a>                 <em class="jxr_comment">// Check the list of properties that we don't want to test</em>
-<a class="jxr_linenumber" name="L661" href="#L661">661</a>                 <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> String skipThis : <strong class="jxr_keyword">this</strong>.skipThese) {
-<a class="jxr_linenumber" name="L662" href="#L662">662</a>                     <strong class="jxr_keyword">if</strong> (skipThis.equals(prop.getName())) {
-<a class="jxr_linenumber" name="L663" href="#L663">663</a>                         <strong class="jxr_keyword">continue</strong> nextProp;
-<a class="jxr_linenumber" name="L664" href="#L664">664</a>                     }
-<a class="jxr_linenumber" name="L665" href="#L665">665</a>                 }
-<a class="jxr_linenumber" name="L666" href="#L666">666</a>                 usedProps.add(prop);
-<a class="jxr_linenumber" name="L667" href="#L667">667</a>             }
-<a class="jxr_linenumber" name="L668" href="#L668">668</a>             <strong class="jxr_keyword">return</strong> usedProps.toArray(<strong class="jxr_keyword">new</strong> PropertyDescriptor[usedProps.size()]);
-<a class="jxr_linenumber" name="L669" href="#L669">669</a>         } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> IntrospectionException e) {
-<a class="jxr_linenumber" name="L670" href="#L670">670</a>             Assertions.fail(String.format(<span class="jxr_string">"An exception was thrown while testing class '%s': '%s'"</span>,
-<a class="jxr_linenumber" name="L671" href="#L671">671</a>                     <strong class="jxr_keyword">this</strong>.clazz.getName(), e.toString()));
-<a class="jxr_linenumber" name="L672" href="#L672">672</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> PropertyDescriptor[0];
-<a class="jxr_linenumber" name="L673" href="#L673">673</a>         }
-<a class="jxr_linenumber" name="L674" href="#L674">674</a>     }
-<a class="jxr_linenumber" name="L675" href="#L675">675</a> 
-<a class="jxr_linenumber" name="L676" href="#L676">676</a> }
+<a class="jxr_linenumber" name="L632" href="#L632">632</a>                         <em class="jxr_comment">// Reset to original value</em>
+<a class="jxr_linenumber" name="L633" href="#L633">633</a>                         setter.invoke(instance, original);
+<a class="jxr_linenumber" name="L634" href="#L634">634</a> 
+<a class="jxr_linenumber" name="L635" href="#L635">635</a>                     } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> IllegalAccessException | IllegalArgumentException | InvocationTargetException
+<a class="jxr_linenumber" name="L636" href="#L636">636</a>                             | SecurityException e) {
+<a class="jxr_linenumber" name="L637" href="#L637">637</a>                         Assertions.fail(
+<a class="jxr_linenumber" name="L638" href="#L638">638</a>                                 String.format(<span class="jxr_string">"An exception was thrown while testing the property (equals) '%s': '%s'"</span>,
+<a class="jxr_linenumber" name="L639" href="#L639">639</a>                                         prop.getName(), e.toString()));
+<a class="jxr_linenumber" name="L640" href="#L640">640</a>                     }
+<a class="jxr_linenumber" name="L641" href="#L641">641</a>                 }
+<a class="jxr_linenumber" name="L642" href="#L642">642</a>             }
+<a class="jxr_linenumber" name="L643" href="#L643">643</a>         }
+<a class="jxr_linenumber" name="L644" href="#L644">644</a>     }
+<a class="jxr_linenumber" name="L645" href="#L645">645</a> 
+<a class="jxr_linenumber" name="L646" href="#L646">646</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L647" href="#L647">647</a> <em class="jxr_javadoccomment">     * Class has setters.</em>
+<a class="jxr_linenumber" name="L648" href="#L648">648</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L649" href="#L649">649</a> <em class="jxr_javadoccomment">     * @param clazz</em>
+<a class="jxr_linenumber" name="L650" href="#L650">650</a> <em class="jxr_javadoccomment">     *            the clazz</em>
+<a class="jxr_linenumber" name="L651" href="#L651">651</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L652" href="#L652">652</a> <em class="jxr_javadoccomment">     * @return true, if successful</em>
+<a class="jxr_linenumber" name="L653" href="#L653">653</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L654" href="#L654">654</a>     <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">boolean</strong> classHasSetters(<strong class="jxr_keyword">final</strong> Class&lt;T&gt; clazz) {
+<a class="jxr_linenumber" name="L655" href="#L655">655</a>         <strong class="jxr_keyword">return</strong> Arrays.stream(<strong class="jxr_keyword">this</strong>.getProps(clazz))
+<a class="jxr_linenumber" name="L656" href="#L656">656</a>                 .anyMatch(propertyDescriptor -&gt; propertyDescriptor.getWriteMethod() != <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L657" href="#L657">657</a>     }
+<a class="jxr_linenumber" name="L658" href="#L658">658</a> 
+<a class="jxr_linenumber" name="L659" href="#L659">659</a>     <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L660" href="#L660">660</a> <em class="jxr_javadoccomment">     * Gets the props.</em>
+<a class="jxr_linenumber" name="L661" href="#L661">661</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L662" href="#L662">662</a> <em class="jxr_javadoccomment">     * @param clazz</em>
+<a class="jxr_linenumber" name="L663" href="#L663">663</a> <em class="jxr_javadoccomment">     *            the clazz</em>
+<a class="jxr_linenumber" name="L664" href="#L664">664</a> <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="L665" href="#L665">665</a> <em class="jxr_javadoccomment">     * @return the props</em>
+<a class="jxr_linenumber" name="L666" href="#L666">666</a> <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="L667" href="#L667">667</a>     <strong class="jxr_keyword">private</strong> PropertyDescriptor[] getProps(<strong class="jxr_keyword">final</strong> Class&lt;?&gt; clazz) {
+<a class="jxr_linenumber" name="L668" href="#L668">668</a>         <strong class="jxr_keyword">try</strong> {
+<a class="jxr_linenumber" name="L669" href="#L669">669</a>             <strong class="jxr_keyword">final</strong> List&lt;PropertyDescriptor&gt; usedProps = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;(
+<a class="jxr_linenumber" name="L670" href="#L670">670</a>                     Introspector.getBeanInfo(clazz).getPropertyDescriptors().length);
+<a class="jxr_linenumber" name="L671" href="#L671">671</a>             <strong class="jxr_keyword">final</strong> List&lt;PropertyDescriptor&gt; props = Arrays
+<a class="jxr_linenumber" name="L672" href="#L672">672</a>                     .asList(Introspector.getBeanInfo(clazz).getPropertyDescriptors());
+<a class="jxr_linenumber" name="L673" href="#L673">673</a>             nextProp: <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> PropertyDescriptor prop : props) {
+<a class="jxr_linenumber" name="L674" href="#L674">674</a>                 <em class="jxr_comment">// Check the list of properties that we don't want to test</em>
+<a class="jxr_linenumber" name="L675" href="#L675">675</a>                 <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">final</strong> String skipThis : <strong class="jxr_keyword">this</strong>.skipThese) {
+<a class="jxr_linenumber" name="L676" href="#L676">676</a>                     <strong class="jxr_keyword">if</strong> (skipThis.equals(prop.getName())) {
+<a class="jxr_linenumber" name="L677" href="#L677">677</a>                         <strong class="jxr_keyword">continue</strong> nextProp;
+<a class="jxr_linenumber" name="L678" href="#L678">678</a>                     }
+<a class="jxr_linenumber" name="L679" href="#L679">679</a>                 }
+<a class="jxr_linenumber" name="L680" href="#L680">680</a>                 usedProps.add(prop);
+<a class="jxr_linenumber" name="L681" href="#L681">681</a>             }
+<a class="jxr_linenumber" name="L682" href="#L682">682</a>             <strong class="jxr_keyword">return</strong> usedProps.toArray(<strong class="jxr_keyword">new</strong> PropertyDescriptor[usedProps.size()]);
+<a class="jxr_linenumber" name="L683" href="#L683">683</a>         } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> IntrospectionException e) {
+<a class="jxr_linenumber" name="L684" href="#L684">684</a>             Assertions.fail(String.format(<span class="jxr_string">"An exception was thrown while testing class '%s': '%s'"</span>,
+<a class="jxr_linenumber" name="L685" href="#L685">685</a>                     <strong class="jxr_keyword">this</strong>.clazz.getName(), e.toString()));
+<a class="jxr_linenumber" name="L686" href="#L686">686</a>             <strong class="jxr_keyword">return</strong> <strong class="jxr_keyword">new</strong> PropertyDescriptor[0];
+<a class="jxr_linenumber" name="L687" href="#L687">687</a>         }
+<a class="jxr_linenumber" name="L688" href="#L688">688</a>     }
+<a class="jxr_linenumber" name="L689" href="#L689">689</a> 
+<a class="jxr_linenumber" name="L690" href="#L690">690</a> }
 </pre>
 <hr/>
 <div id="footer">© 2012–2025 <a href="https://github.com/hazendaz/">hazendaz</a></div>

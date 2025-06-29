@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JavaBeanTesterWorker.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">javabean-tester</a> &gt; <a href="index.source.html" class="el_package">com.codebox.bean</a> &gt; <span class="el_source">JavaBeanTesterWorker.java</span></div><h1>JavaBeanTesterWorker.java</h1><pre class="source lang-java linenums">/*
  * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
  *
- * Copyright 2012-2023 Hazendaz.
+ * Copyright 2012-2025 Hazendaz.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of The Apache Software License,
@@ -37,6 +37,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -46,9 +47,8 @@ import java.util.Set;
 
 import lombok.Data;
 
-import net.sf.cglib.beans.BeanCopier;
-
 import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 
 import org.junit.jupiter.api.Assertions;
 import org.slf4j.Logger;
@@ -238,7 +238,7 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
 <span class="fc bfc" id="L238" title="All 4 branches covered.">                        if (this.clazz == Date.class &amp;&amp; prop.getName().equals(&quot;month&quot;)</span>
 <span class="pc bpc" id="L239" title="1 of 2 branches missed.">                                &amp;&amp; expectedValue.equals(Integer.valueOf(&quot;1&quot;))</span>
 <span class="pc bpc" id="L240" title="1 of 2 branches missed.">                                &amp;&amp; actualValue.equals(Integer.valueOf(&quot;2&quot;))) {</span>
-<span class="nc" id="L241">                            actualValue = Integer.valueOf(&quot;1&quot;);</span>
+<span class="fc" id="L241">                            actualValue = Integer.valueOf(&quot;1&quot;);</span>
                         }
 
 <span class="fc" id="L244">                        Assertions.assertEquals(expectedValue, actualValue,</span>
@@ -357,7 +357,7 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
      * @return true, if successful
      */
     boolean implementsSerializable(final T object) {
-<span class="pc bpc" id="L360" title="1 of 4 branches missed.">        return object instanceof Serializable || object instanceof Externalizable;</span>
+<span class="pc bpc" id="L360" title="1 of 4 branches missed.">        return object instanceof Externalizable || object instanceof Serializable;</span>
     }
 
     /**
@@ -415,10 +415,10 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
     public void equalsHashCodeToStringSymmetricTest() {
         // Run Equals Verifier
         try {
-<span class="nc" id="L418">            EqualsVerifier.simple().forClass(this.clazz).verify();</span>
-<span class="fc" id="L419">        } catch (AssertionError e) {</span>
-<span class="fc" id="L420">            JavaBeanTesterWorker.LOGGER.warn(&quot;EqualsVerifier attempt failed: {}&quot;, e.getMessage());</span>
-<span class="nc" id="L421">        }</span>
+<span class="fc" id="L418">            EqualsVerifier.simple().forClass(this.clazz).suppress(Warning.BIGDECIMAL_EQUALITY).verify();</span>
+<span class="nc" id="L419">        } catch (AssertionError e) {</span>
+<span class="nc" id="L420">            JavaBeanTesterWorker.LOGGER.warn(&quot;EqualsVerifier attempt failed: {}&quot;, e.getMessage());</span>
+<span class="fc" id="L421">        }</span>
 
         // Create Instances
 <span class="fc" id="L424">        final T x = new ClassInstance&lt;T&gt;().newInstance(this.clazz);</span>
@@ -521,24 +521,38 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
 
         // Create Immutable Instance
         try {
-<span class="fc" id="L524">            final BeanCopier clazzBeanCopier = BeanCopier.create(this.clazz, this.clazz, true);</span>
-<span class="fc" id="L525">            final T e = new ClassInstance&lt;T&gt;().newInstance(this.clazz);</span>
-<span class="fc" id="L526">            clazzBeanCopier.copy(x, e, null);</span>
-<span class="fc" id="L527">            Assertions.assertEquals(e, x);</span>
-<span class="fc" id="L528">        } catch (final Exception e) {</span>
-<span class="fc" id="L529">            JavaBeanTesterWorker.LOGGER.trace(&quot;Do nothing class is not mutable&quot;, e);</span>
-<span class="fc" id="L530">        }</span>
+<span class="fc" id="L524">            final T e = new ClassInstance&lt;T&gt;().newInstance(this.clazz);</span>
+<span class="fc" id="L525">            ByteBuddyBeanCopier.copy(x, e, (value, targetType) -&gt; {</span>
+<span class="fc bfc" id="L526" title="All 2 branches covered.">                if (targetType == boolean.class) {</span>
+<span class="pc bpc" id="L527" title="1 of 2 branches missed.">                    return value == null ? Boolean.FALSE : value;</span>
+                }
+<span class="fc" id="L529">                return value;</span>
+            });
+<span class="fc" id="L531">            Assertions.assertEquals(e, x);</span>
+<span class="nc" id="L532">        } catch (final Exception e) {</span>
+<span class="nc" id="L533">            JavaBeanTesterWorker.LOGGER.trace(&quot;Do nothing class is not mutable&quot;, e);</span>
+<span class="fc" id="L534">        }</span>
+
+        // If class is final, use Object.class for comparison needs
+<span class="fc bfc" id="L537" title="All 2 branches covered.">        if (Modifier.isFinal(clazz.getModifiers())) {</span>
+<span class="fc" id="L538">            JavaBeanTesterWorker.LOGGER.trace(&quot;Final object does not go through final equals check&quot;);</span>
+<span class="fc" id="L539">            return;</span>
+        }
 
         // Create Extension Immutable Instance
         try {
-<span class="fc" id="L534">            final BeanCopier extensionBeanCopier = BeanCopier.create(this.extension, this.extension, true);</span>
-<span class="fc" id="L535">            final E e = new ClassInstance&lt;E&gt;().newInstance(this.extension);</span>
-<span class="nc" id="L536">            extensionBeanCopier.copy(ext, e, null);</span>
-<span class="nc" id="L537">            Assertions.assertEquals(e, ext);</span>
-<span class="fc" id="L538">        } catch (final Exception e) {</span>
-<span class="fc" id="L539">            JavaBeanTesterWorker.LOGGER.trace(&quot;Do nothing class is not mutable&quot;, e);</span>
-<span class="nc" id="L540">        }</span>
-<span class="fc" id="L541">    }</span>
+<span class="fc" id="L544">            final E e = new ClassInstance&lt;E&gt;().newInstance(this.extension);</span>
+<span class="fc" id="L545">            ByteBuddyBeanCopier.copy(ext, e, (value, targetType) -&gt; {</span>
+<span class="fc bfc" id="L546" title="All 2 branches covered.">                if (targetType == boolean.class) {</span>
+<span class="pc bpc" id="L547" title="1 of 2 branches missed.">                    return value == null ? Boolean.FALSE : value;</span>
+                }
+<span class="fc" id="L549">                return value;</span>
+            });
+<span class="fc" id="L551">            Assertions.assertEquals(e, ext);</span>
+<span class="nc" id="L552">        } catch (final Exception e) {</span>
+<span class="nc" id="L553">            JavaBeanTesterWorker.LOGGER.trace(&quot;Do nothing class is not mutable&quot;, e);</span>
+<span class="fc" id="L554">        }</span>
+<span class="fc" id="L555">    }</span>
 
     /**
      * Equals Tests will traverse one object changing values until all have been tested against another object. This is
@@ -553,81 +567,81 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
 
         // Perform hashCode test dependent on data coming in
         // Assert.assertEquals(expected.hashCode(), instance.hashCode());
-<span class="fc bfc" id="L556" title="All 2 branches covered.">        if (expected.hashCode() == instance.hashCode()) {</span>
-<span class="fc" id="L557">            Assertions.assertEquals(expected.hashCode(), instance.hashCode());</span>
+<span class="fc bfc" id="L570" title="All 2 branches covered.">        if (expected.hashCode() == instance.hashCode()) {</span>
+<span class="fc" id="L571">            Assertions.assertEquals(expected.hashCode(), instance.hashCode());</span>
         } else {
-<span class="fc" id="L559">            Assertions.assertNotEquals(expected.hashCode(), instance.hashCode());</span>
+<span class="fc" id="L573">            Assertions.assertNotEquals(expected.hashCode(), instance.hashCode());</span>
         }
 
-<span class="fc" id="L562">        final ValueBuilder valueBuilder = new ValueBuilder();</span>
-<span class="fc" id="L563">        valueBuilder.setLoadData(this.loadData);</span>
+<span class="fc" id="L576">        final ValueBuilder valueBuilder = new ValueBuilder();</span>
+<span class="fc" id="L577">        valueBuilder.setLoadData(this.loadData);</span>
 
-<span class="fc" id="L565">        final PropertyDescriptor[] props = this.getProps(instance.getClass());</span>
-<span class="fc bfc" id="L566" title="All 2 branches covered.">        for (final PropertyDescriptor prop : props) {</span>
-<span class="fc" id="L567">            Method getter = prop.getReadMethod();</span>
-<span class="fc" id="L568">            final Method setter = prop.getWriteMethod();</span>
+<span class="fc" id="L579">        final PropertyDescriptor[] props = this.getProps(instance.getClass());</span>
+<span class="fc bfc" id="L580" title="All 2 branches covered.">        for (final PropertyDescriptor prop : props) {</span>
+<span class="fc" id="L581">            Method getter = prop.getReadMethod();</span>
+<span class="fc" id="L582">            final Method setter = prop.getWriteMethod();</span>
 
             // Java Metro Bug Patch (Boolean Wrapper usage of 'is' possible
-<span class="pc bpc" id="L571" title="1 of 4 branches missed.">            if (getter == null &amp;&amp; setter != null) {</span>
-<span class="fc" id="L572">                final String isBooleanWrapper = &quot;is&quot; + setter.getName().substring(3);</span>
+<span class="pc bpc" id="L585" title="1 of 4 branches missed.">            if (getter == null &amp;&amp; setter != null) {</span>
+<span class="fc" id="L586">                final String isBooleanWrapper = &quot;is&quot; + setter.getName().substring(3);</span>
                 try {
-<span class="fc" id="L574">                    getter = this.clazz.getMethod(isBooleanWrapper);</span>
-<span class="nc" id="L575">                } catch (NoSuchMethodException | SecurityException e) {</span>
+<span class="fc" id="L588">                    getter = this.clazz.getMethod(isBooleanWrapper);</span>
+<span class="nc" id="L589">                } catch (NoSuchMethodException | SecurityException e) {</span>
                     // Do nothing
-<span class="fc" id="L577">                }</span>
+<span class="fc" id="L591">                }</span>
             }
 
-<span class="pc bpc" id="L580" title="1 of 4 branches missed.">            if (getter != null &amp;&amp; setter != null) {</span>
+<span class="pc bpc" id="L594" title="1 of 4 branches missed.">            if (getter != null &amp;&amp; setter != null) {</span>
                 // We have both a get and set method for this property
-<span class="fc" id="L582">                final Class&lt;?&gt; returnType = getter.getReturnType();</span>
-<span class="fc" id="L583">                final Class&lt;?&gt;[] params = setter.getParameterTypes();</span>
+<span class="fc" id="L596">                final Class&lt;?&gt; returnType = getter.getReturnType();</span>
+<span class="fc" id="L597">                final Class&lt;?&gt;[] params = setter.getParameterTypes();</span>
 
-<span class="pc bpc" id="L585" title="2 of 4 branches missed.">                if (params.length == 1 &amp;&amp; params[0] == returnType) {</span>
+<span class="pc bpc" id="L599" title="2 of 4 branches missed.">                if (params.length == 1 &amp;&amp; params[0] == returnType) {</span>
                     // The set method has 1 argument, which is of the same type as the return type of the get method, so
                     // we can test this property
                     try {
                         // Save original value
-<span class="fc" id="L590">                        final Object original = getter.invoke(instance);</span>
+<span class="fc" id="L604">                        final Object original = getter.invoke(instance);</span>
 
                         // Build a value of the correct type to be passed to the set method using alternate test
-<span class="fc" id="L593">                        Object value = valueBuilder.buildValue(returnType, LoadType.ALTERNATE_DATA);</span>
+<span class="fc" id="L607">                        Object value = valueBuilder.buildValue(returnType, LoadType.ALTERNATE_DATA);</span>
 
                         // Call the set method, then check the same value comes back out of the get method
-<span class="fc" id="L596">                        setter.invoke(instance, value);</span>
+<span class="fc" id="L610">                        setter.invoke(instance, value);</span>
 
                         // Check equals depending on data
-<span class="fc bfc" id="L599" title="All 2 branches covered.">                        if (instance.equals(expected)) {</span>
-<span class="fc" id="L600">                            Assertions.assertEquals(expected, instance);</span>
+<span class="fc bfc" id="L613" title="All 2 branches covered.">                        if (instance.equals(expected)) {</span>
+<span class="fc" id="L614">                            Assertions.assertEquals(expected, instance);</span>
                         } else {
-<span class="fc" id="L602">                            Assertions.assertNotEquals(expected, instance);</span>
+<span class="fc" id="L616">                            Assertions.assertNotEquals(expected, instance);</span>
                         }
 
                         // Build a value of the correct type to be passed to the set method using null test
-<span class="fc" id="L606">                        value = valueBuilder.buildValue(returnType, LoadType.NULL_DATA);</span>
+<span class="fc" id="L620">                        value = valueBuilder.buildValue(returnType, LoadType.NULL_DATA);</span>
 
                         // Call the set method, then check the same value comes back out of the get method
-<span class="fc" id="L609">                        setter.invoke(instance, value);</span>
+<span class="fc" id="L623">                        setter.invoke(instance, value);</span>
 
                         // Check equals depending on data
-<span class="fc bfc" id="L612" title="All 2 branches covered.">                        if (instance.equals(expected)) {</span>
-<span class="fc" id="L613">                            Assertions.assertEquals(expected, instance);</span>
+<span class="fc bfc" id="L626" title="All 2 branches covered.">                        if (instance.equals(expected)) {</span>
+<span class="fc" id="L627">                            Assertions.assertEquals(expected, instance);</span>
                         } else {
-<span class="fc" id="L615">                            Assertions.assertNotEquals(expected, instance);</span>
+<span class="fc" id="L629">                            Assertions.assertNotEquals(expected, instance);</span>
                         }
 
                         // Reset to original value
-<span class="fc" id="L619">                        setter.invoke(instance, original);</span>
+<span class="fc" id="L633">                        setter.invoke(instance, original);</span>
 
-<span class="nc" id="L621">                    } catch (final IllegalAccessException | IllegalArgumentException | InvocationTargetException</span>
+<span class="nc" id="L635">                    } catch (final IllegalAccessException | IllegalArgumentException | InvocationTargetException</span>
                             | SecurityException e) {
-<span class="nc" id="L623">                        Assertions.fail(</span>
-<span class="nc" id="L624">                                String.format(&quot;An exception was thrown while testing the property (equals) '%s': '%s'&quot;,</span>
-<span class="nc" id="L625">                                        prop.getName(), e.toString()));</span>
-<span class="fc" id="L626">                    }</span>
+<span class="nc" id="L637">                        Assertions.fail(</span>
+<span class="nc" id="L638">                                String.format(&quot;An exception was thrown while testing the property (equals) '%s': '%s'&quot;,</span>
+<span class="nc" id="L639">                                        prop.getName(), e.toString()));</span>
+<span class="fc" id="L640">                    }</span>
                 }
             }
         }
-<span class="fc" id="L630">    }</span>
+<span class="fc" id="L644">    }</span>
 
     /**
      * Class has setters.
@@ -638,8 +652,8 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
      * @return true, if successful
      */
     private boolean classHasSetters(final Class&lt;T&gt; clazz) {
-<span class="fc" id="L641">        return Arrays.stream(this.getProps(clazz))</span>
-<span class="fc bfc" id="L642" title="All 2 branches covered.">                .anyMatch(propertyDescriptor -&gt; propertyDescriptor.getWriteMethod() != null);</span>
+<span class="fc" id="L655">        return Arrays.stream(this.getProps(clazz))</span>
+<span class="fc bfc" id="L656" title="All 2 branches covered.">                .anyMatch(propertyDescriptor -&gt; propertyDescriptor.getWriteMethod() != null);</span>
     }
 
     /**
@@ -652,24 +666,24 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
      */
     private PropertyDescriptor[] getProps(final Class&lt;?&gt; clazz) {
         try {
-<span class="fc" id="L655">            final List&lt;PropertyDescriptor&gt; usedProps = new ArrayList&lt;&gt;(</span>
-<span class="fc" id="L656">                    Introspector.getBeanInfo(clazz).getPropertyDescriptors().length);</span>
-<span class="fc" id="L657">            final List&lt;PropertyDescriptor&gt; props = Arrays</span>
-<span class="fc" id="L658">                    .asList(Introspector.getBeanInfo(clazz).getPropertyDescriptors());</span>
-<span class="fc bfc" id="L659" title="All 2 branches covered.">            nextProp: for (final PropertyDescriptor prop : props) {</span>
+<span class="fc" id="L669">            final List&lt;PropertyDescriptor&gt; usedProps = new ArrayList&lt;&gt;(</span>
+<span class="fc" id="L670">                    Introspector.getBeanInfo(clazz).getPropertyDescriptors().length);</span>
+<span class="fc" id="L671">            final List&lt;PropertyDescriptor&gt; props = Arrays</span>
+<span class="fc" id="L672">                    .asList(Introspector.getBeanInfo(clazz).getPropertyDescriptors());</span>
+<span class="fc bfc" id="L673" title="All 2 branches covered.">            nextProp: for (final PropertyDescriptor prop : props) {</span>
                 // Check the list of properties that we don't want to test
-<span class="fc bfc" id="L661" title="All 2 branches covered.">                for (final String skipThis : this.skipThese) {</span>
-<span class="fc bfc" id="L662" title="All 2 branches covered.">                    if (skipThis.equals(prop.getName())) {</span>
-<span class="fc" id="L663">                        continue nextProp;</span>
+<span class="fc bfc" id="L675" title="All 2 branches covered.">                for (final String skipThis : this.skipThese) {</span>
+<span class="fc bfc" id="L676" title="All 2 branches covered.">                    if (skipThis.equals(prop.getName())) {</span>
+<span class="fc" id="L677">                        continue nextProp;</span>
                     }
-<span class="fc" id="L665">                }</span>
-<span class="fc" id="L666">                usedProps.add(prop);</span>
-<span class="fc" id="L667">            }</span>
-<span class="fc" id="L668">            return usedProps.toArray(new PropertyDescriptor[usedProps.size()]);</span>
-<span class="nc" id="L669">        } catch (final IntrospectionException e) {</span>
-<span class="nc" id="L670">            Assertions.fail(String.format(&quot;An exception was thrown while testing class '%s': '%s'&quot;,</span>
-<span class="nc" id="L671">                    this.clazz.getName(), e.toString()));</span>
-<span class="nc" id="L672">            return new PropertyDescriptor[0];</span>
+<span class="fc" id="L679">                }</span>
+<span class="fc" id="L680">                usedProps.add(prop);</span>
+<span class="fc" id="L681">            }</span>
+<span class="fc" id="L682">            return usedProps.toArray(new PropertyDescriptor[usedProps.size()]);</span>
+<span class="nc" id="L683">        } catch (final IntrospectionException e) {</span>
+<span class="nc" id="L684">            Assertions.fail(String.format(&quot;An exception was thrown while testing class '%s': '%s'&quot;,</span>
+<span class="nc" id="L685">                    this.clazz.getName(), e.toString()));</span>
+<span class="nc" id="L686">            return new PropertyDescriptor[0];</span>
         }
     }
 
