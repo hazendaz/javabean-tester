@@ -553,7 +553,6 @@
                     <artifactId>spotbugs-maven-plugin</artifactId>
                     <version>4.9.3.2</version>
                     <configuration>
-                        <spotbugsXmlOutput>true</spotbugsXmlOutput>
                         <effort>max</effort>
                         <includeTests>true</includeTests>
                         <failOnError>false</failOnError>
