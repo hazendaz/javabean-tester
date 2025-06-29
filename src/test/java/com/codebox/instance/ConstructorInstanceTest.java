@@ -1,7 +1,7 @@
 /*
  * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
  *
- * Copyright 2012-2021 Hazendaz.
+ * Copyright 2012-2025 Hazendaz.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of The Apache Software License,
@@ -17,24 +17,29 @@ package com.codebox.instance;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-import mockit.Expectations;
-import mockit.Mocked;
-import mockit.Tested;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 /**
  * The Class ConstructorInstanceTest.
  */
-// TODO 1/12/2019 JWL Class is not mockable
+// TODO 2025-06-29 JWL Class is not mockable
 @Disabled
+@ExtendWith(MockitoExtension.class)
 class ConstructorInstanceTest {
 
     /** The constructor instance. */
-    @Tested
+    @InjectMocks
     ConstructorInstance constructorInstance;
+
+    @Mock
+    Constructor<?> mockConstructor;
 
     /**
      * New instance instantiation exception.
@@ -50,14 +55,9 @@ class ConstructorInstanceTest {
      *             the invocation target exception
      */
     @Test
-    void newInstanceInstantiationException(@Mocked final Constructor<?> mockConstructor)
+    void newInstanceInstantiationException()
             throws InstantiationException, IllegalAccessException, InvocationTargetException {
-        Assertions.assertNotNull(new Expectations() {
-            {
-                mockConstructor.newInstance();
-                this.result = new InstantiationException();
-            }
-        });
+        Mockito.when(mockConstructor.newInstance()).thenThrow(new InstantiationException());
 
         Assertions.assertThrows(InstantiationException.class, () -> {
             ConstructorInstance.newInstance(mockConstructor);
@@ -78,14 +78,9 @@ class ConstructorInstanceTest {
      *             the invocation target exception
      */
     @Test
-    void newInstanceIllegalAccessException(@Mocked final Constructor<?> mockConstructor)
+    void newInstanceIllegalAccessException()
             throws InstantiationException, IllegalAccessException, InvocationTargetException {
-        Assertions.assertNotNull(new Expectations() {
-            {
-                mockConstructor.newInstance();
-                this.result = new IllegalAccessException();
-            }
-        });
+        Mockito.when(mockConstructor.newInstance()).thenThrow(new IllegalAccessException());
 
         Assertions.assertThrows(IllegalAccessException.class, () -> {
             ConstructorInstance.newInstance(mockConstructor);
@@ -106,14 +101,9 @@ class ConstructorInstanceTest {
      *             the invocation target exception
      */
     @Test
-    void newInstanceInvocationTargetException(@Mocked final Constructor<?> mockConstructor)
+    void newInstanceInvocationTargetException()
             throws InstantiationException, IllegalAccessException, InvocationTargetException {
-        Assertions.assertNotNull(new Expectations() {
-            {
-                mockConstructor.newInstance();
-                this.result = new InvocationTargetException(this.withInstanceOf(Exception.class));
-            }
-        });
+        Mockito.when(mockConstructor.newInstance()).thenThrow(new InvocationTargetException(new Exception()));
 
         Assertions.assertThrows(InvocationTargetException.class, () -> {
             ConstructorInstance.newInstance(mockConstructor);

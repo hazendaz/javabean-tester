@@ -180,13 +180,25 @@
 
         <!-- Version Properties -->
         <byte-buddy.version>1.17.6</byte-buddy.version>
-        <jmockit.version>1.56.0</jmockit.version>
+        <junit.version>5.13.2</junit.version>
         <license.version>5.0.0</license.version>
         <slf4j.version>2.0.17</slf4j.version>
 
-        <!-- Surefire Argline -->
-        <argLine>-javaagent:${settings.localRepository}/com/github/hazendaz/jmockit/jmockit/${jmockit.version}/jmockit-${jmockit.version}.jar</argLine>
+        <!-- Surefire Settings -->
+        <argLine>-javaagent:${settings.localRepository}/net/bytebuddy/byte-buddy-agent/${byte-buddy.version}/byte-buddy-agent-${byte-buddy.version}.jar</argLine>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>${junit.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -245,15 +257,14 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.hazendaz.jmockit</groupId>
-            <artifactId>jmockit</artifactId>
-            <version>${jmockit.version}</version>
-            <scope>test</scope>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.13.2</version>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>5.18.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -1151,7 +1162,7 @@
                 <jdk>[17,)</jdk>
             </activation>
             <properties>
-                <argLine>-javaagent:${settings.localRepository}/com/github/hazendaz/jmockit/jmockit/${jmockit.version}/jmockit-${jmockit.version}.jar --add-opens java.base/java.lang=ALL-UNNAMED</argLine>
+                <argLine>-javaagent:${settings.localRepository}/net/bytebuddy/byte-buddy-agent/${byte-buddy.version}/byte-buddy-agent-${byte-buddy.version}.jar --add-opens java.base/java.lang=ALL-UNNAMED</argLine>
             </properties>
         </profile>
 
