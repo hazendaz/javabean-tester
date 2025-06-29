@@ -37,6 +37,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -45,8 +46,6 @@ import java.util.List;
 import java.util.Set;
 
 import lombok.Data;
-
-import net.sf.cglib.beans.BeanCopier;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
@@ -522,19 +521,33 @@ class JavaBeanTesterWorker<T, E> {
 
         // Create Immutable Instance
         try {
-            final BeanCopier clazzBeanCopier = BeanCopier.create(this.clazz, this.clazz, true);
             final T e = new ClassInstance<T>().newInstance(this.clazz);
-            clazzBeanCopier.copy(x, e, null);
+            ByteBuddyBeanCopier.copy(x, e, (value, targetType) -> {
+                if (targetType == boolean.class) {
+                    return value == null ? Boolean.FALSE : value;
+                }
+                return value;
+            });
             Assertions.assertEquals(e, x);
         } catch (final Exception e) {
             JavaBeanTesterWorker.LOGGER.trace("Do nothing class is not mutable", e);
         }
 
+        // If class is final, use Object.class for comparison needs
+        if (Modifier.isFinal(clazz.getModifiers())) {
+            JavaBeanTesterWorker.LOGGER.trace("Final object does not go through final equals check");
+            return;
+        }
+
         // Create Extension Immutable Instance
         try {
-            final BeanCopier extensionBeanCopier = BeanCopier.create(this.extension, this.extension, true);
             final E e = new ClassInstance<E>().newInstance(this.extension);
-            extensionBeanCopier.copy(ext, e, null);
+            ByteBuddyBeanCopier.copy(ext, e, (value, targetType) -> {
+                if (targetType == boolean.class) {
+                    return value == null ? Boolean.FALSE : value;
+                }
+                return value;
+            });
             Assertions.assertEquals(e, ext);
         } catch (final Exception e) {
             JavaBeanTesterWorker.LOGGER.trace("Do nothing class is not mutable", e);

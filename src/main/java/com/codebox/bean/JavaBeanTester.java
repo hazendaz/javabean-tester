@@ -1,7 +1,7 @@
 /*
  * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
  *
- * Copyright 2012-2024 Hazendaz.
+ * Copyright 2012-2025 Hazendaz.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of The Apache Software License,
@@ -22,10 +22,11 @@ import net.bytebuddy.description.NamedElement;
 import net.bytebuddy.description.modifier.Visibility;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;
-import net.bytebuddy.implementation.EqualsMethod;
 import net.bytebuddy.implementation.HashCodeMethod;
 import net.bytebuddy.implementation.MethodDelegation;
 import net.bytebuddy.implementation.ToStringMethod;
+import net.bytebuddy.implementation.bind.annotation.Argument;
+import net.bytebuddy.implementation.bind.annotation.This;
 import net.bytebuddy.matcher.ElementMatchers;
 
 /**
@@ -59,10 +60,11 @@ public enum JavaBeanTester {
             protected String name(TypeDescription superClass) {
                 return clazz.getPackageName() + ".ByteBuddyExt" + superClass.getSimpleName();
             }
-        }).subclass(clazz).method(ElementMatchers.isEquals()).intercept(EqualsMethod.requiringSuperClassEquality())
-                .method(ElementMatchers.isHashCode()).intercept(HashCodeMethod.usingSuperClassOffset())
-                .method(ElementMatchers.isToString()).intercept(ToStringMethod.prefixedBySimpleClassName())
-                .method(ElementMatchers.named("canEqual")).intercept(MethodDelegation.to(CanEqualInterceptor.class))
+        }).subclass(clazz).method(ElementMatchers.isEquals())
+                .intercept(MethodDelegation.to(InstanceOfEqualsInterceptor.class)).method(ElementMatchers.isHashCode())
+                .intercept(HashCodeMethod.usingSuperClassOffset()).method(ElementMatchers.isToString())
+                .intercept(ToStringMethod.prefixedBySimpleClassName()).method(ElementMatchers.named("canEqual"))
+                .intercept(MethodDelegation.to(CanEqualInterceptor.class))
                 .defineField("javabeanExtension", String.class, Visibility.PACKAGE_PRIVATE).make()
                 .load(clazz.getClassLoader(), ClassLoadingStrategy.Default.WRAPPER).getLoaded();
 
@@ -91,7 +93,14 @@ public enum JavaBeanTester {
     /**
      * The Class CanEqualInterceptor.
      */
-    public static class CanEqualInterceptor {
+    public final static class CanEqualInterceptor {
+
+        /**
+         * Prevents instantiation a new can equal interceptor.
+         */
+        CanEqualInterceptor() {
+            // Private constructor to prevent instantiation
+        }
 
         /**
          * Can Equal Interceptor.
@@ -105,4 +114,37 @@ public enum JavaBeanTester {
         }
 
     }
+
+    /**
+     * The Class InstanceOfEqualsInterceptor.
+     */
+    public final static class InstanceOfEqualsInterceptor {
+
+        /**
+         * Prevents instantiation a new instance of equals interceptor.
+         */
+        InstanceOfEqualsInterceptor() {
+            // Private constructor to prevent instantiation
+        }
+
+        /**
+         * Equals.
+         *
+         * @param self
+         *            the self
+         * @param other
+         *            the other
+         * @return true, if successful
+         */
+        public static boolean equals(@This Object self, @Argument(0) Object other) {
+            if (self == other) {
+                return true;
+            }
+            if ((other == null) || (!self.getClass().isInstance(other) && !other.getClass().isInstance(self))) {
+                return false;
+            }
+            return self.hashCode() == other.hashCode();
+        }
+    }
+
 }
