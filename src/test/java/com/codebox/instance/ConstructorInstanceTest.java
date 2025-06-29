@@ -44,9 +44,6 @@ class ConstructorInstanceTest {
     /**
      * New instance instantiation exception.
      *
-     * @param mockConstructor
-     *            the mock constructor
-     *
      * @throws InstantiationException
      *             the instantiation exception
      * @throws IllegalAccessException
@@ -67,9 +64,6 @@ class ConstructorInstanceTest {
     /**
      * New instance illegal access exception.
      *
-     * @param mockConstructor
-     *            the mock constructor
-     *
      * @throws InstantiationException
      *             the instantiation exception
      * @throws IllegalAccessException
@@ -89,9 +83,6 @@ class ConstructorInstanceTest {
 
     /**
      * New instance invocation target exception.
-     *
-     * @param mockConstructor
-     *            the mock constructor
      *
      * @throws InstantiationException
      *             the instantiation exception
