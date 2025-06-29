@@ -1,7 +1,7 @@
 /*
  * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
  *
- * Copyright 2012-2021 Hazendaz.
+ * Copyright 2012-2025 Hazendaz.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of The Apache Software License,
@@ -104,18 +104,13 @@ public class ExtensionBuilder<T> {
      */
     private static CtMethod generateGetter(final CtClass declaringClass, final String fieldName,
             final Class<?> fieldClass) throws CannotCompileException {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("public ");
-        sb.append(fieldClass.getName());
-        sb.append(" get");
-        sb.append(fieldName.substring(0, 1).toUpperCase());
-        sb.append(fieldName.substring(1));
-        sb.append("(){");
-        sb.append("return this.");
-        sb.append(fieldName);
-        sb.append(";");
-        sb.append("}");
-        return CtMethod.make(sb.toString(), declaringClass);
+        String methodSrc = """
+                public %s get%s() {
+                    return this.%s;
+                }
+                """.formatted(fieldClass.getName(), fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1),
+                fieldName);
+        return CtMethod.make(methodSrc, declaringClass);
     }
 
     /**
@@ -135,23 +130,13 @@ public class ExtensionBuilder<T> {
      */
     private static CtMethod generateSetter(final CtClass declaringClass, final String fieldName,
             final Class<?> fieldClass) throws CannotCompileException {
-        final StringBuilder sb = new StringBuilder();
-        sb.append("public void set");
-        sb.append(fieldName.substring(0, 1).toUpperCase());
-        sb.append(fieldName.substring(1));
-        sb.append("(");
-        sb.append(fieldClass.getName());
-        sb.append(" ");
-        sb.append(fieldName);
-        sb.append(")");
-        sb.append("{");
-        sb.append("this.");
-        sb.append(fieldName);
-        sb.append("=");
-        sb.append(fieldName);
-        sb.append(";");
-        sb.append("}");
-        return CtMethod.make(sb.toString(), declaringClass);
+        String methodSrc = """
+                public void set%s(%s %s) {
+                    this.%s = %s;
+                }
+                """.formatted(fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1), fieldClass.getName(),
+                fieldName, fieldName, fieldName);
+        return CtMethod.make(methodSrc, declaringClass);
     }
 
     /**
