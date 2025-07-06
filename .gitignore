@@ -12,3 +12,4 @@ target
 *.releaseBackup
 release.properties
 .github/keys/
+.pmd
