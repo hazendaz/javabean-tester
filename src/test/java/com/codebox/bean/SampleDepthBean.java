@@ -1,7 +1,7 @@
 /*
  * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
  *
- * Copyright 2012-2024 Hazendaz.
+ * Copyright 2012-2025 Hazendaz.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of The Apache Software License,
@@ -24,7 +24,7 @@ import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeSet;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentMap;
 
@@ -47,8 +47,8 @@ public class SampleDepthBean {
     /** The concurrent map. */
     private ConcurrentMap<String, String> concurrentMap;
 
-    /** The tree set. */
-    private TreeSet<String> treeSet;
+    /** The set. */
+    private Set<String> set;
 
     /** The string. */
     private String string;
