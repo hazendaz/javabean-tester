@@ -145,6 +145,16 @@ public class SampleBean {
     @Getter(AccessLevel.NONE)
     private Boolean booleanWrapperIsSetter;
 
+    /** The sample enum. */
+    private SampleEnum sampleEnum;
+
+    /**
+     * Sample enum for demonstration purposes.
+     */
+    public enum SampleEnum {
+        VALUE_ONE, VALUE_TWO, VALUE_THREE
+    }
+
     /**
      * Instantiates a new sample bean (intended to be skipped.
      *
