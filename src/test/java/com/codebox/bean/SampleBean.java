@@ -1,7 +1,7 @@
 /*
  * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
  *
- * Copyright 2012-2024 Hazendaz.
+ * Copyright 2012-2025 Hazendaz.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of The Apache Software License,
@@ -144,6 +144,24 @@ public class SampleBean {
     /** The Boolean wrapper with is/setter style (non lombok - java metro style). */
     @Getter(AccessLevel.NONE)
     private Boolean booleanWrapperIsSetter;
+
+    /**
+     * Instantiates a new sample bean (intended to be skipped.
+     *
+     * @param newString
+     *            the new string
+     * @param internal
+     *            the internal flag to set 'null' to string
+     * @deprecated This is intended to cause skip logic for deprecated constructor.
+     */
+    @Deprecated
+    public SampleBean(final String newString, final boolean internal) {
+        if (internal) {
+            this.string = "null";
+        } else {
+            this.string = newString;
+        }
+    }
 
     /**
      * Instantiates a new sample bean. Causes JVM to not create a default no-arg constructor.
