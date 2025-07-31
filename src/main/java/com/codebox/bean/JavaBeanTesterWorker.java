@@ -673,12 +673,10 @@ class JavaBeanTesterWorker<T, E> {
                     Introspector.getBeanInfo(clazz).getPropertyDescriptors().length);
             final List<PropertyDescriptor> props = Arrays
                     .asList(Introspector.getBeanInfo(clazz).getPropertyDescriptors());
-            nextProp: for (final PropertyDescriptor prop : props) {
+            for (final PropertyDescriptor prop : props) {
                 // Check the list of properties that we don't want to test
-                for (final String skipThis : this.skipThese) {
-                    if (skipThis.equals(prop.getName())) {
-                        continue nextProp;
-                    }
+                if (this.skipThese.contains(prop.getName())) {
+                    continue;
                 }
                 usedProps.add(prop);
             }
