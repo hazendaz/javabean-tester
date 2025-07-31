@@ -680,7 +680,7 @@ class JavaBeanTesterWorker<T, E> {
                 }
                 usedProps.add(prop);
             }
-            return usedProps.toArray(new PropertyDescriptor[usedProps.size()]);
+            return usedProps.toArray(new PropertyDescriptor[0]);
         } catch (final IntrospectionException e) {
             Assertions.fail(String.format("An exception was thrown while testing class '%s': '%s'",
                     this.clazz.getName(), e.toString()));
