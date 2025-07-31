@@ -28,10 +28,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The Class ExtensionBuilder.
+ * ExtensionBuilder dynamically generates a subclass of the given class with additional String properties and their
+ * getters/setters.
+ * <p>
+ * Uses Javassist to create a new class at runtime named <code>clazz.getName() + "Extension"</code>. The generated class
+ * will have four String properties: jbExtension1, jbExtension2, jbExtension3, jbExtension4.
  *
  * @param <T>
- *            the generic type
+ *            the type to extend
  */
 public class ExtensionBuilder<T> {
 
@@ -39,17 +43,15 @@ public class ExtensionBuilder<T> {
     private static final Logger logger = LoggerFactory.getLogger(ExtensionBuilder.class);
 
     /**
-     * Generate.
+     * Generates a dynamic subclass of the given class with additional String properties and their getters/setters.
      *
      * @param clazz
-     *            the clazz
-     *
-     * @return the class
-     *
+     *            the class to extend
+     * @return the generated class
      * @throws NotFoundException
-     *             the not found exception
+     *             if the class cannot be found in the class pool
      * @throws CannotCompileException
-     *             the cannot compile exception
+     *             if the class cannot be compiled
      */
     public Class<?> generate(final Class<T> clazz) throws NotFoundException, CannotCompileException {
         try {
@@ -88,19 +90,17 @@ public class ExtensionBuilder<T> {
     }
 
     /**
-     * Generate getter.
+     * Generates a getter method for the specified field.
      *
      * @param declaringClass
-     *            the declaring class
+     *            the class to add the method to
      * @param fieldName
-     *            the field name
+     *            the name of the field
      * @param fieldClass
-     *            the field class
-     *
-     * @return the ct method
-     *
+     *            the type of the field
+     * @return the generated getter method
      * @throws CannotCompileException
-     *             the cannot compile exception
+     *             if the method cannot be compiled
      */
     private static CtMethod generateGetter(final CtClass declaringClass, final String fieldName,
             final Class<?> fieldClass) throws CannotCompileException {
@@ -114,19 +114,17 @@ public class ExtensionBuilder<T> {
     }
 
     /**
-     * Generate setter.
+     * Generates a setter method for the specified field.
      *
      * @param declaringClass
-     *            the declaring class
+     *            the class to add the method to
      * @param fieldName
-     *            the field name
+     *            the name of the field
      * @param fieldClass
-     *            the field class
-     *
-     * @return the ct method
-     *
+     *            the type of the field
+     * @return the generated setter method
      * @throws CannotCompileException
-     *             the cannot compile exception
+     *             if the method cannot be compiled
      */
     private static CtMethod generateSetter(final CtClass declaringClass, final String fieldName,
             final Class<?> fieldClass) throws CannotCompileException {
@@ -140,15 +138,13 @@ public class ExtensionBuilder<T> {
     }
 
     /**
-     * Resolve ct class.
+     * Resolves a CtClass from a Java Class using the default class pool.
      *
      * @param clazz
-     *            the clazz
-     *
-     * @return the ct class
-     *
+     *            the Java class to resolve
+     * @return the corresponding CtClass
      * @throws NotFoundException
-     *             the not found exception
+     *             if the class cannot be found in the class pool
      */
     private static CtClass resolveCtClass(final Class<?> clazz) throws NotFoundException {
         return ClassPool.getDefault().get(clazz.getName());
