@@ -1,7 +1,7 @@
 /*
  * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
  *
- * Copyright 2012-2024 Hazendaz.
+ * Copyright 2012-2025 Hazendaz.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of The Apache Software License,
@@ -33,7 +33,6 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -84,7 +83,7 @@ public class ValueBuilder {
                     beanTesterWorker.getterSetterTests(new ClassInstance<T>().newInstance(clazz));
                     return null;
                 }
-                // The class has a no-arg constructor, so just call it
+                // The class has a no-arg constructor, so just call it (e.g. String, Date, etc.)
                 return ConstructorInstance.newInstance(ctr);
             }
         }
@@ -134,10 +133,6 @@ public class ValueBuilder {
 
         if (clazz.isAssignableFrom(Set.class)) {
             return new TreeSet<>();
-        }
-
-        if (clazz.isAssignableFrom(Date.class)) {
-            return new Date();
         }
 
         if (clazz.isAssignableFrom(LocalDate.class)) {
