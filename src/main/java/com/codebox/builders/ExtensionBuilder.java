@@ -35,8 +35,8 @@ import org.slf4j.LoggerFactory;
  */
 public class ExtensionBuilder<T> {
 
-    /** The Constant LOGGER. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(ExtensionBuilder.class);
+    /** The Constant logger. */
+    private static final Logger logger = LoggerFactory.getLogger(ExtensionBuilder.class);
 
     /**
      * Generate.
@@ -57,7 +57,7 @@ public class ExtensionBuilder<T> {
             return Class.forName(clazz.getName() + "Extension");
         } catch (final ClassNotFoundException e) {
             // No extension exists, so create it
-            ExtensionBuilder.LOGGER.trace("No extension exists, so create it", e);
+            ExtensionBuilder.logger.trace("No extension exists, so create it", e);
         }
 
         final ClassPool pool = ClassPool.getDefault();

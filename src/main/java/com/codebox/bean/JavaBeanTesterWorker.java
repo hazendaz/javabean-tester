@@ -65,8 +65,8 @@ import org.slf4j.LoggerFactory;
 @Data
 class JavaBeanTesterWorker<T, E> {
 
-    /** The Constant LOGGER. */
-    private static final Logger LOGGER = LoggerFactory.getLogger(JavaBeanTesterWorker.class);
+    /** The Constant logger. */
+    private static final Logger logger = LoggerFactory.getLogger(JavaBeanTesterWorker.class);
 
     /** The check clear. */
     private CheckClear checkClear;
@@ -420,7 +420,7 @@ class JavaBeanTesterWorker<T, E> {
         try {
             EqualsVerifier.simple().forClass(this.clazz).suppress(Warning.BIGDECIMAL_EQUALITY).verify();
         } catch (AssertionError e) {
-            JavaBeanTesterWorker.LOGGER.warn("EqualsVerifier attempt failed: {}", e.getMessage());
+            JavaBeanTesterWorker.logger.warn("EqualsVerifier attempt failed: {}", e.getMessage());
         }
 
         // Create Instances
@@ -533,12 +533,12 @@ class JavaBeanTesterWorker<T, E> {
             });
             Assertions.assertEquals(e, x);
         } catch (final Exception e) {
-            JavaBeanTesterWorker.LOGGER.trace("Do nothing class is not mutable", e);
+            JavaBeanTesterWorker.logger.trace("Do nothing class is not mutable", e);
         }
 
         // If class is final, use Object.class for comparison needs
         if (Modifier.isFinal(clazz.getModifiers())) {
-            JavaBeanTesterWorker.LOGGER.trace("Final object does not go through final equals check");
+            JavaBeanTesterWorker.logger.trace("Final object does not go through final equals check");
             return;
         }
 
@@ -553,7 +553,7 @@ class JavaBeanTesterWorker<T, E> {
             });
             Assertions.assertEquals(e, ext);
         } catch (final Exception e) {
-            JavaBeanTesterWorker.LOGGER.trace("Do nothing class is not mutable", e);
+            JavaBeanTesterWorker.logger.trace("Do nothing class is not mutable", e);
         }
     }
 
