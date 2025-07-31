@@ -372,8 +372,8 @@ class JavaBeanTesterWorker<T, E> {
     T canSerialize(final T object) {
         // Serialize data
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        try {
-            new ObjectOutputStream(baos).writeObject(object);
+        try (ObjectOutputStream oos = new ObjectOutputStream(baos)) {
+            oos.writeObject(object);
         } catch (final IOException e) {
             Assertions.fail(String.format("An exception was thrown while serializing the class '%s': '%s',",
                     object.getClass().getName(), e.toString()));
@@ -382,8 +382,8 @@ class JavaBeanTesterWorker<T, E> {
 
         // Deserialize Data
         final ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
-        try {
-            return (T) new ObjectInputStream(bais).readObject();
+        try (ObjectInputStream ois = new ObjectInputStream(bais)) {
+            return (T) ois.readObject();
         } catch (final ClassNotFoundException | IOException e) {
             Assertions.fail(String.format("An exception was thrown while deserializing the class '%s': '%s',",
                     object.getClass().getName(), e.toString()));
