@@ -1,7 +1,7 @@
 /*
  * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
  *
- * Copyright 2012-2021 Hazendaz.
+ * Copyright 2012-2025 Hazendaz.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of The Apache Software License,
@@ -53,11 +53,11 @@ public class ClassInstance<T> {
             // Find available no-arg constructor and return it
             if (constructor.getParameterCount() == 0) {
                 try {
-                    return (T) constructor.newInstance((Object[]) null);
+                    return (T) constructor.newInstance();
                 } catch (final InstantiationException | IllegalAccessException | InvocationTargetException e) {
                     Assertions.fail(String.format(
-                            "An exception was thrown while testing the class (new instance) '%s' with '%s': '%s'",
-                            constructor.getName(), Arrays.toString((Object[]) null), e.toString()));
+                            "An exception was thrown while testing class no-arg constructor (new instance) '%s': '%s'",
+                            constructor.getName(), e.toString()));
                 }
             }
         }
