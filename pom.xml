@@ -466,9 +466,9 @@
                     <version>3.11.3</version>
                     <configuration>
                         <additionalOptions>
-                            <option>-html5</option>
-                            <option>--add-modules</option>
-                            <option>java.desktop</option>
+                            <additionalOptions>-html5</additionalOptions>
+                            <additionalOptions>--add-modules</additionalOptions>
+                            <additionalOptions>java.desktop</additionalOptions>
                         </additionalOptions>
                         <archive>
                             <manifest>
