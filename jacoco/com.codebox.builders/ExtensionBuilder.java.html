@@ -28,79 +28,79 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The Class ExtensionBuilder.
+ * ExtensionBuilder dynamically generates a subclass of the given class with additional String properties and their
+ * getters/setters.
+ * &lt;p&gt;
+ * Uses Javassist to create a new class at runtime named &lt;code&gt;clazz.getName() + &quot;Extension&quot;&lt;/code&gt;. The generated class
+ * will have four String properties: jbExtension1, jbExtension2, jbExtension3, jbExtension4.
  *
  * @param &lt;T&gt;
- *            the generic type
+ *            the type to extend
  */
-<span class="fc" id="L36">public class ExtensionBuilder&lt;T&gt; {</span>
+<span class="fc" id="L40">public class ExtensionBuilder&lt;T&gt; {</span>
 
-    /** The Constant LOGGER. */
-<span class="fc" id="L39">    private static final Logger LOGGER = LoggerFactory.getLogger(ExtensionBuilder.class);</span>
+    /** The Constant logger. */
+<span class="fc" id="L43">    private static final Logger logger = LoggerFactory.getLogger(ExtensionBuilder.class);</span>
 
     /**
-     * Generate.
+     * Generates a dynamic subclass of the given class with additional String properties and their getters/setters.
      *
      * @param clazz
-     *            the clazz
-     *
-     * @return the class
-     *
+     *            the class to extend
+     * @return the generated class
      * @throws NotFoundException
-     *             the not found exception
+     *             if the class cannot be found in the class pool
      * @throws CannotCompileException
-     *             the cannot compile exception
+     *             if the class cannot be compiled
      */
     public Class&lt;?&gt; generate(final Class&lt;T&gt; clazz) throws NotFoundException, CannotCompileException {
         try {
             // If extension already recreated, return it
-<span class="nc" id="L57">            return Class.forName(clazz.getName() + &quot;Extension&quot;);</span>
-<span class="fc" id="L58">        } catch (final ClassNotFoundException e) {</span>
+<span class="nc" id="L59">            return Class.forName(clazz.getName() + &quot;Extension&quot;);</span>
+<span class="fc" id="L60">        } catch (final ClassNotFoundException e) {</span>
             // No extension exists, so create it
-<span class="fc" id="L60">            ExtensionBuilder.LOGGER.trace(&quot;No extension exists, so create it&quot;, e);</span>
+<span class="fc" id="L62">            ExtensionBuilder.logger.trace(&quot;No extension exists, so create it&quot;, e);</span>
         }
 
-<span class="fc" id="L63">        final ClassPool pool = ClassPool.getDefault();</span>
-<span class="fc" id="L64">        final CtClass cc = pool.makeClass(clazz.getName() + &quot;Extension&quot;);</span>
+<span class="fc" id="L65">        final ClassPool pool = ClassPool.getDefault();</span>
+<span class="fc" id="L66">        final CtClass cc = pool.makeClass(clazz.getName() + &quot;Extension&quot;);</span>
 
         // add super class
-<span class="fc" id="L67">        cc.setSuperclass(ExtensionBuilder.resolveCtClass(clazz));</span>
+<span class="fc" id="L69">        cc.setSuperclass(ExtensionBuilder.resolveCtClass(clazz));</span>
 
-<span class="fc" id="L69">        final Map&lt;String, Class&lt;?&gt;&gt; properties = new HashMap&lt;&gt;();</span>
-<span class="fc" id="L70">        properties.put(&quot;jbExtension1&quot;, String.class);</span>
-<span class="fc" id="L71">        properties.put(&quot;jbExtension2&quot;, String.class);</span>
-<span class="fc" id="L72">        properties.put(&quot;jbExtension3&quot;, String.class);</span>
-<span class="fc" id="L73">        properties.put(&quot;jbExtension4&quot;, String.class);</span>
+<span class="fc" id="L71">        final Map&lt;String, Class&lt;?&gt;&gt; properties = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L72">        properties.put(&quot;jbExtension1&quot;, String.class);</span>
+<span class="fc" id="L73">        properties.put(&quot;jbExtension2&quot;, String.class);</span>
+<span class="fc" id="L74">        properties.put(&quot;jbExtension3&quot;, String.class);</span>
+<span class="fc" id="L75">        properties.put(&quot;jbExtension4&quot;, String.class);</span>
 
-<span class="fc bfc" id="L75" title="All 2 branches covered.">        for (final Entry&lt;String, Class&lt;?&gt;&gt; entry : properties.entrySet()) {</span>
+<span class="fc bfc" id="L77" title="All 2 branches covered.">        for (final Entry&lt;String, Class&lt;?&gt;&gt; entry : properties.entrySet()) {</span>
 
             // Add field
-<span class="fc" id="L78">            cc.addField(new CtField(ExtensionBuilder.resolveCtClass(entry.getValue()), entry.getKey(), cc));</span>
+<span class="fc" id="L80">            cc.addField(new CtField(ExtensionBuilder.resolveCtClass(entry.getValue()), entry.getKey(), cc));</span>
 
             // Add getter
-<span class="fc" id="L81">            cc.addMethod(ExtensionBuilder.generateGetter(cc, entry.getKey(), entry.getValue()));</span>
+<span class="fc" id="L83">            cc.addMethod(ExtensionBuilder.generateGetter(cc, entry.getKey(), entry.getValue()));</span>
 
             // Add setter
-<span class="fc" id="L84">            cc.addMethod(ExtensionBuilder.generateSetter(cc, entry.getKey(), entry.getValue()));</span>
-<span class="fc" id="L85">        }</span>
+<span class="fc" id="L86">            cc.addMethod(ExtensionBuilder.generateSetter(cc, entry.getKey(), entry.getValue()));</span>
+<span class="fc" id="L87">        }</span>
 
-<span class="fc" id="L87">        return cc.toClass();</span>
+<span class="fc" id="L89">        return cc.toClass();</span>
     }
 
     /**
-     * Generate getter.
+     * Generates a getter method for the specified field.
      *
      * @param declaringClass
-     *            the declaring class
+     *            the class to add the method to
      * @param fieldName
-     *            the field name
+     *            the name of the field
      * @param fieldClass
-     *            the field class
-     *
-     * @return the ct method
-     *
+     *            the type of the field
+     * @return the generated getter method
      * @throws CannotCompileException
-     *             the cannot compile exception
+     *             if the method cannot be compiled
      */
     private static CtMethod generateGetter(final CtClass declaringClass, final String fieldName,
             final Class&lt;?&gt; fieldClass) throws CannotCompileException {
@@ -114,44 +114,40 @@ import org.slf4j.LoggerFactory;
     }
 
     /**
-     * Generate setter.
+     * Generates a setter method for the specified field.
      *
      * @param declaringClass
-     *            the declaring class
+     *            the class to add the method to
      * @param fieldName
-     *            the field name
+     *            the name of the field
      * @param fieldClass
-     *            the field class
-     *
-     * @return the ct method
-     *
+     *            the type of the field
+     * @return the generated setter method
      * @throws CannotCompileException
-     *             the cannot compile exception
+     *             if the method cannot be compiled
      */
     private static CtMethod generateSetter(final CtClass declaringClass, final String fieldName,
             final Class&lt;?&gt; fieldClass) throws CannotCompileException {
-<span class="fc" id="L133">        String methodSrc = &quot;&quot;&quot;</span>
+<span class="fc" id="L131">        String methodSrc = &quot;&quot;&quot;</span>
                 public void set%s(%s %s) {
                     this.%s = %s;
                 }
-<span class="fc" id="L137">                &quot;&quot;&quot;.formatted(fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1), fieldClass.getName(),</span>
+<span class="fc" id="L135">                &quot;&quot;&quot;.formatted(fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1), fieldClass.getName(),</span>
                 fieldName, fieldName, fieldName);
-<span class="fc" id="L139">        return CtMethod.make(methodSrc, declaringClass);</span>
+<span class="fc" id="L137">        return CtMethod.make(methodSrc, declaringClass);</span>
     }
 
     /**
-     * Resolve ct class.
+     * Resolves a CtClass from a Java Class using the default class pool.
      *
      * @param clazz
-     *            the clazz
-     *
-     * @return the ct class
-     *
+     *            the Java class to resolve
+     * @return the corresponding CtClass
      * @throws NotFoundException
-     *             the not found exception
+     *             if the class cannot be found in the class pool
      */
     private static CtClass resolveCtClass(final Class&lt;?&gt; clazz) throws NotFoundException {
-<span class="fc" id="L154">        return ClassPool.getDefault().get(clazz.getName());</span>
+<span class="fc" id="L150">        return ClassPool.getDefault().get(clazz.getName());</span>
     }
 
 }

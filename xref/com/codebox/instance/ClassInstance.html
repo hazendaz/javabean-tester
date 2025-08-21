@@ -9,7 +9,7 @@
 <a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_comment">/*</em>
 <a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_comment"> * JavaBean Tester (<a href="https://github.com/hazendaz/javabean-tester)" target="alexandria_uri">https://github.com/hazendaz/javabean-tester)</a></em>
 <a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_comment"> *</em>
-<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Copyright 2012-2021 Hazendaz.</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_comment"> * Copyright 2012-2025 Hazendaz.</em>
 <a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_comment"> *</em>
 <a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_comment"> * All rights reserved. This program and the accompanying materials</em>
 <a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_comment"> * are made available under the terms of The Apache Software License,</em>
@@ -61,11 +61,11 @@
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>              <em class="jxr_comment">// Find available no-arg constructor and return it</em>
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>              <strong class="jxr_keyword">if</strong> (constructor.getParameterCount() == 0) {
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>                  <strong class="jxr_keyword">try</strong> {
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>                      <strong class="jxr_keyword">return</strong> (T) constructor.newInstance((Object[]) <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>                      <strong class="jxr_keyword">return</strong> (T) constructor.newInstance();
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>                  } <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> InstantiationException | IllegalAccessException | InvocationTargetException e) {
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>                      Assertions.fail(String.format(
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>                              <span class="jxr_string">"An exception was thrown while testing the class (new instance) '%s' with '%s': '%s'"</span>,
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>                              constructor.getName(), Arrays.toString((Object[]) <strong class="jxr_keyword">null</strong>), e.toString()));
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>                              <span class="jxr_string">"An exception was thrown while testing class no-arg constructor (new instance) '%s': '%s'"</span>,
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>                              constructor.getName(), e.toString()));
 <a class="jxr_linenumber" name="L61" href="#L61">61</a>                  }
 <a class="jxr_linenumber" name="L62" href="#L62">62</a>              }
 <a class="jxr_linenumber" name="L63" href="#L63">63</a>          }
