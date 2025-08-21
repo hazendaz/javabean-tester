@@ -21,7 +21,7 @@
 
     <groupId>com.github.hazendaz</groupId>
     <artifactId>javabean-tester</artifactId>
-    <version>2.10.1-SNAPSHOT</version>
+    <version>2.11.0</version>
 
     <name>javabean-tester</name>
     <description>Javabean Tester Simplifies POJO Testing and greatly simplifies Lombok Bean Testing!</description>
@@ -93,7 +93,7 @@
     <scm>
         <connection>scm:git:ssh://git@github.com/hazendaz/javabean-tester.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/hazendaz/javabean-tester.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>javabean-tester-2.11.0</tag>
         <url>https://github.com/hazendaz/javabean-tester</url>
     </scm>
     <issueManagement>
@@ -142,7 +142,7 @@
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
 
         <!-- Reproducible Builds -->
-        <project.build.outputTimestamp>1751239115</project.build.outputTimestamp>
+        <project.build.outputTimestamp>1755811956</project.build.outputTimestamp>
 
         <!-- Due to maven bug, fix timestamp -->
         <timestamp>${maven.build.timestamp}</timestamp>
