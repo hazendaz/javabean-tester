@@ -1,7 +1,7 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 javabean-tester,com.codebox.builders,ExtensionBuilder,5,169,0,2,1,25,0,7,0,6
 javabean-tester,com.codebox.instance,ConstructorInstance,21,39,1,1,5,10,1,2,0,2
-javabean-tester,com.codebox.instance,ClassInstance,44,93,2,10,8,16,2,7,0,3
+javabean-tester,com.codebox.instance,ClassInstance,41,96,1,11,7,17,1,8,0,3
 javabean-tester,com.codebox.bean,ByteBuddyBeanCopier,74,239,24,44,17,42,21,21,2,6
 javabean-tester,com.codebox.bean,JavaBeanTester.new NamingStrategy.AbstractBase() {...},0,13,0,0,0,2,0,2,0,2
 javabean-tester,com.codebox.bean,JavaBeanTester.InstanceOfEqualsInterceptor,3,28,1,9,2,5,2,5,1,1

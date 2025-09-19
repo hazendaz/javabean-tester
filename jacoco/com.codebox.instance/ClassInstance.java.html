@@ -66,8 +66,8 @@ import org.junit.jupiter.api.Assertions;
 <span class="pc bpc" id="L66" title="1 of 2 branches missed.">        for (final Constructor&lt;?&gt; constructor : clazz.getConstructors()) {</span>
 
             // Skip deprecated constructors
-<span class="pc bpc" id="L69" title="1 of 2 branches missed.">            if (constructor.isAnnotationPresent(Deprecated.class)) {</span>
-<span class="nc" id="L70">                continue;</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">            if (constructor.isAnnotationPresent(Deprecated.class)) {</span>
+<span class="fc" id="L70">                continue;</span>
             }
 
 <span class="fc" id="L73">            final Class&lt;?&gt;[] types = constructor.getParameterTypes();</span>
