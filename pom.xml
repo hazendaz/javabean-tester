@@ -707,7 +707,7 @@
                 <plugin>
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
-                    <version>12.1.7</version>
+                    <version>12.1.8</version>
                 </plugin>
 
                 <!-- Sonatype Provided Plugins -->
