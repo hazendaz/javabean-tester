@@ -8,8 +8,12 @@ on:
 permissions: read-all
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.sha }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+
+env:
+  UPSTREAM_OWNER: hazendaz
+  UPSTREAM_REPO: javabean-tester
 
 jobs:
   build:
@@ -22,20 +26,20 @@ jobs:
         uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165 # v5
         with:
           cache: maven
-          java-version: 21
+          java-version: 25
           distribution: zulu
       - name: Analyze with Coverity
         run: |
-          wget -q https://scan.coverity.com/download/linux64 --post-data "token=$COVERITY_TOKEN&project=hazendaz%2Fjavabean-tester" -O coverity_tool.tgz
-          tar -xf coverity_tool.tgz
-          ./cov-analysis-linux64-*/bin/cov-build --dir cov-int ./mvnw -B -V -DskipTests=true verify --no-transfer-progress -Dlicense.skip=true
-          tar czvf javabean-tester.tgz cov-int
-          curl --form token=$COVERITY_TOKEN \
-            --form email=$EMAIL \
-            --form file=@javabean-tester.tgz \
-            --form version="javabean-tester/coverity_scan" \
-            --form description="Javabean Tester Coverity Scan" \
-            https://scan.coverity.com/builds?project=hazendaz%2Fjavabean-tester
+          wget --quiet https://scan.coverity.com/download/linux64 --post-data "token=${COVERITY_TOKEN}&project=${UPSTREAM_OWNER}%2F${UPSTREAM_REPO}" --output-document=coverity_tool.tgz
+          tar --extract --file=coverity_tool.tgz
+          ./cov-analysis-linux64-*/bin/cov-build --dir cov-int ./mvnw verify --batch-mode --no-transfer-progress --show-version -Dlicense.skip=true -Dmaven.compiler.fork=true -DskipTests=true
+          tar --create --gzip --verbose --file=${UPSTREAM_REPO}.tgz cov-int
+          curl --form token=${COVERITY_TOKEN} \
+            --form email=${EMAIL} \
+            --form file=@${UPSTREAM_REPO}.tgz \
+            --form version="${UPSREAM_REPO}/coverity_scan" \
+            --form description="${UPSTREAM_OWNER} Coverity Scan" \
+            https://scan.coverity.com/builds?project=${UPSTREAM_OWNER}%2F${UPSTREAM_REPO}
         env:
           COVERITY_TOKEN: ${{ secrets.COVERITY_TOKEN }}
           EMAIL: ${{ secrets.EMAIL }}
