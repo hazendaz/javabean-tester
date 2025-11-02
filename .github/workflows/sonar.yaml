@@ -13,7 +13,7 @@ concurrency:
 
 env:
   SONAR_ORGANIZATION: hazendaz
-  SONAR_PROJECT_KEY: hazendaz_javabean-tester
+  SONAR_PROJECT_KEY: javabean-tester
 
 jobs:
   build:
