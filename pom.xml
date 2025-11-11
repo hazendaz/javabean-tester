@@ -93,7 +93,7 @@
     <scm>
         <connection>scm:git:ssh://git@github.com/hazendaz/javabean-tester.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/hazendaz/javabean-tester.git</developerConnection>
-        <tag>javabean-tester-2.11.0</tag>
+        <tag>HEAD</tag>
         <url>https://github.com/hazendaz/javabean-tester</url>
     </scm>
     <issueManagement>
