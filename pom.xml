@@ -148,7 +148,7 @@
         <timestamp>${maven.build.timestamp}</timestamp>
 
         <!-- Enforcer Jdks Allowed -->
-        <allowed.build.jdks>[17,18),[21,22),[24,25),[25,26)</allowed.build.jdks>
+        <allowed.build.jdks>[21,22),[25,26),[26,27)</allowed.build.jdks>
 
         <!-- Maven compiler options -->
         <java.version>17</java.version>
@@ -336,6 +336,10 @@
                             <enforceBytecodeVersion>
                                 <maxJdkVersion>${java.version}</maxJdkVersion>
                             </enforceBytecodeVersion>
+                            <requireJavaVersion>
+                                <message>Allowed jdks ${allowd.build.jdks}. Please upgrade java and configure 'JAVA_HOME'.</message>
+                                <version>${allowed.build.jdks}</version>
+                            </requireJavaVersion>
                             <requireMavenVersion>
                                 <version>[${maven.min-version},)</version>
                             </requireMavenVersion>
