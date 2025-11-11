@@ -185,7 +185,7 @@
         <slf4j.version>2.0.17</slf4j.version>
 
         <!-- Surefire Settings -->
-        <argLine>-javaagent:${settings.localRepository}/net/bytebuddy/byte-buddy-agent/${byte-buddy.version}/byte-buddy-agent-${byte-buddy.version}.jar</argLine>
+        <argLine>-javaagent:${settings.localRepository}/net/bytebuddy/byte-buddy-agent/${byte-buddy.version}/byte-buddy-agent-${byte-buddy.version}.jar --add-opens java.base/java.lang=ALL-UNNAMED</argLine>
     </properties>
 
     <dependencyManagement>
@@ -1148,21 +1148,11 @@
             </build>
         </profile>
 
-        <profile>
-            <id>jdk17on</id>
-            <activation>
-                <jdk>[17,)</jdk>
-            </activation>
-            <properties>
-                <argLine>-javaagent:${settings.localRepository}/net/bytebuddy/byte-buddy-agent/${byte-buddy.version}/byte-buddy-agent-${byte-buddy.version}.jar --add-opens java.base/java.lang=ALL-UNNAMED</argLine>
-            </properties>
-        </profile>
-
         <!-- Run lombok-edge when necessary for newer support. -->
         <profile>
-            <id>jdk25on</id>
+            <id>jdk26on</id>
             <activation>
-                <jdk>[25,)</jdk>
+                <jdk>[26,)</jdk>
             </activation>
 
             <dependencies>
