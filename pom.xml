@@ -241,7 +241,7 @@
         <dependency>
             <groupId>nl.jqno.equalsverifier</groupId>
             <artifactId>equalsverifier</artifactId>
-            <version>4.3</version>
+            <version>4.3.1</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
