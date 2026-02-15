@@ -1,16 +1,10 @@
 /*
- * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
+ * SPDX-License-Identifier: Apache-2.0
+ * See LICENSE file for details.
  *
- * Copyright 2012-2024 Hazendaz.
+ * Copyright 2012-2026 hazendaz
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of The Apache Software License,
- * Version 2.0 which accompanies this distribution, and is available at
- * http://www.apache.org/licenses/LICENSE-2.0.txt
- *
- * Contributors:
- *     CodeBox (Rob Dawson).
- *     Hazendaz (Jeremy Landis).
+ * Portions of initial baseline code (getter/setter test) by Rob Dawson (CodeBox)
  */
 package com.codebox.bean;
 
