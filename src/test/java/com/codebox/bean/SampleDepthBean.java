@@ -131,4 +131,5 @@ public class SampleDepthBean {
 
     /** SampleDepthBean nesting would cause stack overflow. Fixed by not deeply testing in value builder. */
     private SampleDepthBean sampleDepthBean;
+
 }
