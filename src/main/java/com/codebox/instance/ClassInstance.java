@@ -37,6 +37,11 @@ public class ClassInstance<T> {
      */
     @SuppressWarnings("unchecked")
     public final T newInstance(final Class<T> clazz) {
+        // If class is null, return null
+        if (clazz == null) {
+            return null;
+        }
+
         // Try no-arg constructor first
         for (final Constructor<?> constructor : clazz.getConstructors()) {
             // Skip deprecated constructors
