@@ -1,7 +1,7 @@
 /*
  * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
  *
- * Copyright 2012-2024 Hazendaz.
+ * Copyright 2012-2026 Hazendaz.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of The Apache Software License,
@@ -305,6 +305,14 @@ class JavaBeanTesterTest {
     @Test
     void testMultiConstructor() {
         JavaBeanTester.builder(MultiConstructorBean.class).test();
+    }
+
+    /**
+     * Test multi constructor null extension.
+     */
+    @Test
+    void testMultiConstructorNullExtension() {
+        JavaBeanTester.builder(MultiConstructorBean.class, null).checkEquals().test();
     }
 
     /**
