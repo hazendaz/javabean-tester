@@ -432,6 +432,9 @@ class JavaBeanTesterWorker<T, E> {
         }
     }
 
+    /**
+     * Process equals verifier symmetric test.
+     */
     private void processEqualsVerifierSymmetricTest() {
         // Run Equals Verifier
         try {
@@ -441,6 +444,14 @@ class JavaBeanTesterWorker<T, E> {
         }
     }
 
+    /**
+     * Process class equals hash code to string symmetric test.
+     *
+     * @param x
+     *            the x
+     * @param y
+     *            the y
+     */
     private void processClassEqualsHashCodeToStringSymmetricTest(final T x, final T y) {
         // Verify that the objects were created successfully before testing equals, hashcode, and toString
         Assertions.assertNotNull(x,
@@ -505,6 +516,14 @@ class JavaBeanTesterWorker<T, E> {
         }
     }
 
+    /**
+     * Process extension equals hash code to string symmetric test.
+     *
+     * @param y
+     *            the y
+     * @param ext
+     *            the ext
+     */
     private void processExtensionEqualsHashCodeToStringSymmetricTest(final T y, final E ext) {
         // Verify that the objects were created successfully before testing equals, hashcode, and toString
         Assertions.assertNotNull(ext,
