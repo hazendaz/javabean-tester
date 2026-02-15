@@ -175,8 +175,6 @@ class JavaBeanTesterWorker<T, E> {
      *
      * @param instance
      *            the instance of class under test.
-     *
-     * @return the ter setter tests
      */
     void getterSetterTests(final T instance) {
         final PropertyDescriptor[] props = this.getProps(this.clazz);
