@@ -39,11 +39,15 @@ Requires java 17+
 
 Javabean Tester is a reflection based library for testing java beans.  Effectively test constructors, clear, getters/setters, hashcode, toString, equals, and serializable are correct.
 
-## Left Codebox
+## Left Codebox and fork network
 
-Original maintainer [codebox](https://github.com/codebox) only intended for this project to be a simple class that users would make additional
-changes to.  Over time, this copy has evolved into a full project and now is the primary project going forwards.  Issues has been opened up
-for use and pull requests are gladly appreciated.  Original maintainer has now made his version gradle enabled build but it still lacks additional features found here.
+Portions of the initial baseline (getter/setter test) were contributed by Rob Dawson ([codebox](https://github.com/codebox)).  
+This project has since evolved into a full-featured version and is the primary maintained fork.  
+Pull requests and issues are welcome; the original CodeBox version exists separately and lacks the additional features here.
+
+See historical discussion here:
+- [Pull Request #2](https://github.com/codebox/javabean-tester/pull/2)
+- [Issue #3](https://github.com/codebox/javabean-tester/issues/3)
 
 ## Documentation Status
 
