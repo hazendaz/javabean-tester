@@ -14,6 +14,8 @@ import com.codebox.enums.LoadType;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Assertions;
@@ -40,6 +42,19 @@ public class ClassInstance<T> {
         // If class is null, return null
         if (clazz == null) {
             return null;
+        }
+
+        // Check if class has Lombok @Builder pattern (static builder() method)
+        Method builderMethod = this.getLombokBuilderMethod(clazz);
+        if (builderMethod != null) {
+            try {
+                return this.createInstanceWithBuilder(clazz, builderMethod);
+            } catch (final IllegalAccessException | IllegalArgumentException | InvocationTargetException
+                    | NoSuchMethodException | SecurityException e) {
+                Assertions.fail(String.format(
+                        "An exception was thrown while creating instance using Lombok @Builder for class '%s': '%s'",
+                        clazz.getName(), e.toString()));
+            }
         }
 
         // Try no-arg constructor first
@@ -87,6 +102,51 @@ public class ClassInstance<T> {
             }
         }
         return null;
+    }
+
+    /**
+     * Get the Lombok builder() method if present, else null.
+     */
+    private Method getLombokBuilderMethod(final Class<?> clazz) {
+        try {
+            final Method builderMethod = clazz.getMethod("builder");
+            if (Modifier.isStatic(builderMethod.getModifiers()) && builderMethod.getParameterCount() == 0) {
+                return builderMethod;
+            }
+        } catch (final NoSuchMethodException e) {
+            // ignore
+        }
+        return null;
+    }
+
+    /**
+     * Create an instance using Lombok's builder pattern.
+     *
+     * @param clazz
+     *            the class to instantiate
+     * @param builderMethod
+     *            the builder method
+     * @return the instance created via builder
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
+     * @throws InvocationTargetException
+     *             the invocation target exception
+     * @throws NoSuchMethodException
+     *             the no such method exception
+     * @throws SecurityException
+     *             the security exception
+     */
+    @SuppressWarnings("unchecked")
+    private T createInstanceWithBuilder(final Class<T> clazz, final Method builderMethod) throws IllegalAccessException,
+            IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+        // Invoke the builder() method to get a builder instance
+        final T builder = (T) builderMethod.invoke(null);
+        // Find the build() method on the builder
+        Method buildMethod = builder.getClass().getMethod("build");
+        // Invoke build() to create the instance
+        return (T) buildMethod.invoke(builder);
     }
 
     /**

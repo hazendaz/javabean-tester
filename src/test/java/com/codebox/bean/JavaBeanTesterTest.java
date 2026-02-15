@@ -325,6 +325,15 @@ class JavaBeanTesterTest {
      */
     @Test
     void testSampleLombokBuilder() {
+        JavaBeanTester.builder(SampleLombokBuilder.class).checkEquals().checkConstructor().checkClear().loadData()
+                .test();
+    }
+
+    /**
+     * Test sample lombok builder null extension.
+     */
+    @Test
+    void testSampleLombokBuilderNullExtension() {
         JavaBeanTester.builder(SampleLombokBuilder.class, null).checkEquals().checkConstructor().checkClear().loadData()
                 .test();
     }
