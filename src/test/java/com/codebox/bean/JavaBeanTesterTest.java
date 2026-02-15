@@ -327,6 +327,15 @@ class JavaBeanTesterTest {
     }
 
     /**
+     * Test sample lombok builder.
+     */
+    @Test
+    void testSampleLombokBuilder() {
+        JavaBeanTester.builder(SampleLombokBuilder.class, null).checkEquals().checkConstructor().checkClear().loadData()
+                .test();
+    }
+
+    /**
      * Serialize.
      *
      * @param <T>
