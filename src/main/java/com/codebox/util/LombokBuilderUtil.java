@@ -14,7 +14,14 @@ import java.lang.reflect.Modifier;
 /**
  * The Class LombokBuilderUtil.
  */
-public class LombokBuilderUtil {
+public final class LombokBuilderUtil {
+
+    /**
+     * Instantiates a new lombok builder util.
+     */
+    private LombokBuilderUtil() {
+        // prevent instantiation
+    }
 
     /**
      * Get the Lombok builder() method if present, else null.
