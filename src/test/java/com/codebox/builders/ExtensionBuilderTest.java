@@ -51,4 +51,22 @@ class ExtensionBuilderTest {
         this.extension = (Class<SampleBean>) new ExtensionBuilder<SampleBean>().generate(this.clazz);
         Assertions.assertNotEquals(this.clazz, this.extension);
     }
+
+    /**
+     * Test generate covers already created extension (Class.forName branch).
+     */
+    @Test
+    void testGenerateCoversAlreadyCreatedExtension() throws Exception {
+        ExtensionBuilder<SampleBean> builder = new ExtensionBuilder<>();
+        // First call: creates the extension
+        Class<?> extClass1 = builder.generate(SampleBean.class);
+        Assertions.assertNotNull(extClass1);
+        Assertions.assertTrue(extClass1.getName().endsWith("SampleBeanExtension"));
+
+        // Second call: should hit the Class.forName branch
+        Class<?> extClass2 = builder.generate(SampleBean.class);
+        Assertions.assertNotNull(extClass2);
+        Assertions.assertSame(extClass1, extClass2);
+    }
+
 }
