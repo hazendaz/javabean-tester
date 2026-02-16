@@ -11,11 +11,11 @@ package com.codebox.instance;
 import com.codebox.bean.ValueBuilder;
 import com.codebox.enums.LoadData;
 import com.codebox.enums.LoadType;
+import com.codebox.util.LombokBuilderUtil;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Assertions;
@@ -45,7 +45,7 @@ public class ClassInstance<T> {
         }
 
         // Check if class has Lombok @Builder pattern (static builder() method)
-        Method builderMethod = this.getLombokBuilderMethod(clazz);
+        Method builderMethod = LombokBuilderUtil.getLombokBuilderMethod(clazz);
         if (builderMethod != null) {
             try {
                 return this.createInstanceWithBuilder(clazz, builderMethod);
@@ -100,21 +100,6 @@ public class ClassInstance<T> {
                         "An exception was thrown while testing the class (new instance) '%s' with '%s': '%s'",
                         constructor.getName(), Arrays.toString(values), e.toString()));
             }
-        }
-        return null;
-    }
-
-    /**
-     * Get the Lombok builder() method if present, else null.
-     */
-    private Method getLombokBuilderMethod(final Class<?> clazz) {
-        try {
-            final Method builderMethod = clazz.getMethod("builder");
-            if (Modifier.isStatic(builderMethod.getModifiers()) && builderMethod.getParameterCount() == 0) {
-                return builderMethod;
-            }
-        } catch (final NoSuchMethodException e) {
-            // ignore
         }
         return null;
     }

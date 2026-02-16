@@ -8,6 +8,8 @@
  */
 package com.codebox.bean;
 
+import com.codebox.util.LombokBuilderUtil;
+
 import java.lang.reflect.Modifier;
 
 import net.bytebuddy.ByteBuddy;
@@ -46,6 +48,11 @@ public enum JavaBeanTester {
         // If class is final, use Object.class for comparison needs
         if (Modifier.isFinal(clazz.getModifiers())) {
             return new JavaBeanTesterBuilder<>(clazz, Object.class);
+        }
+
+        // Lombok builder not supported by byte buddy, do not attempt to build extension class
+        if (LombokBuilderUtil.getLombokBuilderMethod(clazz) != null) {
+            return builder(clazz, null);
         }
 
         // Build extension from class using byte buddy
