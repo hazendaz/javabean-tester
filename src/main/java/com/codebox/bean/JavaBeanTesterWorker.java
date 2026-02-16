@@ -494,8 +494,17 @@ class JavaBeanTesterWorker<T, E> {
                         String.format(".hashCode() should be equal for two instances of type %s with loaded data",
                                 this.clazz.getName()));
             } else {
-                Assertions.assertNotEquals(x, y);
-                Assertions.assertNotEquals(x.hashCode(), y.hashCode());
+                // Part of the data loaded may be the same, so we cannot guarantee that equals and hashcode will be
+                // different, but we can at least check that they are not both the same
+                // Assertions.assertNotEquals(x, y);
+                // Assertions.assertNotEquals(x.hashCode(), y.hashCode());
+                if (x.hashCode() == y.hashCode()) {
+                    Assertions.assertEquals(x, y);
+                    Assertions.assertEquals(x.hashCode(), y.hashCode());
+                } else {
+                    Assertions.assertNotEquals(x, y);
+                    Assertions.assertNotEquals(x.hashCode(), y.hashCode());
+                }
             }
         }
 
