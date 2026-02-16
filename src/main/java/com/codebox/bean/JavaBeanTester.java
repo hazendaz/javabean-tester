@@ -94,7 +94,7 @@ public enum JavaBeanTester {
     /**
      * The Class CanEqualInterceptor.
      */
-    public final static class CanEqualInterceptor {
+    public static final class CanEqualInterceptor {
 
         /**
          * Prevents instantiation a new can equal interceptor.
@@ -119,7 +119,7 @@ public enum JavaBeanTester {
     /**
      * The Class InstanceOfEqualsInterceptor.
      */
-    public final static class InstanceOfEqualsInterceptor {
+    public static final class InstanceOfEqualsInterceptor {
 
         /**
          * Prevents instantiation a new instance of equals interceptor.
