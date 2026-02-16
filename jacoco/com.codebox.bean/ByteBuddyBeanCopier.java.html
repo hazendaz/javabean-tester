@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ByteBuddyBeanCopier.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">javabean-tester</a> &gt; <a href="index.source.html" class="el_package">com.codebox.bean</a> &gt; <span class="el_source">ByteBuddyBeanCopier.java</span></div><h1>ByteBuddyBeanCopier.java</h1><pre class="source lang-java linenums">/*
- * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
+ * SPDX-License-Identifier: Apache-2.0
+ * See LICENSE file for details.
  *
- * Copyright 2012-2025 Hazendaz.
+ * Copyright 2012-2026 hazendaz
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of The Apache Software License,
- * Version 2.0 which accompanies this distribution, and is available at
- * http://www.apache.org/licenses/LICENSE-2.0.txt
- *
- * Contributors:
- *     CodeBox (Rob Dawson).
- *     Hazendaz (Jeremy Landis).
+ * Portions of initial baseline code (getter/setter test) by Rob Dawson (CodeBox)
  */
 package com.codebox.bean;
 
@@ -26,8 +20,8 @@ public final class ByteBuddyBeanCopier {
     /**
      * Instantiates a new byte buddy bean copier.
      */
-<span class="nc" id="L29">    private ByteBuddyBeanCopier() {</span>
-<span class="nc" id="L30">        throw new AssertionError(&quot;Utility class should not be instantiated&quot;);</span>
+<span class="nc" id="L23">    private ByteBuddyBeanCopier() {</span>
+<span class="nc" id="L24">        throw new AssertionError(&quot;Utility class should not be instantiated&quot;);</span>
     }
 
     /**
@@ -41,56 +35,56 @@ public final class ByteBuddyBeanCopier {
      *            the converter
      */
     public static void copy(Object source, Object target, BooleanConverter converter) {
-<span class="fc bfc" id="L44" title="All 4 branches covered.">        if (source == null || target == null) {</span>
-<span class="fc" id="L45">            return;</span>
+<span class="fc bfc" id="L38" title="All 4 branches covered.">        if (source == null || target == null) {</span>
+<span class="fc" id="L39">            return;</span>
         }
 
-<span class="fc" id="L48">        Class&lt;?&gt; clazz = source.getClass();</span>
-<span class="fc" id="L49">        Map&lt;String, Method&gt; getters = new HashMap&lt;&gt;();</span>
-<span class="fc" id="L50">        Map&lt;String, Method&gt; setters = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L42">        Class&lt;?&gt; clazz = source.getClass();</span>
+<span class="fc" id="L43">        Map&lt;String, Method&gt; getters = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L44">        Map&lt;String, Method&gt; setters = new HashMap&lt;&gt;();</span>
 
-<span class="fc bfc" id="L52" title="All 2 branches covered.">        for (Method method : clazz.getMethods()) {</span>
-<span class="fc bfc" id="L53" title="All 2 branches covered.">            if (ByteBuddyBeanCopier.isGetter(method)) {</span>
-<span class="fc" id="L54">                String property = ByteBuddyBeanCopier.decapitalize(ByteBuddyBeanCopier.extractPropertyName(method));</span>
-<span class="fc" id="L55">                getters.put(property, method);</span>
-<span class="fc bfc" id="L56" title="All 2 branches covered.">            } else if (ByteBuddyBeanCopier.isSetter(method)) {</span>
-<span class="fc" id="L57">                String property = ByteBuddyBeanCopier.decapitalize(method.getName().substring(3));</span>
-<span class="fc" id="L58">                setters.put(property, method);</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        for (Method method : clazz.getMethods()) {</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">            if (ByteBuddyBeanCopier.isGetter(method)) {</span>
+<span class="fc" id="L48">                String property = ByteBuddyBeanCopier.decapitalize(ByteBuddyBeanCopier.extractPropertyName(method));</span>
+<span class="fc" id="L49">                getters.put(property, method);</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">            } else if (ByteBuddyBeanCopier.isSetter(method)) {</span>
+<span class="fc" id="L51">                String property = ByteBuddyBeanCopier.decapitalize(method.getName().substring(3));</span>
+<span class="fc" id="L52">                setters.put(property, method);</span>
             }
         }
 
-<span class="fc bfc" id="L62" title="All 2 branches covered.">        for (Map.Entry&lt;String, Method&gt; entry : setters.entrySet()) {</span>
-<span class="fc" id="L63">            String property = entry.getKey();</span>
-<span class="fc" id="L64">            Method setter = entry.getValue();</span>
-<span class="fc" id="L65">            Method getter = getters.get(property);</span>
+<span class="fc bfc" id="L56" title="All 2 branches covered.">        for (Map.Entry&lt;String, Method&gt; entry : setters.entrySet()) {</span>
+<span class="fc" id="L57">            String property = entry.getKey();</span>
+<span class="fc" id="L58">            Method setter = entry.getValue();</span>
+<span class="fc" id="L59">            Method getter = getters.get(property);</span>
 
             try {
-<span class="fc" id="L68">                Object value = null;</span>
-<span class="pc bpc" id="L69" title="1 of 2 branches missed.">                if (getter != null) {</span>
-<span class="fc" id="L70">                    value = getter.invoke(source);</span>
-<span class="nc bnc" id="L71" title="All 2 branches missed.">                } else if (isBooleanType(setter.getParameterTypes()[0])) {</span>
+<span class="fc" id="L62">                Object value = null;</span>
+<span class="pc bpc" id="L63" title="1 of 2 branches missed.">                if (getter != null) {</span>
+<span class="fc" id="L64">                    value = getter.invoke(source);</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">                } else if (isBooleanType(setter.getParameterTypes()[0])) {</span>
                     // Try 'is' method for Boolean if getter is missing
-<span class="nc" id="L73">                    String isMethodName = &quot;is&quot; + ByteBuddyBeanCopier.capitalize(property);</span>
+<span class="nc" id="L67">                    String isMethodName = &quot;is&quot; + ByteBuddyBeanCopier.capitalize(property);</span>
                     try {
-<span class="nc" id="L75">                        Method isMethod = clazz.getMethod(isMethodName);</span>
-<span class="nc bnc" id="L76" title="All 2 branches missed.">                        if (isBooleanType(isMethod.getReturnType())) {</span>
-<span class="nc" id="L77">                            value = isMethod.invoke(source);</span>
+<span class="nc" id="L69">                        Method isMethod = clazz.getMethod(isMethodName);</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">                        if (isBooleanType(isMethod.getReturnType())) {</span>
+<span class="nc" id="L71">                            value = isMethod.invoke(source);</span>
                         }
-<span class="nc" id="L79">                    } catch (NoSuchMethodException ignored) {</span>
+<span class="nc" id="L73">                    } catch (NoSuchMethodException ignored) {</span>
                         // No 'is' method, skip
-<span class="nc" id="L81">                    }</span>
+<span class="nc" id="L75">                    }</span>
                 }
-<span class="pc bpc" id="L83" title="1 of 4 branches missed.">                if (converter != null &amp;&amp; isBooleanType(setter.getParameterTypes()[0])) {</span>
-<span class="fc" id="L84">                    value = converter.convert(value, setter.getParameterTypes()[0]);</span>
+<span class="pc bpc" id="L77" title="1 of 4 branches missed.">                if (converter != null &amp;&amp; isBooleanType(setter.getParameterTypes()[0])) {</span>
+<span class="fc" id="L78">                    value = converter.convert(value, setter.getParameterTypes()[0]);</span>
                 }
-<span class="pc bpc" id="L86" title="1 of 4 branches missed.">                if (value != null || !setter.getParameterTypes()[0].isPrimitive()) {</span>
-<span class="fc" id="L87">                    setter.invoke(target, value);</span>
+<span class="pc bpc" id="L80" title="1 of 4 branches missed.">                if (value != null || !setter.getParameterTypes()[0].isPrimitive()) {</span>
+<span class="fc" id="L81">                    setter.invoke(target, value);</span>
                 }
-<span class="nc" id="L89">            } catch (Exception e) {</span>
-<span class="nc" id="L90">                throw new RuntimeException(&quot;Failed to copy property: &quot; + property, e);</span>
-<span class="fc" id="L91">            }</span>
-<span class="fc" id="L92">        }</span>
-<span class="fc" id="L93">    }</span>
+<span class="nc" id="L83">            } catch (Exception e) {</span>
+<span class="nc" id="L84">                throw new RuntimeException(&quot;Failed to copy property: &quot; + property, e);</span>
+<span class="fc" id="L85">            }</span>
+<span class="fc" id="L86">        }</span>
+<span class="fc" id="L87">    }</span>
 
     /**
      * Checks if is getter.
@@ -100,12 +94,12 @@ public final class ByteBuddyBeanCopier {
      * @return true, if is getter
      */
     private static boolean isGetter(Method method) {
-<span class="fc bfc" id="L103" title="All 2 branches covered.">        if (method.getParameterCount() != 0) {</span>
-<span class="fc" id="L104">            return false;</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">        if (method.getParameterCount() != 0) {</span>
+<span class="fc" id="L98">            return false;</span>
         }
-<span class="fc" id="L106">        String name = method.getName();</span>
-<span class="pc bpc" id="L107" title="2 of 6 branches missed.">        return name.startsWith(&quot;get&quot;) &amp;&amp; !method.getReturnType().equals(void.class) &amp;&amp; name.length() &gt; 3</span>
-<span class="pc bpc" id="L108" title="2 of 6 branches missed.">                || name.startsWith(&quot;is&quot;) &amp;&amp; isBooleanType(method.getReturnType()) &amp;&amp; name.length() &gt; 2;</span>
+<span class="fc" id="L100">        String name = method.getName();</span>
+<span class="pc bpc" id="L101" title="2 of 6 branches missed.">        return name.startsWith(&quot;get&quot;) &amp;&amp; !method.getReturnType().equals(void.class) &amp;&amp; name.length() &gt; 3</span>
+<span class="pc bpc" id="L102" title="2 of 6 branches missed.">                || name.startsWith(&quot;is&quot;) &amp;&amp; isBooleanType(method.getReturnType()) &amp;&amp; name.length() &gt; 2;</span>
     }
 
     /**
@@ -116,8 +110,8 @@ public final class ByteBuddyBeanCopier {
      * @return true, if is setter
      */
     private static boolean isSetter(Method method) {
-<span class="pc bpc" id="L119" title="1 of 4 branches missed.">        return method.getName().startsWith(&quot;set&quot;) &amp;&amp; method.getParameterCount() == 1</span>
-<span class="pc bpc" id="L120" title="1 of 2 branches missed.">                &amp;&amp; method.getReturnType().equals(void.class);</span>
+<span class="pc bpc" id="L113" title="1 of 4 branches missed.">        return method.getName().startsWith(&quot;set&quot;) &amp;&amp; method.getParameterCount() == 1</span>
+<span class="pc bpc" id="L114" title="1 of 2 branches missed.">                &amp;&amp; method.getReturnType().equals(void.class);</span>
     }
 
     /**
@@ -128,7 +122,7 @@ public final class ByteBuddyBeanCopier {
      * @return true, if is boolean type
      */
     private static boolean isBooleanType(Class&lt;?&gt; type) {
-<span class="fc bfc" id="L131" title="All 4 branches covered.">        return type == boolean.class || type == Boolean.class;</span>
+<span class="fc bfc" id="L125" title="All 4 branches covered.">        return type == boolean.class || type == Boolean.class;</span>
     }
 
     /**
@@ -139,14 +133,14 @@ public final class ByteBuddyBeanCopier {
      * @return the string
      */
     private static String extractPropertyName(Method getter) {
-<span class="fc" id="L142">        String name = getter.getName();</span>
-<span class="fc bfc" id="L143" title="All 2 branches covered.">        if (name.startsWith(&quot;get&quot;)) {</span>
-<span class="fc" id="L144">            return name.substring(3);</span>
+<span class="fc" id="L136">        String name = getter.getName();</span>
+<span class="fc bfc" id="L137" title="All 2 branches covered.">        if (name.startsWith(&quot;get&quot;)) {</span>
+<span class="fc" id="L138">            return name.substring(3);</span>
         }
-<span class="pc bpc" id="L146" title="1 of 2 branches missed.">        if (name.startsWith(&quot;is&quot;)) {</span>
-<span class="fc" id="L147">            return name.substring(2);</span>
+<span class="pc bpc" id="L140" title="1 of 2 branches missed.">        if (name.startsWith(&quot;is&quot;)) {</span>
+<span class="fc" id="L141">            return name.substring(2);</span>
         }
-<span class="nc" id="L149">        throw new IllegalArgumentException(&quot;Not a getter method: &quot; + name);</span>
+<span class="nc" id="L143">        throw new IllegalArgumentException(&quot;Not a getter method: &quot; + name);</span>
     }
 
     /**
@@ -157,13 +151,13 @@ public final class ByteBuddyBeanCopier {
      * @return the string
      */
     private static String decapitalize(String name) {
-<span class="pc bpc" id="L160" title="2 of 4 branches missed.">        if (name == null || name.isEmpty()) {</span>
-<span class="nc" id="L161">            return name;</span>
+<span class="pc bpc" id="L154" title="2 of 4 branches missed.">        if (name == null || name.isEmpty()) {</span>
+<span class="nc" id="L155">            return name;</span>
         }
-<span class="pc bpc" id="L163" title="4 of 6 branches missed.">        if (name.length() &gt; 1 &amp;&amp; Character.isUpperCase(name.charAt(1)) &amp;&amp; Character.isUpperCase(name.charAt(0))) {</span>
-<span class="nc" id="L164">            return name;</span>
+<span class="pc bpc" id="L157" title="4 of 6 branches missed.">        if (name.length() &gt; 1 &amp;&amp; Character.isUpperCase(name.charAt(1)) &amp;&amp; Character.isUpperCase(name.charAt(0))) {</span>
+<span class="nc" id="L158">            return name;</span>
         }
-<span class="fc" id="L166">        return Character.toLowerCase(name.charAt(0)) + name.substring(1);</span>
+<span class="fc" id="L160">        return Character.toLowerCase(name.charAt(0)) + name.substring(1);</span>
     }
 
     /**
@@ -174,10 +168,10 @@ public final class ByteBuddyBeanCopier {
      * @return the string
      */
     private static String capitalize(String name) {
-<span class="nc bnc" id="L177" title="All 4 branches missed.">        if (name == null || name.isEmpty()) {</span>
-<span class="nc" id="L178">            return name;</span>
+<span class="nc bnc" id="L171" title="All 4 branches missed.">        if (name == null || name.isEmpty()) {</span>
+<span class="nc" id="L172">            return name;</span>
         }
-<span class="nc" id="L180">        return Character.toUpperCase(name.charAt(0)) + name.substring(1);</span>
+<span class="nc" id="L174">        return Character.toUpperCase(name.charAt(0)) + name.substring(1);</span>
     }
 
     /**

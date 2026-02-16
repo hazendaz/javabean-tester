@@ -2,3 +2,4 @@ module:com.codebox.javabean.tester
 com.codebox.bean
 com.codebox.builders
 com.codebox.instance
+com.codebox.util

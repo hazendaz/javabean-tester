@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ClassInstance.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">javabean-tester</a> &gt; <a href="index.source.html" class="el_package">com.codebox.instance</a> &gt; <span class="el_source">ClassInstance.java</span></div><h1>ClassInstance.java</h1><pre class="source lang-java linenums">/*
- * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
+ * SPDX-License-Identifier: Apache-2.0
+ * See LICENSE file for details.
  *
- * Copyright 2012-2025 Hazendaz.
+ * Copyright 2012-2026 hazendaz
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of The Apache Software License,
- * Version 2.0 which accompanies this distribution, and is available at
- * http://www.apache.org/licenses/LICENSE-2.0.txt
- *
- * Contributors:
- *     CodeBox (Rob Dawson).
- *     Hazendaz (Jeremy Landis).
+ * Portions of initial baseline code (getter/setter test) by Rob Dawson (CodeBox)
  */
 package com.codebox.instance;
 
 import com.codebox.bean.ValueBuilder;
 import com.codebox.enums.LoadData;
 import com.codebox.enums.LoadType;
+import com.codebox.util.LombokBuilderUtil;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Assertions;
@@ -30,7 +26,7 @@ import org.junit.jupiter.api.Assertions;
  * @param &lt;T&gt;
  *            the element type
  */
-<span class="fc" id="L33">public class ClassInstance&lt;T&gt; {</span>
+<span class="fc" id="L29">public class ClassInstance&lt;T&gt; {</span>
 
     /**
      * New instance. This will get the first available constructor to run the test on. This allows for instances where
@@ -43,51 +39,99 @@ import org.junit.jupiter.api.Assertions;
      */
     @SuppressWarnings(&quot;unchecked&quot;)
     public final T newInstance(final Class&lt;T&gt; clazz) {
+        // If class is null, return null
+<span class="pc bpc" id="L43" title="1 of 2 branches missed.">        if (clazz == null) {</span>
+<span class="nc" id="L44">            return null;</span>
+        }
+
+        // Check if class has Lombok @Builder pattern (static builder() method)
+<span class="fc" id="L48">        Method builderMethod = LombokBuilderUtil.getLombokBuilderMethod(clazz);</span>
+<span class="fc bfc" id="L49" title="All 2 branches covered.">        if (builderMethod != null) {</span>
+            try {
+<span class="fc" id="L51">                return this.createInstanceWithBuilder(clazz, builderMethod);</span>
+<span class="fc" id="L52">            } catch (final IllegalAccessException | IllegalArgumentException | InvocationTargetException</span>
+                    | NoSuchMethodException | SecurityException e) {
+<span class="pc" id="L54">                Assertions.fail(String.format(</span>
+                        &quot;An exception was thrown while creating instance using Lombok @Builder for class '%s': '%s'&quot;,
+<span class="fc" id="L56">                        clazz.getName(), e.toString()));</span>
+            }
+        }
+
         // Try no-arg constructor first
-<span class="fc bfc" id="L47" title="All 2 branches covered.">        for (final Constructor&lt;?&gt; constructor : clazz.getConstructors()) {</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        for (final Constructor&lt;?&gt; constructor : clazz.getConstructors()) {</span>
             // Skip deprecated constructors
-<span class="fc bfc" id="L49" title="All 2 branches covered.">            if (constructor.isAnnotationPresent(Deprecated.class)) {</span>
-<span class="fc" id="L50">                continue;</span>
+<span class="fc bfc" id="L63" title="All 2 branches covered.">            if (constructor.isAnnotationPresent(Deprecated.class)) {</span>
+<span class="fc" id="L64">                continue;</span>
             }
 
             // Find available no-arg constructor and return it
-<span class="fc bfc" id="L54" title="All 2 branches covered.">            if (constructor.getParameterCount() == 0) {</span>
+<span class="fc bfc" id="L68" title="All 2 branches covered.">            if (constructor.getParameterCount() == 0) {</span>
                 try {
-<span class="fc" id="L56">                    return (T) constructor.newInstance();</span>
-<span class="nc" id="L57">                } catch (final InstantiationException | IllegalAccessException | InvocationTargetException e) {</span>
-<span class="nc" id="L58">                    Assertions.fail(String.format(</span>
+<span class="fc" id="L70">                    return (T) constructor.newInstance();</span>
+<span class="fc" id="L71">                } catch (final InstantiationException | IllegalAccessException | InvocationTargetException e) {</span>
+<span class="pc" id="L72">                    Assertions.fail(String.format(</span>
                             &quot;An exception was thrown while testing class no-arg constructor (new instance) '%s': '%s'&quot;,
-<span class="nc" id="L60">                            constructor.getName(), e.toString()));</span>
+<span class="fc" id="L74">                            constructor.getName(), e.toString()));</span>
                 }
             }
         }
 
         // Try any constructor
-<span class="pc bpc" id="L66" title="1 of 2 branches missed.">        for (final Constructor&lt;?&gt; constructor : clazz.getConstructors()) {</span>
+<span class="pc bpc" id="L80" title="1 of 2 branches missed.">        for (final Constructor&lt;?&gt; constructor : clazz.getConstructors()) {</span>
 
             // Skip deprecated constructors
-<span class="fc bfc" id="L69" title="All 2 branches covered.">            if (constructor.isAnnotationPresent(Deprecated.class)) {</span>
-<span class="fc" id="L70">                continue;</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">            if (constructor.isAnnotationPresent(Deprecated.class)) {</span>
+<span class="fc" id="L84">                continue;</span>
             }
 
-<span class="fc" id="L73">            final Class&lt;?&gt;[] types = constructor.getParameterTypes();</span>
+<span class="fc" id="L87">            final Class&lt;?&gt;[] types = constructor.getParameterTypes();</span>
 
-<span class="fc" id="L75">            final Object[] values = new Object[constructor.getParameterTypes().length];</span>
+<span class="fc" id="L89">            final Object[] values = new Object[constructor.getParameterTypes().length];</span>
 
             // Load Data
-<span class="fc bfc" id="L78" title="All 2 branches covered.">            for (int i = 0; i &lt; values.length; i++) {</span>
-<span class="fc" id="L79">                values[i] = this.buildValue(types[i], LoadType.STANDARD_DATA);</span>
+<span class="fc bfc" id="L92" title="All 2 branches covered.">            for (int i = 0; i &lt; values.length; i++) {</span>
+<span class="fc" id="L93">                values[i] = this.buildValue(types[i], LoadType.STANDARD_DATA);</span>
             }
 
             try {
-<span class="fc" id="L83">                return (T) constructor.newInstance(values);</span>
-<span class="nc" id="L84">            } catch (final InstantiationException | IllegalAccessException | InvocationTargetException e) {</span>
-<span class="nc" id="L85">                Assertions.fail(String.format(</span>
+<span class="fc" id="L97">                return (T) constructor.newInstance(values);</span>
+<span class="fc" id="L98">            } catch (final InstantiationException | IllegalAccessException | InvocationTargetException e) {</span>
+<span class="pc" id="L99">                Assertions.fail(String.format(</span>
                         &quot;An exception was thrown while testing the class (new instance) '%s' with '%s': '%s'&quot;,
-<span class="nc" id="L87">                        constructor.getName(), Arrays.toString(values), e.toString()));</span>
+<span class="fc" id="L101">                        constructor.getName(), Arrays.toString(values), e.toString()));</span>
             }
         }
-<span class="nc" id="L90">        return null;</span>
+<span class="nc" id="L104">        return null;</span>
+    }
+
+    /**
+     * Create an instance using Lombok's builder pattern.
+     *
+     * @param clazz
+     *            the class to instantiate
+     * @param builderMethod
+     *            the builder method
+     * @return the instance created via builder
+     * @throws IllegalAccessException
+     *             the illegal access exception
+     * @throws IllegalArgumentException
+     *             the illegal argument exception
+     * @throws InvocationTargetException
+     *             the invocation target exception
+     * @throws NoSuchMethodException
+     *             the no such method exception
+     * @throws SecurityException
+     *             the security exception
+     */
+    @SuppressWarnings(&quot;unchecked&quot;)
+    private T createInstanceWithBuilder(final Class&lt;T&gt; clazz, final Method builderMethod) throws IllegalAccessException,
+            IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+        // Invoke the builder() method to get a builder instance
+<span class="fc" id="L130">        final T builder = (T) builderMethod.invoke(null);</span>
+        // Find the build() method on the builder
+<span class="fc" id="L132">        Method buildMethod = builder.getClass().getMethod(&quot;build&quot;);</span>
+        // Invoke build() to create the instance
+<span class="fc" id="L134">        return (T) buildMethod.invoke(builder);</span>
     }
 
     /**
@@ -103,9 +147,9 @@ import org.junit.jupiter.api.Assertions;
      * @return the object
      */
     public &lt;R&gt; Object buildValue(final Class&lt;R&gt; returnType, final LoadType loadType) {
-<span class="fc" id="L106">        final ValueBuilder valueBuilder = new ValueBuilder();</span>
-<span class="fc" id="L107">        valueBuilder.setLoadData(LoadData.ON);</span>
-<span class="fc" id="L108">        return valueBuilder.buildValue(returnType, loadType);</span>
+<span class="fc" id="L150">        final ValueBuilder valueBuilder = new ValueBuilder();</span>
+<span class="fc" id="L151">        valueBuilder.setLoadData(LoadData.ON);</span>
+<span class="fc" id="L152">        return valueBuilder.buildValue(returnType, loadType);</span>
     }
 
 }

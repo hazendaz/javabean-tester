@@ -1,15 +1,15 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-javabean-tester,com.codebox.builders,ExtensionBuilder,5,169,0,2,1,25,0,7,0,6
-javabean-tester,com.codebox.instance,ConstructorInstance,21,39,1,1,5,10,1,2,0,2
-javabean-tester,com.codebox.instance,ClassInstance,41,96,1,11,7,17,1,8,0,3
+javabean-tester,com.codebox.builders,ExtensionBuilder,0,174,0,2,0,26,0,7,0,6
+javabean-tester,com.codebox.instance,ConstructorInstance,6,54,1,1,1,14,1,2,0,2
+javabean-tester,com.codebox.instance,ClassInstance,13,174,2,14,2,33,2,10,0,4
 javabean-tester,com.codebox.bean,ByteBuddyBeanCopier,74,239,24,44,17,42,21,21,2,6
 javabean-tester,com.codebox.bean,JavaBeanTester.new NamingStrategy.AbstractBase() {...},0,13,0,0,0,2,0,2,0,2
 javabean-tester,com.codebox.bean,JavaBeanTester.InstanceOfEqualsInterceptor,3,28,1,9,2,5,2,5,1,1
 javabean-tester,com.codebox.bean,ValueBuilder,0,438,0,109,0,101,0,69,0,14
-javabean-tester,com.codebox.bean,JavaBeanTesterWorker,177,1148,16,82,35,225,16,52,0,19
+javabean-tester,com.codebox.bean,JavaBeanTesterWorker,177,1192,16,88,35,237,16,58,0,22
 javabean-tester,com.codebox.bean,JavaBeanTester.CanEqualInterceptor,3,3,0,0,2,1,1,1,1,1
 javabean-tester,com.codebox.bean,JavaBeanTesterBuilder,0,130,0,12,0,36,0,25,0,19
-javabean-tester,com.codebox.bean,JavaBeanTester,0,68,0,2,0,13,0,4,0,3
+javabean-tester,com.codebox.bean,JavaBeanTester,0,75,0,4,0,15,0,5,0,3
 javabean-tester,com.codebox.enums,SkipStrictSerialize,0,15,0,0,0,3,0,1,0,1
 javabean-tester,com.codebox.enums,CheckSerialize,0,15,0,0,0,3,0,1,0,1
 javabean-tester,com.codebox.enums,LoadData,0,15,0,0,0,3,0,1,0,1
@@ -17,3 +17,4 @@ javabean-tester,com.codebox.enums,LoadType,0,27,0,0,0,5,0,1,0,1
 javabean-tester,com.codebox.enums,CheckEquals,0,15,0,0,0,3,0,1,0,1
 javabean-tester,com.codebox.enums,CheckClear,0,15,0,0,0,3,0,1,0,1
 javabean-tester,com.codebox.enums,CheckConstructor,0,15,0,0,0,3,0,1,0,1
+javabean-tester,com.codebox.util,LombokBuilderUtil,0,19,1,3,0,6,1,2,0,1

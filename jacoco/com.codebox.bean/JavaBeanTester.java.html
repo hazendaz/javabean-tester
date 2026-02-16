@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang=""><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JavaBeanTester.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">javabean-tester</a> &gt; <a href="index.source.html" class="el_package">com.codebox.bean</a> &gt; <span class="el_source">JavaBeanTester.java</span></div><h1>JavaBeanTester.java</h1><pre class="source lang-java linenums">/*
- * JavaBean Tester (https://github.com/hazendaz/javabean-tester)
+ * SPDX-License-Identifier: Apache-2.0
+ * See LICENSE file for details.
  *
- * Copyright 2012-2025 Hazendaz.
+ * Copyright 2012-2026 hazendaz
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of The Apache Software License,
- * Version 2.0 which accompanies this distribution, and is available at
- * http://www.apache.org/licenses/LICENSE-2.0.txt
- *
- * Contributors:
- *     CodeBox (Rob Dawson).
- *     Hazendaz (Jeremy Landis).
+ * Portions of initial baseline code (getter/setter test) by Rob Dawson (CodeBox)
  */
 package com.codebox.bean;
+
+import com.codebox.util.LombokBuilderUtil;
 
 import java.lang.reflect.Modifier;
 
@@ -33,7 +29,7 @@ import net.bytebuddy.matcher.ElementMatchers;
  * This helper class can be used to unit test the get/set/equals/canEqual/toString/hashCode methods of JavaBean-style
  * Value Objects.
  */
-<span class="fc" id="L36">public enum JavaBeanTester {</span>
+<span class="fc" id="L32">public enum JavaBeanTester {</span>
 
     // Private Usage
     ;
@@ -50,26 +46,31 @@ import net.bytebuddy.matcher.ElementMatchers;
      */
     public static &lt;T&gt; JavaBeanTesterBuilder&lt;T, ?&gt; builder(final Class&lt;T&gt; clazz) {
         // If class is final, use Object.class for comparison needs
-<span class="fc bfc" id="L53" title="All 2 branches covered.">        if (Modifier.isFinal(clazz.getModifiers())) {</span>
-<span class="fc" id="L54">            return new JavaBeanTesterBuilder&lt;&gt;(clazz, Object.class);</span>
+<span class="fc bfc" id="L49" title="All 2 branches covered.">        if (Modifier.isFinal(clazz.getModifiers())) {</span>
+<span class="fc" id="L50">            return new JavaBeanTesterBuilder&lt;&gt;(clazz, Object.class);</span>
+        }
+
+        // Lombok builder not supported by byte buddy, do not attempt to build extension class
+<span class="fc bfc" id="L54" title="All 2 branches covered.">        if (LombokBuilderUtil.getLombokBuilderMethod(clazz) != null) {</span>
+<span class="fc" id="L55">            return builder(clazz, null);</span>
         }
 
         // Build extension from class using byte buddy
-<span class="fc" id="L58">        Class&lt;? extends T&gt; loaded = new ByteBuddy().with(new NamingStrategy.AbstractBase() {</span>
+<span class="fc" id="L59">        Class&lt;? extends T&gt; loaded = new ByteBuddy().with(new NamingStrategy.AbstractBase() {</span>
             @Override
             protected String name(TypeDescription superClass) {
-<span class="fc" id="L61">                return clazz.getPackageName() + &quot;.ByteBuddyExt&quot; + superClass.getSimpleName();</span>
+<span class="fc" id="L62">                return clazz.getPackageName() + &quot;.ByteBuddyExt&quot; + superClass.getSimpleName();</span>
             }
-<span class="fc" id="L63">        }).subclass(clazz).method(ElementMatchers.isEquals())</span>
-<span class="fc" id="L64">                .intercept(MethodDelegation.to(InstanceOfEqualsInterceptor.class)).method(ElementMatchers.isHashCode())</span>
-<span class="fc" id="L65">                .intercept(HashCodeMethod.usingSuperClassOffset()).method(ElementMatchers.isToString())</span>
-<span class="fc" id="L66">                .intercept(ToStringMethod.prefixedBySimpleClassName()).method(ElementMatchers.named(&quot;canEqual&quot;))</span>
-<span class="fc" id="L67">                .intercept(MethodDelegation.to(CanEqualInterceptor.class))</span>
-<span class="fc" id="L68">                .defineField(&quot;javabeanExtension&quot;, String.class, Visibility.PACKAGE_PRIVATE).make()</span>
-<span class="fc" id="L69">                .load(clazz.getClassLoader(), ClassLoadingStrategy.Default.WRAPPER).getLoaded();</span>
+<span class="fc" id="L64">        }).subclass(clazz).method(ElementMatchers.isEquals())</span>
+<span class="fc" id="L65">                .intercept(MethodDelegation.to(InstanceOfEqualsInterceptor.class)).method(ElementMatchers.isHashCode())</span>
+<span class="fc" id="L66">                .intercept(HashCodeMethod.usingSuperClassOffset()).method(ElementMatchers.isToString())</span>
+<span class="fc" id="L67">                .intercept(ToStringMethod.prefixedBySimpleClassName()).method(ElementMatchers.named(&quot;canEqual&quot;))</span>
+<span class="fc" id="L68">                .intercept(MethodDelegation.to(CanEqualInterceptor.class))</span>
+<span class="fc" id="L69">                .defineField(&quot;javabeanExtension&quot;, String.class, Visibility.PACKAGE_PRIVATE).make()</span>
+<span class="fc" id="L70">                .load(clazz.getClassLoader(), ClassLoadingStrategy.Default.WRAPPER).getLoaded();</span>
 
         // Builder with proper extension class
-<span class="fc" id="L72">        return builder(clazz, loaded);</span>
+<span class="fc" id="L73">        return builder(clazz, loaded);</span>
     }
 
     /**
@@ -87,20 +88,20 @@ import net.bytebuddy.matcher.ElementMatchers;
      * @return A builder implementing the fluent API to configure JavaBeanTester
      */
     public static &lt;T, E&gt; JavaBeanTesterBuilder&lt;T, E&gt; builder(final Class&lt;T&gt; clazz, final Class&lt;E&gt; extension) {
-<span class="fc" id="L90">        return new JavaBeanTesterBuilder&lt;&gt;(clazz, extension);</span>
+<span class="fc" id="L91">        return new JavaBeanTesterBuilder&lt;&gt;(clazz, extension);</span>
     }
 
     /**
      * The Class CanEqualInterceptor.
      */
-    public final static class CanEqualInterceptor {
+    public static final class CanEqualInterceptor {
 
         /**
          * Prevents instantiation a new can equal interceptor.
          */
-<span class="nc" id="L101">        CanEqualInterceptor() {</span>
+<span class="nc" id="L102">        CanEqualInterceptor() {</span>
             // Private constructor to prevent instantiation
-<span class="nc" id="L103">        }</span>
+<span class="nc" id="L104">        }</span>
 
         /**
          * Can Equal Interceptor.
@@ -110,7 +111,7 @@ import net.bytebuddy.matcher.ElementMatchers;
          * @return boolean of can equals
          */
         public static boolean canEqual(final Object object) {
-<span class="fc" id="L113">            return object instanceof NamedElement.WithRuntimeName;</span>
+<span class="fc" id="L114">            return object instanceof NamedElement.WithRuntimeName;</span>
         }
 
     }
@@ -118,14 +119,14 @@ import net.bytebuddy.matcher.ElementMatchers;
     /**
      * The Class InstanceOfEqualsInterceptor.
      */
-    public final static class InstanceOfEqualsInterceptor {
+    public static final class InstanceOfEqualsInterceptor {
 
         /**
          * Prevents instantiation a new instance of equals interceptor.
          */
-<span class="nc" id="L126">        InstanceOfEqualsInterceptor() {</span>
+<span class="nc" id="L127">        InstanceOfEqualsInterceptor() {</span>
             // Private constructor to prevent instantiation
-<span class="nc" id="L128">        }</span>
+<span class="nc" id="L129">        }</span>
 
         /**
          * Equals.
@@ -137,13 +138,13 @@ import net.bytebuddy.matcher.ElementMatchers;
          * @return true, if successful
          */
         public static boolean equals(@This Object self, @Argument(0) Object other) {
-<span class="fc bfc" id="L140" title="All 2 branches covered.">            if (self == other) {</span>
-<span class="fc" id="L141">                return true;</span>
+<span class="fc bfc" id="L141" title="All 2 branches covered.">            if (self == other) {</span>
+<span class="fc" id="L142">                return true;</span>
             }
-<span class="pc bpc" id="L143" title="1 of 6 branches missed.">            if ((other == null) || (!self.getClass().isInstance(other) &amp;&amp; !other.getClass().isInstance(self))) {</span>
-<span class="fc" id="L144">                return false;</span>
+<span class="pc bpc" id="L144" title="1 of 6 branches missed.">            if ((other == null) || (!self.getClass().isInstance(other) &amp;&amp; !other.getClass().isInstance(self))) {</span>
+<span class="fc" id="L145">                return false;</span>
             }
-<span class="fc bfc" id="L146" title="All 2 branches covered.">            return self.hashCode() == other.hashCode();</span>
+<span class="fc bfc" id="L147" title="All 2 branches covered.">            return self.hashCode() == other.hashCode();</span>
         }
     }
 
