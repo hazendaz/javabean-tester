@@ -141,7 +141,7 @@
         <timestamp>${maven.build.timestamp}</timestamp>
 
         <!-- Enforcer Jdks Allowed -->
-        <allowed.build.jdks>[21,22),[25,26),[26,27)</allowed.build.jdks>
+        <allowed.build.jdks>[21,22),[25,26),[26,27),[27,28)</allowed.build.jdks>
 
         <!-- Maven compiler options -->
         <java.version>17</java.version>
