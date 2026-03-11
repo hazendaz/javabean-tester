@@ -203,7 +203,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.42</version>
+            <version>1.18.44</version>
             <scope>provided</scope>
         </dependency>
 
@@ -299,7 +299,7 @@
                             <path>
                                 <groupId>org.projectlombok</groupId>
                                 <artifactId>lombok</artifactId>
-                                <version>1.18.42</version>
+                                <version>1.18.44</version>
                             </path>
                             <path>
                                 <groupId>org.hibernate.validator</groupId>
@@ -1013,7 +1013,7 @@
                             <dependency>
                                 <groupId>org.projectlombok</groupId>
                                 <artifactId>lombok</artifactId>
-                                <version>1.18.42</version>
+                                <version>1.18.44</version>
                             </dependency>
                         </dependencies>
                     </plugin>
@@ -1152,7 +1152,7 @@
                 <dependency>
                     <groupId>org.projectlombok</groupId>
                     <artifactId>lombok</artifactId>
-                    <version>edge-SNAPSHOT</version>
+                    <version>1.18.44</version>
                     <scope>provided</scope>
                 </dependency>
             </dependencies>
