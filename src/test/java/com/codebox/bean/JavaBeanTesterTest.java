@@ -14,6 +14,8 @@ import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import net.bytebuddy.description.type.TypeDescription;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -338,6 +340,31 @@ class JavaBeanTesterTest {
                 .test();
     }
 
+    @Test
+    void testCanEqualInterceptor() {
+        final JavaBeanTester.CanEqualInterceptor interceptor = new JavaBeanTester.CanEqualInterceptor();
+        Assertions.assertNotNull(interceptor);
+        Assertions.assertTrue(
+                JavaBeanTester.CanEqualInterceptor.canEqual(new TypeDescription.ForLoadedType(SampleBean.class)));
+        Assertions.assertFalse(JavaBeanTester.CanEqualInterceptor.canEqual(new Object()));
+    }
+
+    @Test
+    void testInstanceOfEqualsInterceptor() {
+        final JavaBeanTester.InstanceOfEqualsInterceptor interceptor = new JavaBeanTester.InstanceOfEqualsInterceptor();
+        Assertions.assertNotNull(interceptor);
+
+        final HashValue sameLeft = new HashValue(10);
+        final HashValue sameRight = new HashValue(10);
+        final HashValue different = new HashValue(11);
+
+        Assertions.assertTrue(JavaBeanTester.InstanceOfEqualsInterceptor.equals(sameLeft, sameLeft));
+        Assertions.assertFalse(JavaBeanTester.InstanceOfEqualsInterceptor.equals(sameLeft, null));
+        Assertions.assertFalse(JavaBeanTester.InstanceOfEqualsInterceptor.equals(sameLeft, "other-type"));
+        Assertions.assertTrue(JavaBeanTester.InstanceOfEqualsInterceptor.equals(sameLeft, sameRight));
+        Assertions.assertFalse(JavaBeanTester.InstanceOfEqualsInterceptor.equals(sameLeft, different));
+    }
+
     /**
      * Serialize.
      *
@@ -358,6 +385,19 @@ class JavaBeanTesterTest {
 
         final ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
         return (T) new ObjectInputStream(bais).readObject();
+    }
+
+    static final class HashValue {
+        private final int hashCode;
+
+        HashValue(final int hashCode) {
+            this.hashCode = hashCode;
+        }
+
+        @Override
+        public int hashCode() {
+            return this.hashCode;
+        }
     }
 
 }

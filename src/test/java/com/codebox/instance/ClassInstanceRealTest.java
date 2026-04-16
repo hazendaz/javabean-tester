@@ -28,6 +28,12 @@ class ClassInstanceRealTest {
         }
     }
 
+    static class DeprecatedOnlyConstructor {
+        @Deprecated
+        public DeprecatedOnlyConstructor() {
+        }
+    }
+
     /**
      * New instance throws assertion failed error on instantiation exception.
      */
@@ -36,6 +42,18 @@ class ClassInstanceRealTest {
         ClassInstance<AbstractClass> classInstance = new ClassInstance<>();
         Assertions.assertThrows(org.opentest4j.AssertionFailedError.class,
                 () -> classInstance.newInstance(AbstractClass.class));
+    }
+
+    @Test
+    void newInstanceReturnsNullWhenClassIsNull() {
+        ClassInstance<AbstractClass> classInstance = new ClassInstance<>();
+        Assertions.assertNull(classInstance.newInstance(null));
+    }
+
+    @Test
+    void newInstanceReturnsNullWhenOnlyDeprecatedConstructorsExist() {
+        ClassInstance<DeprecatedOnlyConstructor> classInstance = new ClassInstance<>();
+        Assertions.assertNull(classInstance.newInstance(DeprecatedOnlyConstructor.class));
     }
 
 }
