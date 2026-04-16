@@ -13,6 +13,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Date;
+
+import net.bytebuddy.description.type.TypeDescription;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -338,6 +341,83 @@ class JavaBeanTesterTest {
                 .test();
     }
 
+    @Test
+    void testCanEqualInterceptor() {
+        final JavaBeanTester.CanEqualInterceptor interceptor = new JavaBeanTester.CanEqualInterceptor();
+        Assertions.assertNotNull(interceptor);
+        Assertions.assertTrue(
+                JavaBeanTester.CanEqualInterceptor.canEqual(new TypeDescription.ForLoadedType(SampleBean.class)));
+        Assertions.assertFalse(JavaBeanTester.CanEqualInterceptor.canEqual(new Object()));
+    }
+
+    @Test
+    void testInstanceOfEqualsInterceptor() {
+        final JavaBeanTester.InstanceOfEqualsInterceptor interceptor = new JavaBeanTester.InstanceOfEqualsInterceptor();
+        Assertions.assertNotNull(interceptor);
+
+        final HashValue sameLeft = new HashValue(10);
+        final HashValue sameRight = new HashValue(10);
+        final HashValue different = new HashValue(11);
+
+        Assertions.assertTrue(JavaBeanTester.InstanceOfEqualsInterceptor.equals(sameLeft, sameLeft));
+        Assertions.assertFalse(JavaBeanTester.InstanceOfEqualsInterceptor.equals(sameLeft, null));
+        Assertions.assertFalse(JavaBeanTester.InstanceOfEqualsInterceptor.equals(sameLeft, "other-type"));
+        Assertions.assertTrue(JavaBeanTester.InstanceOfEqualsInterceptor.equals(sameLeft, sameRight));
+        Assertions.assertFalse(JavaBeanTester.InstanceOfEqualsInterceptor.equals(sameLeft, different));
+    }
+
+    /**
+     * Test that checkSerializable() on a non-Serializable class calls Assertions.fail (covers L338-true + L339 in
+     * JavaBeanTesterWorker).
+     */
+    @Test
+    void testCheckSerializableOnNonSerializableClassFails() {
+        Assertions.assertThrows(org.opentest4j.AssertionFailedError.class,
+                () -> JavaBeanTester.builder(SimpleNonSerializableBean.class, null).checkSerializable().test());
+    }
+
+    /**
+     * Test that EqualsVerifier failure is swallowed (covers L440-441 in JavaBeanTesterWorker).
+     */
+    @Test
+    void testCheckEqualsSwallowsEqualsVerifierFailure() {
+        // IdentityEqualsStringBean uses == for String comparison; EqualsVerifier creates non-interned strings
+        // so it fails – but the error is caught and logged, not propagated.
+        // Pass null extension to skip processExtensionEqualsHashCodeToStringSymmetricTest entirely.
+        // The worker's own checks still pass because ValueBuilder always provides the same interned "TEST_VALUE".
+        JavaBeanTester.builder(IdentityEqualsStringBean.class, null).checkEquals().loadData().test();
+    }
+
+    /**
+     * Test that an Externalizable class covers the Externalizable branch in implementsSerializable (L352) and the
+     * skipStrictSerializable else-branch assertNotEquals (L339).
+     */
+    @Test
+    void testExternalizableBean() {
+        // SampleExternalizableBean uses identity equals; after round-trip the two instances differ →
+        // skipStrictSerializable triggers assertNotEquals (L339); Externalizable branch in
+        // implementsSerializable (L352) is also covered.
+        JavaBeanTester.builder(SampleExternalizableBean.class).checkSerializable().skipStrictSerializable().test();
+    }
+
+    /**
+     * Test that a Serializable class with a non-serializable field triggers IOException in canSerialize (L372-375).
+     */
+    @Test
+    void testSerializableWithNonSerializableFieldFails() {
+        Assertions.assertThrows(org.opentest4j.AssertionFailedError.class,
+                () -> JavaBeanTester.builder(SerializableWithThreadFieldBean.class).checkSerializable().test());
+    }
+
+    /**
+     * Test that Date.class exercises the date-normalization guard (L231+).
+     */
+    @Test
+    void testDateBeanGetterSetter() {
+        // Pass null extension to bypass ByteBuddy (forbidden to subclass java.util.Date)
+        JavaBeanTester.builder(Date.class, null).loadData().test();
+    }
+
     /**
      * Serialize.
      *
@@ -358,6 +438,52 @@ class JavaBeanTesterTest {
 
         final ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
         return (T) new ObjectInputStream(bais).readObject();
+    }
+
+    /**
+     * Test that a class with a setter-only property (no getter recognized by Introspector) triggers the boolean-wrapper
+     * patch branch in equalsTests (L633 true branch and L636 try block).
+     */
+    @Test
+    void testEqualsWithSetterOnlyProperty() {
+        var instance = new SetterOnlyBean();
+        var expected = new SetterOnlyBean();
+        JavaBeanTester.builder(SetterOnlyBean.class, null).testEquals(instance, expected);
+    }
+
+    /**
+     * The Class SetterOnlyBean – has a setter but no getter so that equalsTests hits the getter==null patch (L633).
+     */
+    static class SetterOnlyBean {
+        /** The value – no getter, only a setter. */
+        @SuppressWarnings("unused")
+        private String value;
+
+        /**
+         * Sets the value.
+         *
+         * @param value
+         *            the value
+         */
+        public void setValue(final String value) {
+            this.value = value;
+        }
+    }
+
+    /**
+     * Bean with no custom equals/hashCode – causes EqualsVerifier to fail.
+     */
+    static final class HashValue {
+        private final int hashCode;
+
+        HashValue(final int hashCode) {
+            this.hashCode = hashCode;
+        }
+
+        @Override
+        public int hashCode() {
+            return this.hashCode;
+        }
     }
 
 }

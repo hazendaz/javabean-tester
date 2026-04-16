@@ -56,6 +56,16 @@ class ConstructorInstanceExceptionTest {
         }
     }
 
+    static class PublicCtorClass {
+        public PublicCtorClass() {
+        }
+    }
+
+    static final class UtilityClass {
+        private UtilityClass() {
+        }
+    }
+
     /**
      * Test new instance instantiation exception.
      *
@@ -78,6 +88,17 @@ class ConstructorInstanceExceptionTest {
     void testNewInstanceInvocationTargetException() throws Exception {
         Constructor<?> ctor = ThrowsOnConstruct.class.getDeclaredConstructor();
         Assertions.assertThrows(org.opentest4j.AssertionFailedError.class, () -> ConstructorInstance.newInstance(ctor));
+    }
+
+    @Test
+    void testNewInstanceSuccess() throws Exception {
+        Constructor<?> ctor = PublicCtorClass.class.getDeclaredConstructor();
+        Assertions.assertInstanceOf(PublicCtorClass.class, ConstructorInstance.newInstance(ctor));
+    }
+
+    @Test
+    void testInaccessibleUtilityClass() {
+        Assertions.assertDoesNotThrow(() -> ConstructorInstance.inaccessible(UtilityClass.class));
     }
 
 }
