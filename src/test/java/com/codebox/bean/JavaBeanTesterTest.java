@@ -13,6 +13,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Date;
 
 import net.bytebuddy.description.type.TypeDescription;
 
@@ -366,6 +367,58 @@ class JavaBeanTesterTest {
     }
 
     /**
+     * Test that checkSerializable() on a non-Serializable class calls Assertions.fail (covers L338-true + L339 in
+     * JavaBeanTesterWorker).
+     */
+    @Test
+    void testCheckSerializableOnNonSerializableClassFails() {
+        Assertions.assertThrows(org.opentest4j.AssertionFailedError.class,
+                () -> JavaBeanTester.builder(SimpleNonSerializableBean.class, null).checkSerializable().test());
+    }
+
+    /**
+     * Test that EqualsVerifier failure is swallowed (covers L440-441 in JavaBeanTesterWorker).
+     */
+    @Test
+    void testCheckEqualsSwallowsEqualsVerifierFailure() {
+        // IdentityEqualsStringBean uses == for String comparison; EqualsVerifier creates non-interned strings
+        // so it fails – but the error is caught and logged, not propagated.
+        // Pass null extension to skip processExtensionEqualsHashCodeToStringSymmetricTest entirely.
+        // The worker's own checks still pass because ValueBuilder always provides the same interned "TEST_VALUE".
+        JavaBeanTester.builder(IdentityEqualsStringBean.class, null).checkEquals().loadData().test();
+    }
+
+    /**
+     * Test that an Externalizable class covers the Externalizable branch in implementsSerializable (L352) and the
+     * skipStrictSerializable else-branch assertNotEquals (L339).
+     */
+    @Test
+    void testExternalizableBean() {
+        // SampleExternalizableBean uses identity equals; after round-trip the two instances differ →
+        // skipStrictSerializable triggers assertNotEquals (L339); Externalizable branch in
+        // implementsSerializable (L352) is also covered.
+        JavaBeanTester.builder(SampleExternalizableBean.class).checkSerializable().skipStrictSerializable().test();
+    }
+
+    /**
+     * Test that a Serializable class with a non-serializable field triggers IOException in canSerialize (L372-375).
+     */
+    @Test
+    void testSerializableWithNonSerializableFieldFails() {
+        Assertions.assertThrows(org.opentest4j.AssertionFailedError.class,
+                () -> JavaBeanTester.builder(SerializableWithThreadFieldBean.class).checkSerializable().test());
+    }
+
+    /**
+     * Test that Date.class exercises the date-normalization guard (L231+).
+     */
+    @Test
+    void testDateBeanGetterSetter() {
+        // Pass null extension to bypass ByteBuddy (forbidden to subclass java.util.Date)
+        JavaBeanTester.builder(Date.class, null).loadData().test();
+    }
+
+    /**
      * Serialize.
      *
      * @param <T>
@@ -387,6 +440,9 @@ class JavaBeanTesterTest {
         return (T) new ObjectInputStream(bais).readObject();
     }
 
+    /**
+     * Bean with no custom equals/hashCode – causes EqualsVerifier to fail.
+     */
     static final class HashValue {
         private final int hashCode;
 
