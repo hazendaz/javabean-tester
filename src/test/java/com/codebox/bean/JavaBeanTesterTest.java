@@ -441,6 +441,36 @@ class JavaBeanTesterTest {
     }
 
     /**
+     * Test that a class with a setter-only property (no getter recognized by Introspector) triggers the boolean-wrapper
+     * patch branch in equalsTests (L633 true branch and L636 try block).
+     */
+    @Test
+    void testEqualsWithSetterOnlyProperty() {
+        var instance = new SetterOnlyBean();
+        var expected = new SetterOnlyBean();
+        JavaBeanTester.builder(SetterOnlyBean.class, null).testEquals(instance, expected);
+    }
+
+    /**
+     * The Class SetterOnlyBean – has a setter but no getter so that equalsTests hits the getter==null patch (L633).
+     */
+    static class SetterOnlyBean {
+        /** The value – no getter, only a setter. */
+        @SuppressWarnings("unused")
+        private String value;
+
+        /**
+         * Sets the value.
+         *
+         * @param value
+         *            the value
+         */
+        public void setValue(final String value) {
+            this.value = value;
+        }
+    }
+
+    /**
      * Bean with no custom equals/hashCode – causes EqualsVerifier to fail.
      */
     static final class HashValue {

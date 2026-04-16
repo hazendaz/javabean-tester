@@ -159,6 +159,206 @@ class ByteBuddyBeanCopierTest {
         }
     }
 
+    /**
+     * Test copy with acronym (double-uppercase) getter covers the decapitalize "all-caps" branch (L157-158).
+     */
+    @Test
+    void testCopyWithAcronymGetter() {
+        var source = new AcronymBean();
+        source.setURL("https://example.com");
+
+        var target = new AcronymBean();
+        ByteBuddyBeanCopier.copy(source, target, null);
+
+        Assertions.assertEquals("https://example.com", target.getURL());
+    }
+
+    /**
+     * Test that a setter named "set" (empty property name) does not throw and exercises the decapitalize/capitalize
+     * empty-string branches (L154-155, L171-172).
+     */
+    @Test
+    void testCopyWithEmptyPropertyName() {
+        var source = new EmptyPropertyNameBean();
+        var target = new EmptyPropertyNameBean();
+        Assertions.assertDoesNotThrow(() -> ByteBuddyBeanCopier.copy(source, target, null));
+    }
+
+    /**
+     * Test that a void-returning "getter" (not recognised by isGetter) causes the copier to treat the property as
+     * getter-less and exercises the non-boolean setter without getter branch (L65 false, L101 void-getter branch).
+     */
+    @Test
+    void testCopyWithVoidReturningGetterMethod() {
+        var source = new VoidGetterBean();
+        var target = new VoidGetterBean();
+        // Should copy silently: void "getter" not recognised, String setter copies null
+        Assertions.assertDoesNotThrow(() -> ByteBuddyBeanCopier.copy(source, target, null));
+    }
+
+    /**
+     * Test copy with single-char property name exercises the decapitalize length-1 branch (L157 false branch when
+     * name.length() == 1) and the getXxx/setXxx method named "get" exactly exercises the length > 3 false branch of
+     * isGetter (L101).
+     */
+    @Test
+    void testCopyWithSingleCharAndExactGetProperty() {
+        var source = new SingleCharPropertyBean();
+        source.setX("hello");
+
+        var target = new SingleCharPropertyBean();
+        ByteBuddyBeanCopier.copy(source, target, null);
+
+        Assertions.assertEquals("hello", target.getX());
+    }
+
+    /**
+     * Test copy with a fluent (non-void returning) setter exercises the isSetter false branch for non-void return type
+     * (L113 and L114 non-void branch).
+     */
+    @Test
+    void testCopyWithFluentSetter() {
+        var source = new FluentSetterBean();
+        source.setName("test");
+
+        var target = new FluentSetterBean();
+        ByteBuddyBeanCopier.copy(source, target, null);
+
+        // Fluent setter is NOT recognised by isSetter() → name is not copied
+        Assertions.assertNull(target.getName());
+    }
+
+    static class AcronymBean {
+        /** The url. */
+        private String url;
+
+        /**
+         * Gets the URL.
+         *
+         * @return the URL
+         */
+        public String getURL() {
+            return this.url;
+        }
+
+        /**
+         * Sets the URL.
+         *
+         * @param url
+         *            the URL
+         */
+        public void setURL(final String url) {
+            this.url = url;
+        }
+    }
+
+    /** Bean whose only setter is named "set" producing an empty property name. */
+    static class EmptyPropertyNameBean {
+        /** The val. */
+        @SuppressWarnings({ "unused", "java:S100" })
+        private boolean val;
+
+        /**
+         * Sets the (empty-property-name setter).
+         *
+         * @param val
+         *            the val
+         */
+        @SuppressWarnings("java:S100")
+        public void set(final boolean val) { // NOSONAR intentional empty-name property for edge-case test
+            this.val = val;
+        }
+    }
+
+    /** Bean with a void "getter" – not recognised by isGetter, exercises L101 branch and L65 false branch. */
+    static class VoidGetterBean {
+        /** The name. */
+        private String name;
+
+        /**
+         * Gets the name (void – not a valid getter).
+         */
+        @SuppressWarnings("java:S4144")
+        public void getName() { // NOSONAR intentional void "getter" for branch-coverage test
+            // void return — not recognised as a getter by ByteBuddyBeanCopier.isGetter()
+        }
+
+        /**
+         * Sets the name.
+         *
+         * @param name
+         *            the name
+         */
+        public void setName(final String name) {
+            this.name = name;
+        }
+    }
+
+    /**
+     * Bean with a single-char property 'x' and an extra 'get()' method (length 3, not > 3) to exercise the isGetter
+     * length-check false branch (L101 A+B+C=F path).
+     */
+    static class SingleCharPropertyBean {
+        /** The x. */
+        private String x;
+
+        /**
+         * Gets the x.
+         *
+         * @return the x
+         */
+        public String getX() {
+            return this.x;
+        }
+
+        /**
+         * Sets the x.
+         *
+         * @param x
+         *            the x
+         */
+        public void setX(final String x) {
+            this.x = x;
+        }
+
+        /**
+         * A method named "get" exactly (length 3, not > 3) – exercises the isGetter length > 3 false branch (L101).
+         *
+         * @return null
+         */
+        @SuppressWarnings("java:S100")
+        public String get() { // NOSONAR intentional method named "get" for branch-coverage of isGetter
+            return null;
+        }
+    }
+
+    /** Bean with a fluent (non-void) setter – exercises the isSetter non-void-return false branch (L113-114). */
+    static class FluentSetterBean {
+        /** The name. */
+        private String name;
+
+        /**
+         * Gets the name.
+         *
+         * @return the name
+         */
+        public String getName() {
+            return this.name;
+        }
+
+        /**
+         * Sets the name (fluent – returns {@code this}; NOT recognised as a setter by isSetter).
+         *
+         * @param name
+         *            the name
+         * @return this
+         */
+        public FluentSetterBean setName(final String name) {
+            this.name = name;
+            return this;
+        }
+    }
+
     static class FailingGetterSource {
         public void setName(String name) {
         }
