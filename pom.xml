@@ -175,6 +175,7 @@
         <byte-buddy.version>1.18.8</byte-buddy.version>
         <junit.version>6.0.3</junit.version>
         <license.version>5.0.0</license.version>
+        <lombok.version>1.18.46</lombok.version>
         <slf4j.version>2.0.17</slf4j.version>
 
         <!-- Surefire Settings -->
@@ -203,7 +204,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.46</version>
+            <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -299,7 +300,7 @@
                             <path>
                                 <groupId>org.projectlombok</groupId>
                                 <artifactId>lombok</artifactId>
-                                <version>1.18.46</version>
+                                <version>${lombok.version}</version>
                             </path>
                             <path>
                                 <groupId>org.hibernate.validator</groupId>
@@ -1013,7 +1014,7 @@
                             <dependency>
                                 <groupId>org.projectlombok</groupId>
                                 <artifactId>lombok</artifactId>
-                                <version>1.18.46</version>
+                                <version>${lombok.version}</version>
                             </dependency>
                         </dependencies>
                     </plugin>
@@ -1148,14 +1149,9 @@
                 <jdk>[26,)</jdk>
             </activation>
 
-            <dependencies>
-                <dependency>
-                    <groupId>org.projectlombok</groupId>
-                    <artifactId>lombok</artifactId>
-                    <version>1.18.46</version>
-                    <scope>provided</scope>
-                </dependency>
-            </dependencies>
+            <properties>
+                <lombok.version>edge-SNAPSHOT</lombok.version>
+            </properties>
 
             <repositories>
                 <repository>
