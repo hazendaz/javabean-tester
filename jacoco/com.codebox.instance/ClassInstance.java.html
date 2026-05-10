@@ -40,8 +40,8 @@ import org.junit.jupiter.api.Assertions;
     @SuppressWarnings(&quot;unchecked&quot;)
     public final T newInstance(final Class&lt;T&gt; clazz) {
         // If class is null, return null
-<span class="pc bpc" id="L43" title="1 of 2 branches missed.">        if (clazz == null) {</span>
-<span class="nc" id="L44">            return null;</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        if (clazz == null) {</span>
+<span class="fc" id="L44">            return null;</span>
         }
 
         // Check if class has Lombok @Builder pattern (static builder() method)
@@ -77,7 +77,7 @@ import org.junit.jupiter.api.Assertions;
         }
 
         // Try any constructor
-<span class="pc bpc" id="L80" title="1 of 2 branches missed.">        for (final Constructor&lt;?&gt; constructor : clazz.getConstructors()) {</span>
+<span class="fc bfc" id="L80" title="All 2 branches covered.">        for (final Constructor&lt;?&gt; constructor : clazz.getConstructors()) {</span>
 
             // Skip deprecated constructors
 <span class="fc bfc" id="L83" title="All 2 branches covered.">            if (constructor.isAnnotationPresent(Deprecated.class)) {</span>
@@ -101,7 +101,7 @@ import org.junit.jupiter.api.Assertions;
 <span class="fc" id="L101">                        constructor.getName(), Arrays.toString(values), e.toString()));</span>
             }
         }
-<span class="nc" id="L104">        return null;</span>
+<span class="fc" id="L104">        return null;</span>
     }
 
     /**

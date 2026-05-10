@@ -335,7 +335,7 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
         }
 
         // Only throw error when specifically checking on serialization
-<span class="pc bpc" id="L338" title="1 of 2 branches missed.">        if (this.checkSerializable == CheckSerialize.ON) {</span>
+<span class="fc bfc" id="L338" title="All 2 branches covered.">        if (this.checkSerializable == CheckSerialize.ON) {</span>
 <span class="nc" id="L339">            Assertions.fail(String.format(&quot;Class is not serializable '%s'&quot;, object.getClass().getName()));</span>
         }
 <span class="fc" id="L341">    }</span>
@@ -349,7 +349,7 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
      * @return true, if successful
      */
     boolean implementsSerializable(final T object) {
-<span class="pc bpc" id="L352" title="1 of 4 branches missed.">        return object instanceof Externalizable || object instanceof Serializable;</span>
+<span class="fc bfc" id="L352" title="All 4 branches covered.">        return object instanceof Externalizable || object instanceof Serializable;</span>
     }
 
     /**
@@ -369,9 +369,9 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
 <span class="fc" id="L369">                ObjectOutputStream oos = new ObjectOutputStream(baos)) {</span>
 <span class="fc" id="L370">            oos.writeObject(object);</span>
 <span class="fc" id="L371">            byteArray = baos.toByteArray();</span>
-<span class="nc" id="L372">        } catch (final IOException e) {</span>
-<span class="nc" id="L373">            Assertions.fail(String.format(&quot;An exception was thrown while serializing the class '%s': '%s',&quot;,</span>
-<span class="nc" id="L374">                    object.getClass().getName(), e.toString()));</span>
+<span class="fc" id="L372">        } catch (final IOException e) {</span>
+<span class="pc" id="L373">            Assertions.fail(String.format(&quot;An exception was thrown while serializing the class '%s': '%s',&quot;,</span>
+<span class="fc" id="L374">                    object.getClass().getName(), e.toString()));</span>
 <span class="nc" id="L375">            return null;</span>
 <span class="fc" id="L376">        }</span>
 
@@ -437,8 +437,8 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
         // Run Equals Verifier
         try {
 <span class="fc" id="L439">            EqualsVerifier.simple().forClass(this.clazz).suppress(Warning.BIGDECIMAL_EQUALITY).verify();</span>
-<span class="nc" id="L440">        } catch (AssertionError e) {</span>
-<span class="nc" id="L441">            JavaBeanTesterWorker.logger.warn(&quot;EqualsVerifier attempt failed: {}&quot;, e.getMessage());</span>
+<span class="fc" id="L440">        } catch (AssertionError e) {</span>
+<span class="fc" id="L441">            JavaBeanTesterWorker.logger.warn(&quot;EqualsVerifier attempt failed: {}&quot;, e.getMessage());</span>
 <span class="fc" id="L442">        }</span>
 <span class="fc" id="L443">    }</span>
 
@@ -634,12 +634,12 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
 <span class="fc" id="L634">                final String isBooleanWrapper = &quot;is&quot; + setter.getName().substring(3);</span>
                 try {
 <span class="fc" id="L636">                    getter = this.clazz.getMethod(isBooleanWrapper);</span>
-<span class="nc" id="L637">                } catch (NoSuchMethodException | SecurityException e) {</span>
+<span class="fc" id="L637">                } catch (NoSuchMethodException | SecurityException e) {</span>
                     // Do nothing
 <span class="fc" id="L639">                }</span>
             }
 
-<span class="pc bpc" id="L642" title="1 of 4 branches missed.">            if (getter != null &amp;&amp; setter != null) {</span>
+<span class="fc bfc" id="L642" title="All 4 branches covered.">            if (getter != null &amp;&amp; setter != null) {</span>
                 // We have both a get and set method for this property
 <span class="fc" id="L644">                final Class&lt;?&gt; returnType = getter.getReturnType();</span>
 <span class="fc" id="L645">                final Class&lt;?&gt;[] params = setter.getParameterTypes();</span>

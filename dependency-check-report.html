@@ -91,9 +91,13 @@
                     }
                 });
                 $('#modal-add-header').click(function () {
-                    xml = '<?xml version="1.0" encoding="UTF-8"?>\n<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">\n   ';
-                    xml += $("#modal-text").text().replace(/\n/g,'\n   ');
-                    xml += '\n</suppressions>';
+                    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.4.xsd"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.4.xsd
+                                  https://dependency-check.github.io/DependencyCheck/dependency-suppression.1.4.xsd">
+    ${$("#modal-text").text().replace(/\n/g,'\n    ')}
+</suppressions>`;
                     $('#modal-add-header').toggleClass('active');
                     $('#modal-text').text(xml).focus().select();
                 });
@@ -139,26 +143,26 @@
             }
             function setCopyText(name, matchType, matchValue, suppressType, suppressVal) {
                 var xml =  '<suppress>\n';
-                xml += '   <notes><!'+'[CDATA[\n   file name: ' + name + '\n   ]]'+'></notes>\n';
+                xml += '    <notes><![CDATA[\n    file name: ' + name + '\n    ]]></notes>\n';
                 if (matchType=='packageUrl') {
                     var v = matchValue.match(/^[^@]+/);
                     if (v && v[0]) {
-                        xml += '   <'+matchType+' regex="true">^' + escapeRegExp(v[0]) + '@.*$</'+matchType+'>\n';
+                        xml += '    <'+matchType+' regex="true">^' + escapeRegExp(v[0]) + '@.*$</'+matchType+'>\n';
                     } else {
-                        xml += '   <'+matchType+'>' + matchValue + '</'+matchType+'>\n';
+                        xml += '    <'+matchType+'>' + matchValue + '</'+matchType+'>\n';
                     }
                 } else {
-                    xml += '   <'+matchType+'>' + matchValue + '</'+matchType+'>\n';
+                    xml += '    <'+matchType+'>' + matchValue + '</'+matchType+'>\n';
                 }
                 if (suppressType=='cpe') {
                     v = suppressVal.match(/^cpe:\/a:[^:]+:[^:]+/);
                     if (v && v[0]) {
-                        xml += '   <'+suppressType+'>' + v[0] + '</'+suppressType+'>\n';
+                        xml += '    <'+suppressType+'>' + v[0] + '</'+suppressType+'>\n';
                     } else {
-                        xml += '   <'+suppressType+'>' + suppressVal + '</'+suppressType+'>\n';
+                        xml += '    <'+suppressType+'>' + suppressVal + '</'+suppressType+'>\n';
                     }
                 } else {
-                    xml += '   <'+suppressType+'>' + suppressVal + '</'+suppressType+'>\n';
+                    xml += '    <'+suppressType+'>' + suppressVal + '</'+suppressType+'>\n';
                 }
                 xml += '</suppress>';
                 $('#modal-text').text(xml);
@@ -265,7 +269,8 @@
             }
             #modal-text {
                 border: 0;
-                overflow: hidden
+                overflow: auto;
+                white-space: pre;
             }
             #modal-text:focus {
                 outline: none;
@@ -652,8 +657,8 @@
         <div id="modal-background"></div>
         <div id="modal-content">
             <div>Press CTR-C to copy XML&nbsp;<a href="https://dependency-check.github.io/DependencyCheck/general/suppression.html" class="infolink" target="_blank" title="Help with suppressing false positives">[help]</a></div>
-                <button id="modal-suppress-change-to-packageUrl" class="modal-button suppresstype" title="Supress by Maven Group Artifact Version">Suppress By GAV</button>
-                <button id="modal-suppress-change-to-sha1" class="modal-button suppresstype" title="Supress by SHA1 hash">Suppress By SHA1</button><br/>
+                <button id="modal-suppress-change-to-packageUrl" class="modal-button suppresstype" title="Supress by Maven Group Artifact Version">Suppress by Package URL</button>
+                <button id="modal-suppress-change-to-sha1" class="modal-button suppresstype" title="Supress by SHA1 hash">Suppress by SHA1</button><br/>
                 <input type="hidden" id="suppress-name"/>
                 <input type="hidden" id="suppress-type"/><input type="hidden" id="suppress-val"/>
                 <input type="hidden" id="suppress-sha1"/><input type="hidden" id="suppress-packageUrl"/>
@@ -673,21 +678,21 @@ arising out of or in connection with the use of this tool, the analysis performe
 Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issues" target="_blank">github issues</a></h3>
 
             <h2 class="">Project:&nbsp;javabean-tester</h2>
-            <h4>com.github.hazendaz:javabean-tester:2.12.0</h4>
+            <h4>com.github.hazendaz:javabean-tester:2.12.1</h4>
             <div class="">
 
                 Scan Information (<a href="#" title="Click to toggle display" id="scanInformationToggle">show all</a>):<br/>
                     <ul class="indent">
-                        <li><i>dependency-check version</i>: 12.2.0</li>
-                        <li><i>Report Generated On</i>: Sun, 15 Feb 2026 21:08:48 -0500</li>
+                        <li><i>dependency-check version</i>: 12.2.2</li>
+                        <li><i>Report Generated On</i>: Sat, 9 May 2026 20:52:39 -0400</li>
                         <li><i>Dependencies Scanned</i>:&nbsp;18 (17 unique)</li>
                         <li><i>Vulnerable Dependencies</i>:&nbsp;<span id="vulnerableCount">0</span></li>
                         <li><i>Vulnerabilities Found</i>:&nbsp;0</li>
                         <li><i>Vulnerabilities Suppressed</i>:&nbsp;0
                         </li>
                         <li class="scaninfo">...</li>
-                        <li class="scaninfo hidden"><i>NVD API Last Checked</i>: 2026-02-15T21:08:39-05</li>
-                        <li class="scaninfo hidden"><i>NVD API Last Modified</i>: 2026-02-16T01:15:54Z</li>
+                        <li class="scaninfo hidden"><i>NVD API Last Checked</i>: 2026-05-09T20:52:29-04</li>
+                        <li class="scaninfo hidden"><i>NVD API Last Modified</i>: 2026-05-09T23:16:33Z</li>
                     </ul><br/>
 <h2>Summary</h2>
                 <p><span id="tablecaption-plain">Summary of Vulnerable Dependencies </span><a href="#" title="Click to toggle display" id="vulnerabilityDisplayToggle">(click to show all)</a></p>
@@ -714,11 +719,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>40</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="BYTE-BUDDY-1.18.5.JAR"><a href="#l2_1b6780c10176ed29430ae6b92b81bc166ac92490">byte-buddy-1.18.5.jar</a></td>
+                        <td data-sort-value="BYTE-BUDDY-1.18.8.JAR"><a href="#l2_88ca06016d190f5954569f9d113cd22c96788b0d">byte-buddy-1.18.8.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/net.bytebuddy/byte-buddy@1.18.5">
-                                pkg:maven/net.bytebuddy/byte-buddy@1.18.5
+                        <td data-sort-value="pkg:maven/net.bytebuddy/byte-buddy@1.18.8">
+                                pkg:maven/net.bytebuddy/byte-buddy@1.18.8
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -726,23 +731,23 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>29</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="EQUALSVERIFIER-4.3.1.JAR"><a href="#l3_319493f3eb682c14b9dab71bbbe0df6d06e0a5a7">equalsverifier-4.3.1.jar</a></td>
+                        <td data-sort-value="EQUALSVERIFIER-4.5.JAR"><a href="#l3_4c00e55571a817467057a33e3ba2b0026d215e83">equalsverifier-4.5.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/nl.jqno.equalsverifier/equalsverifier@4.3.1">
-                                pkg:maven/nl.jqno.equalsverifier/equalsverifier@4.3.1
+                        <td data-sort-value="pkg:maven/nl.jqno.equalsverifier/equalsverifier@4.5">
+                                pkg:maven/nl.jqno.equalsverifier/equalsverifier@4.5
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
                         <td data-sort-value="0"></td>
-                        <td>34</td>
+                        <td>33</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="JAVASSIST-3.30.2-GA.JAR"><a href="#l4_284580b5e42dfa1b8267058566435d9e93fae7f7">javassist-3.30.2-GA.jar</a></td>
+                        <td data-sort-value="JAVASSIST-3.31.0-GA.JAR"><a href="#l4_1f3dea3154928f85fd520c2a8743522dc820b000">javassist-3.31.0-GA.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/org.javassist/javassist@3.30.2-GA">
-                                pkg:maven/org.javassist/javassist@3.30.2-GA
+                        <td data-sort-value="pkg:maven/org.javassist/javassist@3.31.0-GA">
+                                pkg:maven/org.javassist/javassist@3.31.0-GA
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -823,7 +828,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>76</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="LOMBOK-1.18.42.JAR: MAVENECJBOOTSTRAPAGENT.JAR"><a href="#l11_e1f7f1779f40157fd0b984c1bc32a0cb45cae66e">lombok-1.18.42.jar: mavenEcjBootstrapAgent.jar</a></td>
+                        <td data-sort-value="LOMBOK-1.18.46.JAR: MAVENECJBOOTSTRAPAGENT.JAR"><a href="#l11_4b03ce7b33d535b42e4a84e106c3647760eb8769">lombok-1.18.46.jar: mavenEcjBootstrapAgent.jar</a></td>
                         <td data-sort-value="">
                         </td>
                         <td data-sort-value="">
@@ -834,11 +839,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>7</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="LOMBOK-1.18.42.JAR"><a href="#l12_8365263844ebb62398e0dc33057ba10ba472d3b8">lombok-1.18.42.jar</a></td>
+                        <td data-sort-value="LOMBOK-1.18.46.JAR"><a href="#l12_a5cfe99fdf320e84955ef653f2ce1bf789d11385">lombok-1.18.46.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/org.projectlombok/lombok@1.18.42">
-                                pkg:maven/org.projectlombok/lombok@1.18.42
+                        <td data-sort-value="pkg:maven/org.projectlombok/lombok@1.18.46">
+                                pkg:maven/org.projectlombok/lombok@1.18.46
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -846,11 +851,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>36</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="MOCKITO-CORE-5.21.0.JAR"><a href="#l13_121287b8287464a5a7af2e47d5dbc49ca38a892f">mockito-core-5.21.0.jar</a></td>
+                        <td data-sort-value="MOCKITO-CORE-5.23.0.JAR"><a href="#l13_a5cf3cf244300e4cd05f779827cf50d373a8460e">mockito-core-5.23.0.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/org.mockito/mockito-core@5.21.0">
-                                pkg:maven/org.mockito/mockito-core@5.21.0
+                        <td data-sort-value="pkg:maven/org.mockito/mockito-core@5.23.0">
+                                pkg:maven/org.mockito/mockito-core@5.23.0
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -858,11 +863,11 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>41</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="MOCKITO-JUNIT-JUPITER-5.21.0.JAR"><a href="#l14_a50fabee944b1e49804255743045851ed4b354c6">mockito-junit-jupiter-5.21.0.jar</a></td>
+                        <td data-sort-value="MOCKITO-JUNIT-JUPITER-5.23.0.JAR"><a href="#l14_e66b5f34ffea58bf4388aba58f66a209daeba4fd">mockito-junit-jupiter-5.23.0.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/org.mockito/mockito-junit-jupiter@5.21.0">
-                                pkg:maven/org.mockito/mockito-junit-jupiter@5.21.0
+                        <td data-sort-value="pkg:maven/org.mockito/mockito-junit-jupiter@5.23.0">
+                                pkg:maven/org.mockito/mockito-junit-jupiter@5.23.0
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
@@ -870,16 +875,16 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                         <td>39</td>
                     </tr>
                     <tr class="notvulnerable">
-                        <td data-sort-value="OBJENESIS-3.4.JAR"><a href="#l15_675cbe121a68019235d27f6c34b4f0ac30e07418">objenesis-3.4.jar</a></td>
+                        <td data-sort-value="OBJENESIS-3.5.JAR"><a href="#l15_848ebc672f1e42d62c9357bd0882374c4e21895f">objenesis-3.5.jar</a></td>
                         <td data-sort-value="">
                         </td>
-                        <td data-sort-value="pkg:maven/org.objenesis/objenesis@3.4">
-                                pkg:maven/org.objenesis/objenesis@3.4
+                        <td data-sort-value="pkg:maven/org.objenesis/objenesis@3.5">
+                                pkg:maven/org.objenesis/objenesis@3.5
 </td>
                         <td data-sort-value="-10">&nbsp;</td>
                         <td>0</td>
                         <td data-sort-value="0"></td>
-                        <td>27</td>
+                        <td>29</td>
                     </tr>
                     <tr class="notvulnerable">
                         <td data-sort-value="OPENTEST4J-1.3.0.JAR"><a href="#l16_152ea56b3a72f655d4fd677fc0ef2596c3dd5e6e">opentest4j-1.3.0.jar</a></td>
@@ -974,7 +979,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l2_1b6780c10176ed29430ae6b92b81bc166ac92490"></a>byte-buddy-1.18.5.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l2_88ca06016d190f5954569f9d113cd22c96788b0d"></a>byte-buddy-1.18.8.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>
         Byte Buddy is a Java library for creating Java classes at run time.
@@ -982,12 +987,12 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
     </pre></p>
                         <p>
                             <b>License:</b><pre class="indent"><a href="https://www.apache.org/licenses/LICENSE-2.0.txt">https://www.apache.org/licenses/LICENSE-2.0.txt</a></pre>
-                            <b>File&nbsp;Path:</b>&nbsp;C:\Users\Jeremy\.m2\repository\net\bytebuddy\byte-buddy\1.18.5\byte-buddy-1.18.5.jar<br/>
-                            <b>MD5:</b>&nbsp;461a2f79b03fbbb6ba8876da901f1801<br/>
-                            <b>SHA1:</b>&nbsp;1b6780c10176ed29430ae6b92b81bc166ac92490<br/>
-                            <b>SHA256:</b>e50ba78d8fd22e832c7a87bfa84cbdf93476ff4901b6e985ff66ebbde83f7f8a
+                            <b>File&nbsp;Path:</b>&nbsp;C:\Users\Jeremy\.m2\repository\net\bytebuddy\byte-buddy\1.18.8\byte-buddy-1.18.8.jar<br/>
+                            <b>MD5:</b>&nbsp;678cf379f8ddb3da5ee10340365ff37e<br/>
+                            <b>SHA1:</b>&nbsp;88ca06016d190f5954569f9d113cd22c96788b0d<br/>
+                            <b>SHA256:</b>227d3e0ad51915809143f6a744ac0f4cb21f03214dab28e52ee7007c5ad7e9d9
                                 <br/><b>Referenced In Project/Scope:</b> javabean-tester:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">byte-buddy-1.18.5.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz/javabean-tester@2.12.0
+                                <br/><span class="tooltip"><span class="tooltiptext">byte-buddy-1.18.8.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz/javabean-tester@2.12.1
                         </p>
                         <h4 id="header3" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content3" class="subsectioncontent standardsubsection hidden">
@@ -1019,31 +1024,31 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>net.bytebuddy</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>Byte Buddy (without dependencies)</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>parent-artifactid</td><td>byte-buddy-parent</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>1.18.5</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>1.18.5</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>1.18.5</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>1.18.8</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>1.18.8</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>1.18.8</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header4" class="subsectionheader white">Identifiers</h4>
                         <div id="content4" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/net.bytebuddy/byte-buddy@1.18.5
+                                    <li>pkg:maven/net.bytebuddy/byte-buddy@1.18.8
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l3_319493f3eb682c14b9dab71bbbe0df6d06e0a5a7"></a>equalsverifier-4.3.1.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l3_4c00e55571a817467057a33e3ba2b0026d215e83"></a>equalsverifier-4.5.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>EqualsVerifier can be used in JUnit unit tests to verify whether the contract for the equals and hashCode methods is met.</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">Apache License, Version 2.0: https://www.apache.org/licenses/LICENSE-2.0.txt</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;C:\Users\Jeremy\.m2\repository\nl\jqno\equalsverifier\equalsverifier\4.3.1\equalsverifier-4.3.1.jar<br/>
-                            <b>MD5:</b>&nbsp;c37a3cfe0053311246631f2b180576af<br/>
-                            <b>SHA1:</b>&nbsp;319493f3eb682c14b9dab71bbbe0df6d06e0a5a7<br/>
-                            <b>SHA256:</b>5aebfc79cde5c92d37367017450b1dd2a4ddf72a4d9025e63cdec4e34b65c913
+                            <b>File&nbsp;Path:</b>&nbsp;C:\Users\Jeremy\.m2\repository\nl\jqno\equalsverifier\equalsverifier\4.5\equalsverifier-4.5.jar<br/>
+                            <b>MD5:</b>&nbsp;94d8ef4326fcda679fdec6070186b2d0<br/>
+                            <b>SHA1:</b>&nbsp;4c00e55571a817467057a33e3ba2b0026d215e83<br/>
+                            <b>SHA256:</b>76f64ce3bf02070d44cba92e2f1eabb1f5dbedb9ba6b3dd3becdaa4b148a52f0
                                 <br/><b>Referenced In Project/Scope:</b> javabean-tester:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">equalsverifier-4.3.1.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz/javabean-tester@2.12.0
+                                <br/><span class="tooltip"><span class="tooltiptext">equalsverifier-4.5.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz/javabean-tester@2.12.1
                         </p>
                         <h4 id="header5" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content5" class="subsectioncontent standardsubsection hidden">
@@ -1053,7 +1058,7 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                                     <tr><td>Vendor</td><td>jar</td><td>package name</td><td>equalsverifier</td><td>Highest</td></tr>
                                     <tr><td>Vendor</td><td>jar</td><td>package name</td><td>jqno</td><td>Highest</td></tr>
                                     <tr><td>Vendor</td><td>jar</td><td>package name</td><td>nl</td><td>Highest</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>build-jdk-spec</td><td>25</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>build-jdk-spec</td><td>26</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>multi-release</td><td>true</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>website</td><td>https://www.jqno.nl/equalsverifier</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>artifactid</td><td>equalsverifier</td><td>Highest</td></tr>
@@ -1065,11 +1070,10 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                                     <tr><td>Vendor</td><td>pom</td><td>name</td><td>EqualsVerifier | release normal jar</td><td>High</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>url</td><td>https://www.jqno.nl/equalsverifier</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>file</td><td>name</td><td>equalsverifier</td><td>High</td></tr>
-                                    <tr><td>Product</td><td>jar</td><td>package name</td><td>25</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>jar</td><td>package name</td><td>equalsverifier</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>jar</td><td>package name</td><td>jqno</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>jar</td><td>package name</td><td>nl</td><td>Highest</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>build-jdk-spec</td><td>25</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>build-jdk-spec</td><td>26</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>Implementation-Title</td><td>EqualsVerifier</td><td>High</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>multi-release</td><td>true</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>website</td><td>https://www.jqno.nl/equalsverifier</td><td>Low</td></tr>
@@ -1080,21 +1084,21 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>nl.jqno.equalsverifier</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>EqualsVerifier | release normal jar</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>https://www.jqno.nl/equalsverifier</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>4.3.1</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>4.3.1</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>4.3.1</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>4.5</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>4.5</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>4.5</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header6" class="subsectionheader white">Identifiers</h4>
                         <div id="content6" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/nl.jqno.equalsverifier/equalsverifier@4.3.1
+                                    <li>pkg:maven/nl.jqno.equalsverifier/equalsverifier@4.5
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l4_284580b5e42dfa1b8267058566435d9e93fae7f7"></a>javassist-3.30.2-GA.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l4_1f3dea3154928f85fd520c2a8743522dc820b000"></a>javassist-3.31.0-GA.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>
     Javassist (JAVA programming ASSISTant) makes Java bytecode manipulation
@@ -1104,12 +1108,12 @@ Getting Help: <a href="https://github.com/dependency-check/DependencyCheck/issue
                             <b>License:</b><pre class="indent">MPL 1.1: https://www.mozilla.org/en-US/MPL/1.1/
 LGPL 2.1: https://www.gnu.org/licenses/lgpl-2.1.html
 Apache License 2.0: https://www.apache.org/licenses/LICENSE-2.0</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;C:\Users\Jeremy\.m2\repository\org\javassist\javassist\3.30.2-GA\javassist-3.30.2-GA.jar<br/>
-                            <b>MD5:</b>&nbsp;f5b827b8ddec0629cc7a6d7dafc45999<br/>
-                            <b>SHA1:</b>&nbsp;284580b5e42dfa1b8267058566435d9e93fae7f7<br/>
-                            <b>SHA256:</b>eba37290994b5e4868f3af98ff113f6244a6b099385d9ad46881307d3cb01aaf
+                            <b>File&nbsp;Path:</b>&nbsp;C:\Users\Jeremy\.m2\repository\org\javassist\javassist\3.31.0-GA\javassist-3.31.0-GA.jar<br/>
+                            <b>MD5:</b>&nbsp;65adb3b483a0d6eb7b8db2f5b3327a5e<br/>
+                            <b>SHA1:</b>&nbsp;1f3dea3154928f85fd520c2a8743522dc820b000<br/>
+                            <b>SHA256:</b>44b6b900ca352f4a0048e9428efab16582a014e10f8f65b4e58f5136c704624e
                                 <br/><b>Referenced In Project/Scope:</b> javabean-tester:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">javassist-3.30.2-GA.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz/javabean-tester@2.12.0
+                                <br/><span class="tooltip"><span class="tooltiptext">javassist-3.31.0-GA.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz/javabean-tester@2.12.1
                         </p>
                         <h4 id="header7" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content7" class="subsectioncontent standardsubsection hidden">
@@ -1119,7 +1123,7 @@ Apache License 2.0: https://www.apache.org/licenses/LICENSE-2.0</pre>
                                     <tr><td>Vendor</td><td>jar</td><td>package name</td><td>bytecode</td><td>Highest</td></tr>
                                     <tr><td>Vendor</td><td>jar</td><td>package name</td><td>javassist</td><td>Highest</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>automatic-module-name</td><td>org.javassist</td><td>Medium</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>build-jdk-spec</td><td>21</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>build-jdk-spec</td><td>25</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>bundle-symbolicname</td><td>javassist</td><td>Medium</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>specification-vendor</td><td>Shigeru Chiba, www.javassist.org</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>artifactid</td><td>javassist</td><td>Highest</td></tr>
@@ -1148,7 +1152,7 @@ Apache License 2.0: https://www.apache.org/licenses/LICENSE-2.0</pre>
                                     <tr><td>Product</td><td>jar</td><td>package name</td><td>bytecode</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>jar</td><td>package name</td><td>javassist</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>automatic-module-name</td><td>org.javassist</td><td>Medium</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>build-jdk-spec</td><td>21</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>build-jdk-spec</td><td>25</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>Bundle-Name</td><td>Javassist</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>bundle-symbolicname</td><td>javassist</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>specification-title</td><td>Javassist</td><td>Medium</td></tr>
@@ -1173,13 +1177,13 @@ Apache License 2.0: https://www.apache.org/licenses/LICENSE-2.0</pre>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>Javassist</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>organization name</td><td>Shigeru Chiba, www.javassist.org</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>https://www.javassist.org/</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>3.30.2-GA</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>3.31.0-GA</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header8" class="subsectionheader white">Identifiers</h4>
                         <div id="content8" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.javassist/javassist@3.30.2-GA
+                                    <li>pkg:maven/org.javassist/javassist@3.31.0-GA
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
@@ -1254,7 +1258,7 @@ Apache License 2.0: https://www.apache.org/licenses/LICENSE-2.0</pre>
                             <b>SHA1:</b>&nbsp;da72f4bc0feccbca639b901ace26e3a62512ebec<br/>
                             <b>SHA256:</b>784b65815f479a0c99a9d3a573b142e2a525efb6025d97f751b19e72f90aeda3
                                 <br/><b>Referenced In Project/Scope:</b> javabean-tester:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">junit-jupiter-6.0.3.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz/javabean-tester@2.12.0
+                                <br/><span class="tooltip"><span class="tooltiptext">junit-jupiter-6.0.3.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz/javabean-tester@2.12.1
                         </p>
                         <h4 id="header11" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content11" class="subsectioncontent standardsubsection hidden">
@@ -1773,13 +1777,13 @@ Apache License 2.0: https://www.apache.org/licenses/LICENSE-2.0</pre>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l11_e1f7f1779f40157fd0b984c1bc32a0cb45cae66e"></a>lombok-1.18.42.jar: mavenEcjBootstrapAgent.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l11_4b03ce7b33d535b42e4a84e106c3647760eb8769"></a>lombok-1.18.46.jar: mavenEcjBootstrapAgent.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                         <p>
-                            <b>File&nbsp;Path:</b>&nbsp;C:\Users\Jeremy\.m2\repository\org\projectlombok\lombok\1.18.42\lombok-1.18.42.jar\lombok\launch\mavenEcjBootstrapAgent.jar<br/>
-                            <b>MD5:</b>&nbsp;885d5d6be90a5dcd4b82cdf741e3f31a<br/>
-                            <b>SHA1:</b>&nbsp;e1f7f1779f40157fd0b984c1bc32a0cb45cae66e<br/>
-                            <b>SHA256:</b>74a80a6ee84e5c6fe497dfcc46a46dbe30578525e747eb531e918ee0750c8da9
+                            <b>File&nbsp;Path:</b>&nbsp;C:\Users\Jeremy\.m2\repository\org\projectlombok\lombok\1.18.46\lombok-1.18.46.jar\lombok\launch\mavenEcjBootstrapAgent.jar<br/>
+                            <b>MD5:</b>&nbsp;8b80305e4846088e139701372844e637<br/>
+                            <b>SHA1:</b>&nbsp;4b03ce7b33d535b42e4a84e106c3647760eb8769<br/>
+                            <b>SHA256:</b>639da94437813649eac5af6d8154d736355f27199fc8aaeda85904fce947ee4f
                                 <br/><b>Referenced In Project/Scope:</b> javabean-tester:provided
                         </p>
                         <h4 id="header22" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
@@ -1800,17 +1804,17 @@ Apache License 2.0: https://www.apache.org/licenses/LICENSE-2.0</pre>
                             <ul><li><b>None</b></li></ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l12_8365263844ebb62398e0dc33057ba10ba472d3b8"></a>lombok-1.18.42.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l12_a5cfe99fdf320e84955ef653f2ce1bf789d11385"></a>lombok-1.18.46.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Spice up your java: Automatic Resource Management, automatic generation of getters, setters, equals, hashCode and toString, and more!</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">The MIT License: https://projectlombok.org/LICENSE</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;C:\Users\Jeremy\.m2\repository\org\projectlombok\lombok\1.18.42\lombok-1.18.42.jar<br/>
-                            <b>MD5:</b>&nbsp;f29149836e0187fb9fd95d82dc718d36<br/>
-                            <b>SHA1:</b>&nbsp;8365263844ebb62398e0dc33057ba10ba472d3b8<br/>
-                            <b>SHA256:</b>3488a4e9994c26596baaceebee58cad36a50e3bdaec5be72b5834d3c3b560306
+                            <b>File&nbsp;Path:</b>&nbsp;C:\Users\Jeremy\.m2\repository\org\projectlombok\lombok\1.18.46\lombok-1.18.46.jar<br/>
+                            <b>MD5:</b>&nbsp;e02f419a66b86c594ffcafc862778723<br/>
+                            <b>SHA1:</b>&nbsp;a5cfe99fdf320e84955ef653f2ce1bf789d11385<br/>
+                            <b>SHA256:</b>01f7b1a015e33e2b62d5f5f37053306357ab1415fd181fcba7794f5d198c1126
                                 <br/><b>Referenced In Project/Scope:</b> javabean-tester:provided
-                                <br/><span class="tooltip"><span class="tooltiptext">lombok-1.18.42.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz/javabean-tester@2.12.0
+                                <br/><span class="tooltip"><span class="tooltiptext">lombok-1.18.46.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz/javabean-tester@2.12.1
                         </p>
                         <h4 id="header24" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content24" class="subsectioncontent standardsubsection hidden">
@@ -1849,31 +1853,31 @@ Apache License 2.0: https://www.apache.org/licenses/LICENSE-2.0</pre>
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>org.projectlombok</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>Project Lombok</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>https://projectlombok.org</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>1.18.42</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>lombok-version</td><td>1.18.42</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>1.18.42</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>1.18.46</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>lombok-version</td><td>1.18.46</td><td>Medium</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>1.18.46</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header25" class="subsectionheader white">Identifiers</h4>
                         <div id="content25" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.projectlombok/lombok@1.18.42
+                                    <li>pkg:maven/org.projectlombok/lombok@1.18.46
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l13_121287b8287464a5a7af2e47d5dbc49ca38a892f"></a>mockito-core-5.21.0.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l13_a5cf3cf244300e4cd05f779827cf50d373a8460e"></a>mockito-core-5.23.0.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Mockito mock objects library core API and implementation</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">MIT: https://opensource.org/licenses/MIT</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;C:\Users\Jeremy\.m2\repository\org\mockito\mockito-core\5.21.0\mockito-core-5.21.0.jar<br/>
-                            <b>MD5:</b>&nbsp;eaa03e4fb5717c19f2eb649d2a96f0cf<br/>
-                            <b>SHA1:</b>&nbsp;121287b8287464a5a7af2e47d5dbc49ca38a892f<br/>
-                            <b>SHA256:</b>03db23de742cbca42aa3d6127fdace560fac37b036d931870801f84c288bd286
+                            <b>File&nbsp;Path:</b>&nbsp;C:\Users\Jeremy\.m2\repository\org\mockito\mockito-core\5.23.0\mockito-core-5.23.0.jar<br/>
+                            <b>MD5:</b>&nbsp;43deb29e8c5ab688ee5547be72e10ea3<br/>
+                            <b>SHA1:</b>&nbsp;a5cf3cf244300e4cd05f779827cf50d373a8460e<br/>
+                            <b>SHA256:</b>ae295bebd5d11fab97ab297815dc7617188b86003cbce3dfd5c0d5c3a6cc4a0c
                                 <br/><b>Referenced In Project/Scope:</b> javabean-tester:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">mockito-core-5.21.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.mockito/mockito-junit-jupiter@5.21.0
+                                <br/><span class="tooltip"><span class="tooltiptext">mockito-core-5.23.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/org.mockito/mockito-junit-jupiter@5.23.0
                         </p>
                         <h4 id="header26" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content26" class="subsectioncontent standardsubsection hidden">
@@ -1917,31 +1921,31 @@ Apache License 2.0: https://www.apache.org/licenses/LICENSE-2.0</pre>
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>org.mockito</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>mockito-core</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>mockito/mockito</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>5.21.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>5.21.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>5.21.0</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>5.23.0</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>5.23.0</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>5.23.0</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header27" class="subsectionheader white">Identifiers</h4>
                         <div id="content27" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.mockito/mockito-core@5.21.0
+                                    <li>pkg:maven/org.mockito/mockito-core@5.23.0
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l14_a50fabee944b1e49804255743045851ed4b354c6"></a>mockito-junit-jupiter-5.21.0.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l14_e66b5f34ffea58bf4388aba58f66a209daeba4fd"></a>mockito-junit-jupiter-5.23.0.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>Mockito JUnit 5 support</pre></p>
                         <p>
                             <b>License:</b><pre class="indent">MIT: https://opensource.org/licenses/MIT</pre>
-                            <b>File&nbsp;Path:</b>&nbsp;C:\Users\Jeremy\.m2\repository\org\mockito\mockito-junit-jupiter\5.21.0\mockito-junit-jupiter-5.21.0.jar<br/>
-                            <b>MD5:</b>&nbsp;d931fbf48dec4c30765293f2defdb58e<br/>
-                            <b>SHA1:</b>&nbsp;a50fabee944b1e49804255743045851ed4b354c6<br/>
-                            <b>SHA256:</b>107148b99e8cd0170302babc1f260123c405190ce83a0d2666b618be488c9b17
+                            <b>File&nbsp;Path:</b>&nbsp;C:\Users\Jeremy\.m2\repository\org\mockito\mockito-junit-jupiter\5.23.0\mockito-junit-jupiter-5.23.0.jar<br/>
+                            <b>MD5:</b>&nbsp;80888c87da90327e7b621b93001454a3<br/>
+                            <b>SHA1:</b>&nbsp;e66b5f34ffea58bf4388aba58f66a209daeba4fd<br/>
+                            <b>SHA256:</b>65938526fdc311bb3a1c0015eb1c8a0be81515aa998f22b9f4e92f1b668e4f63
                                 <br/><b>Referenced In Project/Scope:</b> javabean-tester:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">mockito-junit-jupiter-5.21.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz/javabean-tester@2.12.0
+                                <br/><span class="tooltip"><span class="tooltiptext">mockito-junit-jupiter-5.23.0.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz/javabean-tester@2.12.1
                         </p>
                         <h4 id="header28" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content28" class="subsectioncontent standardsubsection hidden">
@@ -1983,31 +1987,31 @@ Apache License 2.0: https://www.apache.org/licenses/LICENSE-2.0</pre>
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>org.mockito</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>mockito-junit-jupiter</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>url</td><td>mockito/mockito</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>5.21.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>5.21.0</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>5.21.0</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>5.23.0</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Bundle-Version</td><td>5.23.0</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>5.23.0</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header29" class="subsectionheader white">Identifiers</h4>
                         <div id="content29" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.mockito/mockito-junit-jupiter@5.21.0
+                                    <li>pkg:maven/org.mockito/mockito-junit-jupiter@5.23.0
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
                         </div>
                 </div>
-                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l15_675cbe121a68019235d27f6c34b4f0ac30e07418"></a>objenesis-3.4.jar</h3>
+                    <h3 class="subsectionheader standardsubsection notvulnerable"><a name="l15_848ebc672f1e42d62c9357bd0882374c4e21895f"></a>objenesis-3.5.jar</h3>
                     <div class="subsectioncontent notvulnerable">
                             <p><b>Description:</b><pre>A library for instantiating Java objects</pre></p>
                         <p>
                             <b>License:</b><pre class="indent"><a href="http://www.apache.org/licenses/LICENSE-2.0.txt">http://www.apache.org/licenses/LICENSE-2.0.txt</a></pre>
-                            <b>File&nbsp;Path:</b>&nbsp;C:\Users\Jeremy\.m2\repository\org\objenesis\objenesis\3.4\objenesis-3.4.jar<br/>
-                            <b>MD5:</b>&nbsp;51242320cb2bb25a3f36e2e21fa87de0<br/>
-                            <b>SHA1:</b>&nbsp;675cbe121a68019235d27f6c34b4f0ac30e07418<br/>
-                            <b>SHA256:</b>95488102feaf2e2858adf6b299353677dac6c15294006f8ed1c5556f8e3cd251
+                            <b>File&nbsp;Path:</b>&nbsp;C:\Users\Jeremy\.m2\repository\org\objenesis\objenesis\3.5\objenesis-3.5.jar<br/>
+                            <b>MD5:</b>&nbsp;c325ca0c264b0a84fb0af1fd2872a692<br/>
+                            <b>SHA1:</b>&nbsp;848ebc672f1e42d62c9357bd0882374c4e21895f<br/>
+                            <b>SHA256:</b>6f5abd42cf3ebc0f2bdae73dbc57820fc4a1cb8930492841e29e9a9f9dcc86e0
                                 <br/><b>Referenced In Project/Scope:</b> javabean-tester:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">objenesis-3.4.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/nl.jqno.equalsverifier/equalsverifier@4.3.1
+                                <br/><span class="tooltip"><span class="tooltiptext">objenesis-3.5.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/nl.jqno.equalsverifier/equalsverifier@4.5
                         </p>
                         <h4 id="header30" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content30" class="subsectioncontent standardsubsection hidden">
@@ -2016,9 +2020,10 @@ Apache License 2.0: https://www.apache.org/licenses/LICENSE-2.0</pre>
                                     <tr><td>Vendor</td><td>file</td><td>name</td><td>objenesis</td><td>High</td></tr>
                                     <tr><td>Vendor</td><td>jar</td><td>package name</td><td>objenesis</td><td>Highest</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>automatic-module-name</td><td>org.objenesis</td><td>Medium</td></tr>
-                                    <tr><td>Vendor</td><td>Manifest</td><td>build-jdk-spec</td><td>1.8</td><td>Low</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>build-jdk-spec</td><td>21</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>bundle-symbolicname</td><td>org.objenesis</td><td>Medium</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>Implementation-Vendor</td><td>Joe Walnes, Henri Tremblay, Leonardo Mesquita</td><td>High</td></tr>
+                                    <tr><td>Vendor</td><td>Manifest</td><td>originally-created-by</td><td>Apache Maven Bundle Plugin 5.1.9</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>Manifest</td><td>specification-vendor</td><td>Joe Walnes, Henri Tremblay, Leonardo Mesquita</td><td>Low</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>artifactid</td><td>objenesis</td><td>Highest</td></tr>
                                     <tr><td>Vendor</td><td>pom</td><td>artifactid</td><td>objenesis</td><td>Low</td></tr>
@@ -2028,24 +2033,25 @@ Apache License 2.0: https://www.apache.org/licenses/LICENSE-2.0</pre>
                                     <tr><td>Product</td><td>file</td><td>name</td><td>objenesis</td><td>High</td></tr>
                                     <tr><td>Product</td><td>jar</td><td>package name</td><td>objenesis</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>automatic-module-name</td><td>org.objenesis</td><td>Medium</td></tr>
-                                    <tr><td>Product</td><td>Manifest</td><td>build-jdk-spec</td><td>1.8</td><td>Low</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>build-jdk-spec</td><td>21</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>Bundle-Name</td><td>Objenesis</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>bundle-symbolicname</td><td>org.objenesis</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>Implementation-Title</td><td>Objenesis</td><td>High</td></tr>
+                                    <tr><td>Product</td><td>Manifest</td><td>originally-created-by</td><td>Apache Maven Bundle Plugin 5.1.9</td><td>Low</td></tr>
                                     <tr><td>Product</td><td>Manifest</td><td>specification-title</td><td>Objenesis</td><td>Medium</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>artifactid</td><td>objenesis</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>groupid</td><td>org.objenesis</td><td>Highest</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>name</td><td>Objenesis</td><td>High</td></tr>
                                     <tr><td>Product</td><td>pom</td><td>parent-artifactid</td><td>objenesis-parent</td><td>Medium</td></tr>
-                                    <tr><td>Version</td><td>file</td><td>version</td><td>3.4</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>3.4</td><td>High</td></tr>
-                                    <tr><td>Version</td><td>pom</td><td>version</td><td>3.4</td><td>Highest</td></tr>
+                                    <tr><td>Version</td><td>file</td><td>version</td><td>3.5</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>Manifest</td><td>Implementation-Version</td><td>3.5</td><td>High</td></tr>
+                                    <tr><td>Version</td><td>pom</td><td>version</td><td>3.5</td><td>Highest</td></tr>
                             </table>
                         </div>
                         <h4 id="header31" class="subsectionheader white">Identifiers</h4>
                         <div id="content31" class="subsectioncontent standardsubsection">
                             <ul>
-                                    <li>pkg:maven/org.objenesis/objenesis@3.4
+                                    <li>pkg:maven/org.objenesis/objenesis@3.5
                                     &nbsp;&nbsp;(<i>Confidence</i>:High)
                                 </li>
                             </ul>
@@ -2148,7 +2154,7 @@ Apache License 2.0: https://www.apache.org/licenses/LICENSE-2.0</pre>
                             <b>SHA1:</b>&nbsp;d9e58ac9c7779ba3bf8142aff6c830617a7fe60f<br/>
                             <b>SHA256:</b>7b751d952061954d5abfed7181c1f645d336091b679891591d63329c622eb832
                                 <br/><b>Referenced In Project/Scope:</b> javabean-tester:compile
-                                <br/><span class="tooltip"><span class="tooltiptext">slf4j-api-2.0.17.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz/javabean-tester@2.12.0
+                                <br/><span class="tooltip"><span class="tooltiptext">slf4j-api-2.0.17.jar is in the transitive dependency tree of the listed items.</span><b>Included by:</b></span> pkg:maven/com.github.hazendaz/javabean-tester@2.12.1
                         </p>
                         <h4 id="header34" class="subsectionheader expandable expandablesubsection white">Evidence</h4>
                         <div id="content34" class="subsectioncontent standardsubsection hidden">
@@ -2209,7 +2215,7 @@ Apache License 2.0: https://www.apache.org/licenses/LICENSE-2.0</pre>
             <br/>
             This report may contain data retrieved from <a href="https://retirejs.github.io/retire.js/">RetireJS</a>.
             <br/>
-            This report may contain data retrieved from the <a href="https://ossindex.sonatype.org">Sonatype OSS Index</a>.
+            This report may contain data retrieved from the <a href="https://www.sonatype.com/products/sonatype-guide/oss-index-users">Sonatype Guide OSS Index API</a>.
         </div>
     </body>
 </html>
