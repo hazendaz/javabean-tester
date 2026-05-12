@@ -176,7 +176,7 @@
         <junit.version>6.0.3</junit.version>
         <license.version>5.0.0</license.version>
         <lombok.version>1.18.46</lombok.version>
-        <slf4j.version>2.0.17</slf4j.version>
+        <slf4j.version>2.0.18</slf4j.version>
 
         <!-- Surefire Settings -->
         <argLine>-javaagent:${settings.localRepository}/net/bytebuddy/byte-buddy-agent/${byte-buddy.version}/byte-buddy-agent-${byte-buddy.version}.jar --add-opens java.base/java.lang=ALL-UNNAMED</argLine>
