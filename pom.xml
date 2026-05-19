@@ -173,7 +173,7 @@
 
         <!-- Version Properties -->
         <byte-buddy.version>1.18.8</byte-buddy.version>
-        <junit.version>6.0.3</junit.version>
+        <junit.version>6.1.0</junit.version>
         <license.version>5.0.0</license.version>
         <lombok.version>1.18.46</lombok.version>
         <slf4j.version>2.0.18</slf4j.version>
