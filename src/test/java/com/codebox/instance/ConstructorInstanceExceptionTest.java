@@ -97,6 +97,12 @@ class ConstructorInstanceExceptionTest {
     }
 
     @Test
+    void testNewInstanceIllegalAccessException() throws Exception {
+        Constructor<?> ctor = PrivateConstructorClass.class.getDeclaredConstructor();
+        Assertions.assertThrows(org.opentest4j.AssertionFailedError.class, () -> ConstructorInstance.newInstance(ctor));
+    }
+
+    @Test
     void testInaccessibleUtilityClass() {
         Assertions.assertDoesNotThrow(() -> ConstructorInstance.inaccessible(UtilityClass.class));
     }
