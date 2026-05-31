@@ -129,7 +129,7 @@
         <github.global.server>github</github.global.server>
 
         <!-- Jacoco minimum code coverage -->
-        <jacoco.minimum.coverage>0.91</jacoco.minimum.coverage>
+        <jacoco.minimum.coverage>0.95</jacoco.minimum.coverage>
 
         <!-- Maven date configuration -->
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
@@ -161,7 +161,7 @@
         <maven.compiler.parameters>true</maven.compiler.parameters>
 
         <!-- Maven minimum version -->
-        <maven.min-version>3.9.15</maven.min-version>
+        <maven.min-version>3.9.16</maven.min-version>
 
         <!-- Automatic Module Name -->
         <module.name>com.codebox.javabean.tester</module.name>
