@@ -450,9 +450,9 @@ class JavaBeanTesterTest {
 
     @Test
     void testDeserializeFailureIsReported() {
-        Assertions.assertThrows(org.opentest4j.AssertionFailedError.class, () -> JavaBeanTester
-                .builder(SerializableWithFailingReadObject.class, null).checkSerializable().checkEquals(false)
-                .checkConstructor(false).checkClear(false).test());
+        Assertions.assertThrows(org.opentest4j.AssertionFailedError.class,
+                () -> JavaBeanTester.builder(SerializableWithFailingReadObject.class, null).checkSerializable()
+                        .checkEquals(false).checkConstructor(false).checkClear(false).test());
     }
 
     @Test
@@ -533,111 +533,131 @@ class JavaBeanTesterTest {
         public void setValue(final String value) {
             this.value = value;
         }
+    }
 
-        static class GetterSetterThrowingBean {
-            private String value;
+    public static class GetterSetterThrowingBean {
+        private String value;
 
-            public String getValue() {
-                return this.value;
-            }
-
-            public void setValue(final String value) {
-                throw new IllegalStateException("setter-failure");
-            }
+        public GetterSetterThrowingBean() {
         }
 
-        static class ClearThrowingBean {
-            public void clear() {
-                throw new IllegalStateException("clear-failure");
-            }
+        public String getValue() {
+            return this.value;
         }
 
-        static class ConstructorThrowingBean {
-            public ConstructorThrowingBean() {
-            }
+        public void setValue(final String value) {
+            throw new IllegalStateException("setter-failure");
+        }
+    }
 
-            public ConstructorThrowingBean(final String value) {
-                throw new IllegalStateException(value);
-            }
+    public static class ClearThrowingBean {
+        public ClearThrowingBean() {
         }
 
-        static class SerializableWithFailingReadObject implements java.io.Serializable {
-            private static final long serialVersionUID = 1L;
+        public void clear() {
+            throw new IllegalStateException("clear-failure");
+        }
+    }
 
-            private String value = "ok";
-
-            public String getValue() {
-                return this.value;
-            }
-
-            public void setValue(final String value) {
-                this.value = value;
-            }
-
-            @SuppressWarnings("unused")
-            private void readObject(final ObjectInputStream stream) throws IOException, ClassNotFoundException {
-                throw new IOException("deserialize-failure");
-            }
+    public static class ConstructorThrowingBean {
+        public ConstructorThrowingBean() {
         }
 
-        static class CopyFailureAfterLoadBean {
-            static int setCalls;
+        public ConstructorThrowingBean(final String value) {
+            throw new IllegalStateException(value);
+        }
+    }
 
-            private String value;
+    public static class SerializableWithFailingReadObject implements java.io.Serializable {
+        private static final long serialVersionUID = 1L;
 
-            public String getValue() {
-                return this.value;
-            }
+        private String value = "ok";
 
-            public void setValue(final String value) {
-                setCalls++;
-                if (setCalls >= 3) {
-                    throw new IllegalStateException("copy-failure");
-                }
-                this.value = value;
-            }
-
-            @Override
-            public int hashCode() {
-                return Objects.hash(this.value);
-            }
-
-            @Override
-            public boolean equals(final Object obj) {
-                if (this == obj) {
-                    return true;
-                }
-                if (!(obj instanceof CopyFailureAfterLoadBean)) {
-                    return false;
-                }
-                final CopyFailureAfterLoadBean other = (CopyFailureAfterLoadBean) obj;
-                return Objects.equals(this.value, other.value);
-            }
+        public SerializableWithFailingReadObject() {
         }
 
-        static class NoSetterBaseBean {
+        public String getValue() {
+            return this.value;
         }
 
-        static class ExtensionCopyFailureBean {
-            public String getValue() {
-                return "value";
-            }
-
-            public void setValue(final String value) {
-                throw new IllegalStateException("extension-copy-failure");
-            }
+        public void setValue(final String value) {
+            this.value = value;
         }
 
-        static class EqualsSetterThrowingBean {
-            private String value;
+        @SuppressWarnings("unused")
+        private void readObject(final ObjectInputStream stream) throws IOException, ClassNotFoundException {
+            throw new IOException("deserialize-failure");
+        }
+    }
 
-            public String getValue() {
-                return this.value;
-            }
+    public static class CopyFailureAfterLoadBean {
+        static int setCalls;
 
-            public void setValue(final String value) {
-                throw new IllegalStateException("equals-failure");
+        private String value;
+
+        public CopyFailureAfterLoadBean() {
+        }
+
+        public String getValue() {
+            return this.value;
+        }
+
+        public void setValue(final String value) {
+            setCalls++;
+            if (setCalls >= 5) {
+                throw new IllegalStateException("copy-failure");
             }
+            this.value = value;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(this.value);
+        }
+
+        @Override
+        public boolean equals(final Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (!(obj instanceof CopyFailureAfterLoadBean)) {
+                return false;
+            }
+            final CopyFailureAfterLoadBean other = (CopyFailureAfterLoadBean) obj;
+            return Objects.equals(this.value, other.value);
+        }
+    }
+
+    public static class NoSetterBaseBean {
+        public NoSetterBaseBean() {
+        }
+    }
+
+    public static class ExtensionCopyFailureBean {
+        public ExtensionCopyFailureBean() {
+        }
+
+        public String getValue() {
+            return "value";
+        }
+
+        public void setValue(final String value) {
+            throw new IllegalStateException("extension-copy-failure");
+        }
+    }
+
+    public static class EqualsSetterThrowingBean {
+        private String value;
+
+        public EqualsSetterThrowingBean() {
+        }
+
+        public String getValue() {
+            return this.value;
+        }
+
+        public void setValue(final String value) {
+            throw new IllegalStateException("equals-failure");
         }
     }
 

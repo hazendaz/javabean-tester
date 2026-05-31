@@ -154,6 +154,17 @@ class ByteBuddyBeanCopierTest {
         Assertions.assertInstanceOf(IllegalArgumentException.class, exception.getCause());
     }
 
+    @Test
+    void testCopyUsesBooleanFallbackWithMismatchedSetterPropertyName() {
+        var source = new BooleanFallbackMismatchBean();
+        source.setuRL(true);
+
+        var target = new BooleanFallbackMismatchBean();
+        ByteBuddyBeanCopier.copy(source, target, null);
+
+        Assertions.assertTrue(target.isURL());
+    }
+
     static class PrimitiveSetterOnlySource {
         private boolean active;
 
@@ -173,30 +184,43 @@ class ByteBuddyBeanCopierTest {
             this.active = active;
         }
 
-        static class BooleanIsFallbackSource {
-            private Boolean active;
-
-            public void setActive(Boolean active) {
-                this.active = active;
-            }
-
-            public boolean isActive() {
-                return Boolean.TRUE.equals(this.active);
-            }
-        }
-
-        static class NonGetterMethodBean {
-            public String name() {
-                return "value";
-            }
-        }
-
         public boolean active() {
             return this.active;
         }
 
         public String isActive() {
             return "not-boolean";
+        }
+    }
+
+    static class BooleanIsFallbackSource {
+        private Boolean active;
+
+        public void setActive(Boolean active) {
+            this.active = active;
+        }
+
+        public boolean isActive() {
+            return Boolean.TRUE.equals(this.active);
+        }
+    }
+
+    static class NonGetterMethodBean {
+        public String name() {
+            return "value";
+        }
+    }
+
+    static class BooleanFallbackMismatchBean {
+        private boolean url;
+
+        @SuppressWarnings("java:S100")
+        public void setuRL(final boolean url) {
+            this.url = url;
+        }
+
+        public boolean isURL() {
+            return this.url;
         }
     }
 
