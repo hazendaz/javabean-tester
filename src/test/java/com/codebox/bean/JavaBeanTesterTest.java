@@ -10,16 +10,19 @@ package com.codebox.bean;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Date;
+import java.util.Objects;
 
 import net.bytebuddy.description.type.TypeDescription;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 import org.powermock.reflect.Whitebox;
 
 /**
@@ -372,7 +375,7 @@ class JavaBeanTesterTest {
      */
     @Test
     void testCheckSerializableOnNonSerializableClassFails() {
-        Assertions.assertThrows(org.opentest4j.AssertionFailedError.class,
+        Assertions.assertThrows(AssertionFailedError.class,
                 () -> JavaBeanTester.builder(SimpleNonSerializableBean.class, null).checkSerializable().test());
     }
 
@@ -405,7 +408,7 @@ class JavaBeanTesterTest {
      */
     @Test
     void testSerializableWithNonSerializableFieldFails() {
-        Assertions.assertThrows(org.opentest4j.AssertionFailedError.class,
+        Assertions.assertThrows(AssertionFailedError.class,
                 () -> JavaBeanTester.builder(SerializableWithThreadFieldBean.class).checkSerializable().test());
     }
 
@@ -416,6 +419,67 @@ class JavaBeanTesterTest {
     void testDateBeanGetterSetter() {
         // Pass null extension to bypass ByteBuddy (forbidden to subclass java.util.Date)
         JavaBeanTester.builder(Date.class, null).loadData().test();
+    }
+
+    @Test
+    void testGetterSetterFailureIsReported() {
+        Assertions.assertThrows(AssertionFailedError.class,
+                () -> JavaBeanTester.builder(GetterSetterThrowingBean.class, null).loadData().checkEquals(false)
+                        .checkConstructor(false).checkClear(false).checkSerializable(false).test());
+    }
+
+    @Test
+    void testClearFailureIsReported() {
+        Assertions.assertThrows(AssertionFailedError.class, () -> JavaBeanTester.builder(ClearThrowingBean.class, null)
+                .checkClear().checkEquals(false).checkConstructor(false).checkSerializable(false).test());
+    }
+
+    @Test
+    void testConstructorFailureIsReported() {
+        Assertions.assertThrows(AssertionFailedError.class,
+                () -> JavaBeanTester.builder(ConstructorThrowingBean.class, null).checkConstructor().checkEquals(false)
+                        .checkClear(false).checkSerializable(false).test());
+    }
+
+    @Test
+    void testCheckSerializableFailureBranch() {
+        Assertions.assertThrows(AssertionFailedError.class, () -> JavaBeanTester.builder(Object.class, null)
+                .checkSerializable().checkEquals(false).checkConstructor(false).checkClear(false).test());
+    }
+
+    @Test
+    void testDeserializeFailureIsReported() {
+        Assertions.assertThrows(AssertionFailedError.class,
+                () -> JavaBeanTester.builder(SerializableWithFailingReadObject.class, null).checkSerializable()
+                        .checkEquals(false).checkConstructor(false).checkClear(false).test());
+    }
+
+    @Test
+    void testProcessClassCopyFailureIsSwallowed() throws Exception {
+        CopyFailureAfterLoadBean.resetSetCalls();
+        final JavaBeanTesterWorker<CopyFailureAfterLoadBean, Object> worker = new JavaBeanTesterWorker<>(
+                CopyFailureAfterLoadBean.class);
+        worker.setLoadData(com.codebox.enums.LoadData.ON);
+        Whitebox.invokeMethod(worker, "processClassEqualsHashCodeToStringSymmetricTest", new CopyFailureAfterLoadBean(),
+                new CopyFailureAfterLoadBean());
+    }
+
+    @Test
+    void testProcessExtensionCopyFailureIsSwallowed() throws Exception {
+        final JavaBeanTesterWorker<NoSetterBaseBean, ExtensionCopyFailureBean> worker = new JavaBeanTesterWorker<>(
+                NoSetterBaseBean.class, ExtensionCopyFailureBean.class);
+        worker.setLoadData(com.codebox.enums.LoadData.ON);
+        Whitebox.invokeMethod(worker, "processExtensionEqualsHashCodeToStringSymmetricTest", new NoSetterBaseBean(),
+                new ExtensionCopyFailureBean());
+    }
+
+    @Test
+    void testEqualsSetterFailureIsReported() {
+        final JavaBeanTesterWorker<EqualsSetterThrowingBean, Object> worker = new JavaBeanTesterWorker<>(
+                EqualsSetterThrowingBean.class);
+        worker.setLoadData(com.codebox.enums.LoadData.ON);
+        Assertions.assertThrows(AssertionFailedError.class,
+                () -> worker.equalsTests(new EqualsSetterThrowingBean(), new EqualsSetterThrowingBean()));
     }
 
     /**
@@ -467,6 +531,136 @@ class JavaBeanTesterTest {
          */
         public void setValue(final String value) {
             this.value = value;
+        }
+    }
+
+    public static class GetterSetterThrowingBean {
+        private String value;
+
+        public GetterSetterThrowingBean() {
+        }
+
+        public String getValue() {
+            return this.value;
+        }
+
+        public void setValue(final String value) {
+            throw new IllegalStateException("setter-failure");
+        }
+    }
+
+    public static class ClearThrowingBean {
+        public ClearThrowingBean() {
+        }
+
+        public void clear() {
+            throw new IllegalStateException("clear-failure");
+        }
+    }
+
+    public static class ConstructorThrowingBean {
+        public ConstructorThrowingBean() {
+        }
+
+        public ConstructorThrowingBean(final String value) {
+            throw new IllegalStateException(value);
+        }
+    }
+
+    public static class SerializableWithFailingReadObject implements java.io.Serializable {
+        private static final long serialVersionUID = 1L;
+
+        private String value = "ok";
+
+        public SerializableWithFailingReadObject() {
+        }
+
+        public String getValue() {
+            return this.value;
+        }
+
+        public void setValue(final String value) {
+            this.value = value;
+        }
+
+        @SuppressWarnings("unused")
+        private void readObject(final ObjectInputStream stream) throws IOException {
+            throw new IOException("deserialize-failure");
+        }
+    }
+
+    public static class CopyFailureAfterLoadBean {
+        private static int setCalls;
+
+        private String value;
+
+        public CopyFailureAfterLoadBean() {
+        }
+
+        static void resetSetCalls() {
+            setCalls = 0;
+        }
+
+        public String getValue() {
+            return this.value;
+        }
+
+        public void setValue(final String value) {
+            setCalls++;
+            if (setCalls >= 5) {
+                throw new IllegalStateException("copy-failure");
+            }
+            this.value = value;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(this.value);
+        }
+
+        @Override
+        public boolean equals(final Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (!(obj instanceof CopyFailureAfterLoadBean)) {
+                return false;
+            }
+            final CopyFailureAfterLoadBean other = (CopyFailureAfterLoadBean) obj;
+            return Objects.equals(this.value, other.value);
+        }
+    }
+
+    public static class NoSetterBaseBean {
+        public NoSetterBaseBean() {
+        }
+    }
+
+    public static class ExtensionCopyFailureBean {
+        public ExtensionCopyFailureBean() {
+        }
+
+        public String getValue() {
+            return "value";
+        }
+
+        public void setValue(final String value) {
+            throw new IllegalStateException("extension-copy-failure");
+        }
+    }
+
+    public static class EqualsSetterThrowingBean {
+        private String value;
+
+        public EqualsSetterThrowingBean() {
+        }
+
+        public String getValue() {
+            return this.value;
+        }
+
+        public void setValue(final String value) {
+            throw new IllegalStateException("equals-failure");
         }
     }
 

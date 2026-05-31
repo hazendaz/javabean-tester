@@ -10,6 +10,7 @@ package com.codebox.bean;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import lombok.Data;
 
@@ -122,6 +123,17 @@ class ByteBuddyBeanCopierTest {
     }
 
     @Test
+    void testCopyUsesBooleanIsFallbackGetter() {
+        var source = new BooleanIsFallbackSource();
+        source.setActive(Boolean.TRUE);
+
+        var target = new BooleanIsFallbackSource();
+        ByteBuddyBeanCopier.copy(source, target, null);
+
+        Assertions.assertTrue(target.isActive());
+    }
+
+    @Test
     void testUtilityConstructorThrowsAssertionError() throws Exception {
         Constructor<ByteBuddyBeanCopier> constructor = ByteBuddyBeanCopier.class.getDeclaredConstructor();
         constructor.setAccessible(true);
@@ -129,6 +141,28 @@ class ByteBuddyBeanCopierTest {
         InvocationTargetException exception = Assertions.assertThrows(InvocationTargetException.class,
                 constructor::newInstance);
         Assertions.assertInstanceOf(AssertionError.class, exception.getCause());
+    }
+
+    @Test
+    void testExtractPropertyNameRejectsNonGetterMethod() throws Exception {
+        Method extract = ByteBuddyBeanCopier.class.getDeclaredMethod("extractPropertyName", Method.class);
+        extract.setAccessible(true);
+
+        Method nonGetter = NonGetterMethodBean.class.getMethod("name");
+        InvocationTargetException exception = Assertions.assertThrows(InvocationTargetException.class,
+                () -> extract.invoke(null, nonGetter));
+        Assertions.assertInstanceOf(IllegalArgumentException.class, exception.getCause());
+    }
+
+    @Test
+    void testCopyUsesBooleanFallbackWithMismatchedSetterPropertyName() {
+        var source = new BooleanFallbackMismatchBean();
+        source.setuRL(true);
+
+        var target = new BooleanFallbackMismatchBean();
+        ByteBuddyBeanCopier.copy(source, target, null);
+
+        Assertions.assertTrue(target.isURL());
     }
 
     static class PrimitiveSetterOnlySource {
@@ -156,6 +190,37 @@ class ByteBuddyBeanCopierTest {
 
         public String isActive() {
             return "not-boolean";
+        }
+    }
+
+    static class BooleanIsFallbackSource {
+        private Boolean active;
+
+        public void setActive(Boolean active) {
+            this.active = active;
+        }
+
+        public boolean isActive() {
+            return Boolean.TRUE.equals(this.active);
+        }
+    }
+
+    static class NonGetterMethodBean {
+        public String name() {
+            return "value";
+        }
+    }
+
+    static class BooleanFallbackMismatchBean {
+        private boolean url;
+
+        @SuppressWarnings("java:S100")
+        public void setuRL(final boolean url) { // Intentional mixed-case setter to exercise fallback property mapping
+            this.url = url;
+        }
+
+        public boolean isURL() {
+            return this.url;
         }
     }
 
