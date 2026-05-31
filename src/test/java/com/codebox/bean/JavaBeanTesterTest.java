@@ -22,6 +22,7 @@ import net.bytebuddy.description.type.TypeDescription;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 import org.powermock.reflect.Whitebox;
 
 /**
@@ -374,7 +375,7 @@ class JavaBeanTesterTest {
      */
     @Test
     void testCheckSerializableOnNonSerializableClassFails() {
-        Assertions.assertThrows(org.opentest4j.AssertionFailedError.class,
+        Assertions.assertThrows(AssertionFailedError.class,
                 () -> JavaBeanTester.builder(SimpleNonSerializableBean.class, null).checkSerializable().test());
     }
 
@@ -407,7 +408,7 @@ class JavaBeanTesterTest {
      */
     @Test
     void testSerializableWithNonSerializableFieldFails() {
-        Assertions.assertThrows(org.opentest4j.AssertionFailedError.class,
+        Assertions.assertThrows(AssertionFailedError.class,
                 () -> JavaBeanTester.builder(SerializableWithThreadFieldBean.class).checkSerializable().test());
     }
 
@@ -422,42 +423,40 @@ class JavaBeanTesterTest {
 
     @Test
     void testGetterSetterFailureIsReported() {
-        Assertions.assertThrows(org.opentest4j.AssertionFailedError.class,
+        Assertions.assertThrows(AssertionFailedError.class,
                 () -> JavaBeanTester.builder(GetterSetterThrowingBean.class, null).loadData().checkEquals(false)
                         .checkConstructor(false).checkClear(false).checkSerializable(false).test());
     }
 
     @Test
     void testClearFailureIsReported() {
-        Assertions.assertThrows(org.opentest4j.AssertionFailedError.class,
-                () -> JavaBeanTester.builder(ClearThrowingBean.class, null).checkClear().checkEquals(false)
-                        .checkConstructor(false).checkSerializable(false).test());
+        Assertions.assertThrows(AssertionFailedError.class, () -> JavaBeanTester.builder(ClearThrowingBean.class, null)
+                .checkClear().checkEquals(false).checkConstructor(false).checkSerializable(false).test());
     }
 
     @Test
     void testConstructorFailureIsReported() {
-        Assertions.assertThrows(org.opentest4j.AssertionFailedError.class,
+        Assertions.assertThrows(AssertionFailedError.class,
                 () -> JavaBeanTester.builder(ConstructorThrowingBean.class, null).checkConstructor().checkEquals(false)
                         .checkClear(false).checkSerializable(false).test());
     }
 
     @Test
     void testCheckSerializableFailureBranch() {
-        Assertions.assertThrows(org.opentest4j.AssertionFailedError.class,
-                () -> JavaBeanTester.builder(Object.class, null).checkSerializable().checkEquals(false)
-                        .checkConstructor(false).checkClear(false).test());
+        Assertions.assertThrows(AssertionFailedError.class, () -> JavaBeanTester.builder(Object.class, null)
+                .checkSerializable().checkEquals(false).checkConstructor(false).checkClear(false).test());
     }
 
     @Test
     void testDeserializeFailureIsReported() {
-        Assertions.assertThrows(org.opentest4j.AssertionFailedError.class,
+        Assertions.assertThrows(AssertionFailedError.class,
                 () -> JavaBeanTester.builder(SerializableWithFailingReadObject.class, null).checkSerializable()
                         .checkEquals(false).checkConstructor(false).checkClear(false).test());
     }
 
     @Test
     void testProcessClassCopyFailureIsSwallowed() throws Exception {
-        CopyFailureAfterLoadBean.setCalls = 0;
+        CopyFailureAfterLoadBean.resetSetCalls();
         final JavaBeanTesterWorker<CopyFailureAfterLoadBean, Object> worker = new JavaBeanTesterWorker<>(
                 CopyFailureAfterLoadBean.class);
         worker.setLoadData(com.codebox.enums.LoadData.ON);
@@ -479,7 +478,7 @@ class JavaBeanTesterTest {
         final JavaBeanTesterWorker<EqualsSetterThrowingBean, Object> worker = new JavaBeanTesterWorker<>(
                 EqualsSetterThrowingBean.class);
         worker.setLoadData(com.codebox.enums.LoadData.ON);
-        Assertions.assertThrows(org.opentest4j.AssertionFailedError.class,
+        Assertions.assertThrows(AssertionFailedError.class,
                 () -> worker.equalsTests(new EqualsSetterThrowingBean(), new EqualsSetterThrowingBean()));
     }
 
@@ -585,17 +584,21 @@ class JavaBeanTesterTest {
         }
 
         @SuppressWarnings("unused")
-        private void readObject(final ObjectInputStream stream) throws IOException, ClassNotFoundException {
+        private void readObject(final ObjectInputStream stream) throws IOException {
             throw new IOException("deserialize-failure");
         }
     }
 
     public static class CopyFailureAfterLoadBean {
-        static int setCalls;
+        private static int setCalls;
 
         private String value;
 
         public CopyFailureAfterLoadBean() {
+        }
+
+        static void resetSetCalls() {
+            setCalls = 0;
         }
 
         public String getValue() {

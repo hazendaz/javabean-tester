@@ -12,6 +12,7 @@ import java.lang.reflect.Constructor;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 /**
  * The Class ConstructorInstanceExceptionTest.
@@ -97,9 +98,9 @@ class ConstructorInstanceExceptionTest {
     }
 
     @Test
-    void testNewInstanceIllegalAccessException() throws Exception {
+    void testNewInstanceWithInaccessibleConstructorThrowsAssertionFailure() throws Exception {
         Constructor<?> ctor = PrivateConstructorClass.class.getDeclaredConstructor();
-        Assertions.assertThrows(org.opentest4j.AssertionFailedError.class, () -> ConstructorInstance.newInstance(ctor));
+        Assertions.assertThrows(AssertionFailedError.class, () -> ConstructorInstance.newInstance(ctor));
     }
 
     @Test

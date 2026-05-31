@@ -215,7 +215,7 @@ class ByteBuddyBeanCopierTest {
         private boolean url;
 
         @SuppressWarnings("java:S100")
-        public void setuRL(final boolean url) {
+        public void setuRL(final boolean url) { // Intentional mixed-case setter to exercise fallback property mapping
             this.url = url;
         }
 
