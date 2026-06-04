@@ -172,7 +172,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- Version Properties -->
-        <byte-buddy.version>1.18.8</byte-buddy.version>
+        <byte-buddy.version>1.18.10</byte-buddy.version>
         <junit.version>6.1.0</junit.version>
         <license.version>5.0.0</license.version>
         <lombok.version>1.18.46</lombok.version>
