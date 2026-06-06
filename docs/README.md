@@ -1,3 +1,5 @@
-## Future Documentation ##
+## Documentation
 
-A call to action to build documentation.  Please put all documentation in this directory.
+Additional guides live in this directory.
+
+* [Builder pattern quick start and migration guide](builder-pattern.md)

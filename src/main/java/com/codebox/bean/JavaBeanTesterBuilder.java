@@ -19,12 +19,18 @@ import com.codebox.instance.ConstructorInstance;
 import java.util.Arrays;
 
 /**
- * The Class JavaBeanTesterBuilder.
+ * Fluent configuration object returned by {@link JavaBeanTester#builder(Class)}.
+ *
+ * <p>
+ * Configure optional checks by chaining methods such as {@link #checkEquals()}, {@link #checkSerializable()},
+ * {@link #loadData()}, or {@link #skip(String...)}, then finish with a terminal method such as {@link #test()},
+ * {@link #testInstance(Object)}, {@link #testEquals(Object, Object)}, {@link #testObjectMethods()}, or
+ * {@link #testPrivateConstructor()}.
  *
  * @param <T>
- *            the generic type
+ *            the type under test
  * @param <E>
- *            the element type
+ *            the extension type used for equality-related checks
  */
 public class JavaBeanTesterBuilder<T, E> {
 
@@ -54,21 +60,21 @@ public class JavaBeanTesterBuilder<T, E> {
     }
 
     /**
-     * Check Clear.
+     * Enables {@code clear()} verification.
      *
-     * @return the java bean tester builder
+     * @return this builder
      */
     public JavaBeanTesterBuilder<T, E> checkClear() {
         return this.checkClear(true);
     }
 
     /**
-     * Check Clear.
+     * Toggles {@code clear()} verification.
      *
      * @param value
-     *            the value
+     *            {@code true} to enable the check, {@code false} to disable it
      *
-     * @return the java bean tester builder
+     * @return this builder
      */
     public JavaBeanTesterBuilder<T, E> checkClear(final boolean value) {
         this.worker.setCheckClear(value ? CheckClear.ON : CheckClear.OFF);
@@ -76,21 +82,21 @@ public class JavaBeanTesterBuilder<T, E> {
     }
 
     /**
-     * Check Constructor.
+     * Enables public-constructor verification.
      *
-     * @return the java bean tester builder
+     * @return this builder
      */
     public JavaBeanTesterBuilder<T, E> checkConstructor() {
         return this.checkConstructor(true);
     }
 
     /**
-     * Check Constructor.
+     * Toggles public-constructor verification.
      *
      * @param value
-     *            the value
+     *            {@code true} to enable the check, {@code false} to disable it
      *
-     * @return the java bean tester builder
+     * @return this builder
      */
     public JavaBeanTesterBuilder<T, E> checkConstructor(final boolean value) {
         this.worker.setCheckConstructor(value ? CheckConstructor.ON : CheckConstructor.OFF);
@@ -98,21 +104,21 @@ public class JavaBeanTesterBuilder<T, E> {
     }
 
     /**
-     * Check equals.
+     * Enables {@code equals}, {@code hashCode}, {@code toString}, and {@code canEqual} verification.
      *
-     * @return the java bean tester builder
+     * @return this builder
      */
     public JavaBeanTesterBuilder<T, E> checkEquals() {
         return this.checkEquals(true);
     }
 
     /**
-     * Check equals.
+     * Toggles {@code equals}, {@code hashCode}, {@code toString}, and {@code canEqual} verification.
      *
      * @param value
-     *            the value
+     *            {@code true} to enable the check, {@code false} to disable it
      *
-     * @return the java bean tester builder
+     * @return this builder
      */
     public JavaBeanTesterBuilder<T, E> checkEquals(final boolean value) {
         this.worker.setCheckEquals(value ? CheckEquals.ON : CheckEquals.OFF);
@@ -120,21 +126,21 @@ public class JavaBeanTesterBuilder<T, E> {
     }
 
     /**
-     * Check Serializable.
+     * Requires the type under test to be serializable and validates a serialization round-trip.
      *
-     * @return the java bean tester builder
+     * @return this builder
      */
     public JavaBeanTesterBuilder<T, E> checkSerializable() {
         return this.checkSerializable(true);
     }
 
     /**
-     * Check Serializable.
+     * Toggles strict serializable validation.
      *
      * @param value
-     *            the value
+     *            {@code true} to require serialization support, {@code false} to skip the strict requirement
      *
-     * @return the java bean tester builder
+     * @return this builder
      */
     public JavaBeanTesterBuilder<T, E> checkSerializable(final boolean value) {
         this.worker.setCheckSerializable(value ? CheckSerialize.ON : CheckSerialize.OFF);
@@ -142,21 +148,21 @@ public class JavaBeanTesterBuilder<T, E> {
     }
 
     /**
-     * Load data.
+     * Enables recursive sample-data generation for supported property types.
      *
-     * @return the java bean tester builder
+     * @return this builder
      */
     public JavaBeanTesterBuilder<T, E> loadData() {
         return this.loadData(true);
     }
 
     /**
-     * Load data.
+     * Toggles recursive sample-data generation for supported property types.
      *
      * @param value
-     *            the value
+     *            {@code true} to enable generated data, {@code false} to disable it
      *
-     * @return the java bean tester builder
+     * @return this builder
      */
     public JavaBeanTesterBuilder<T, E> loadData(final boolean value) {
         this.worker.setLoadData(value ? LoadData.ON : LoadData.OFF);
@@ -177,12 +183,12 @@ public class JavaBeanTesterBuilder<T, E> {
     }
 
     /**
-     * Skip.
+     * Skips the supplied bean properties during getter/setter validation.
      *
      * @param propertyNames
-     *            the property names
+     *            the bean property names to exclude
      *
-     * @return the java bean tester builder
+     * @return this builder
      */
     public JavaBeanTesterBuilder<T, E> skip(final String... propertyNames) {
         if (propertyNames != null) {
@@ -192,43 +198,43 @@ public class JavaBeanTesterBuilder<T, E> {
     }
 
     /**
-     * Test.
+     * Runs the configured bean validation flow.
      */
     public void test() {
         this.worker.test();
     }
 
     /**
-     * Private Constructor Test.
+     * Verifies that a private constructor can be exercised.
      */
     public void testPrivateConstructor() {
         ConstructorInstance.inaccessible(this.worker.getClazz());
     }
 
     /**
-     * Tests the equals/hashCode/toString methods of the specified class.
+     * Runs only the object-method checks for the configured class.
      */
     public void testObjectMethods() {
         this.worker.equalsHashCodeToStringSymmetricTest();
     }
 
     /**
-     * Getter Setter Tests.
+     * Runs getter/setter checks against the supplied instance.
      *
      * @param instance
-     *            the instance of class under test.
+     *            the instance to populate and verify
      */
     public void testInstance(final T instance) {
         this.worker.getterSetterTests(instance);
     }
 
     /**
-     * Test equals.
+     * Compares two prepared instances using the configured equality options.
      *
      * @param instance
-     *            the instance
+     *            the instance under test
      * @param expected
-     *            the expected
+     *            the expected comparison instance
      */
     public void testEquals(final T instance, final T expected) {
         this.worker.equalsTests(instance, expected);
