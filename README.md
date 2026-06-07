@@ -49,31 +49,55 @@ See historical discussion here:
 - [Pull Request #2](https://github.com/codebox/javabean-tester/pull/2)
 - [Issue #3](https://github.com/codebox/javabean-tester/issues/3)
 
-## Documentation Status
+## Builder API documentation
 
-Actively accepting pull requests for documentation of this library.  Focus will only be on new builder pattern.  Vast majority of examples exist in the test package.
+The fluent builder is the supported entry point for configuring tests.
 
-## Example Usage
+* [Builder quick start and migration guide](docs/builder-pattern.md)
+* [Additional project notes](docs/README.md)
+
+## Builder quick start
+
+Run the standard bean checks:
 
 ```java
-JavaBeanTester.builder(Test.class, Extension.class).checkEquals().checkSerializable()
-        .loadData().skipStrictSerializable().skip("FieldToSkip", "AnotherFieldToSkip").test();
+JavaBeanTester.builder(Test.class).test();
 ```
+
+Add equals, hashCode, toString, and canEqual verification:
+
+```java
+JavaBeanTester.builder(Test.class).checkEquals().loadData().test();
+```
+
+Test two existing instances:
 
 ```java
 JavaBeanTester.builder(Test.class).loadData().testEquals(instance1, instance2);
 ```
 
+Skip selected bean properties:
+
+```java
+JavaBeanTester.builder(Test.class).checkEquals().loadData().skip("fieldToSkip").test();
+```
+
+Use an explicit extension type when you do not want the generated one:
+
+```java
+JavaBeanTester.builder(Test.class, Extension.class).checkEquals().test();
+```
+
+Test a private constructor:
+
 ```java
 JavaBeanTester.builder(Test.class).testPrivateConstructor();
 ```
 
-Check Equals will perform equality checks.  This applies when hashcode, toString, and equals/canEqual are setup.
+### Builder options
 
-Check Serializable will perform a serialization check.  This ensures that just because a class is marked as serializable that it really is serializable including children.
-
-Load Data will load underlying data as best possible for basic java types.
-
-Skip Strict Serializable will not perform a serialization check as this is only valid for POJOs currently.
-
-Skip will skip all included elements from underlying getter/setter checks.
+* `checkEquals()` enables equals/hashCode/toString/canEqual verification.
+* `checkSerializable()` fails fast when the class under test is not serializable and validates serializable round-tripping.
+* `loadData()` asks the tester to populate nested values when sample data is needed.
+* `skipStrictSerializable()` relaxes the equality assertion performed after serialization for complex object graphs.
+* `skip("propertyName")` excludes specific bean properties from getter/setter checks.
