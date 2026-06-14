@@ -237,11 +237,11 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
 <span class="fc" id="L237">                                String.format(&quot;Failed while testing property '%s' of class '%s'&quot;, prop.getName(),</span>
 <span class="fc" id="L238">                                        this.clazz.getName()));</span>
 
-<span class="nc" id="L240">                    } catch (final IllegalAccessException | IllegalArgumentException | InvocationTargetException</span>
+<span class="fc" id="L240">                    } catch (final IllegalAccessException | IllegalArgumentException | InvocationTargetException</span>
                             | SecurityException e) {
-<span class="nc" id="L242">                        Assertions.fail(String.format(</span>
+<span class="pc" id="L242">                        Assertions.fail(String.format(</span>
                                 &quot;An exception was thrown while testing class '%s' with the property (getter/setter) '%s': '%s'&quot;,
-<span class="nc" id="L244">                                this.clazz.getName(), prop.getName(), e.toString()));</span>
+<span class="fc" id="L244">                                this.clazz.getName(), prop.getName(), e.toString()));</span>
 <span class="fc" id="L245">                    }</span>
                 }
             }
@@ -277,10 +277,10 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
 <span class="fc" id="L277">                    newClass.getClass().getMethod(&quot;clear&quot;).invoke(newClass);</span>
 <span class="fc" id="L278">                    Assertions.assertEquals(expectedClass, newClass,</span>
 <span class="fc" id="L279">                            String.format(&quot;Clear method does not match new object '%s'&quot;, this.clazz));</span>
-<span class="nc" id="L280">                } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException</span>
+<span class="fc" id="L280">                } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException</span>
                         | NoSuchMethodException | SecurityException e) {
-<span class="nc" id="L282">                    Assertions.fail(String.format(&quot;An exception was thrown while testing the Clear method '%s' : '%s'&quot;,</span>
-<span class="nc" id="L283">                            this.clazz.getName(), e.toString()));</span>
+<span class="pc" id="L282">                    Assertions.fail(String.format(&quot;An exception was thrown while testing the Clear method '%s' : '%s'&quot;,</span>
+<span class="fc" id="L283">                            this.clazz.getName(), e.toString()));</span>
 <span class="fc" id="L284">                }</span>
             }
         }
@@ -308,10 +308,10 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
 
             try {
 <span class="fc" id="L310">                constructor.newInstance(values);</span>
-<span class="nc" id="L311">            } catch (final InstantiationException | IllegalAccessException | InvocationTargetException e) {</span>
-<span class="nc" id="L312">                Assertions.fail(</span>
-<span class="nc" id="L313">                        String.format(&quot;An exception was thrown while testing the constructor(s) '%s' with '%s': '%s'&quot;,</span>
-<span class="nc" id="L314">                                constructor.getName(), Arrays.toString(values), e.toString()));</span>
+<span class="fc" id="L311">            } catch (final InstantiationException | IllegalAccessException | InvocationTargetException e) {</span>
+<span class="pc" id="L312">                Assertions.fail(</span>
+<span class="fc" id="L313">                        String.format(&quot;An exception was thrown while testing the constructor(s) '%s' with '%s': '%s'&quot;,</span>
+<span class="fc" id="L314">                                constructor.getName(), Arrays.toString(values), e.toString()));</span>
 <span class="fc" id="L315">            }</span>
 
             // TODO 1/12/2019 JWL Add checking of new object properties
@@ -379,9 +379,9 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
 <span class="fc" id="L379">        try (ByteArrayInputStream bais = new ByteArrayInputStream(byteArray);</span>
 <span class="fc" id="L380">                ObjectInputStream ois = new ObjectInputStream(bais)) {</span>
 <span class="fc" id="L381">            return (T) ois.readObject();</span>
-<span class="nc" id="L382">        } catch (final ClassNotFoundException | IOException e) {</span>
-<span class="nc" id="L383">            Assertions.fail(String.format(&quot;An exception was thrown while deserializing the class '%s': '%s',&quot;,</span>
-<span class="nc" id="L384">                    object.getClass().getName(), e.toString()));</span>
+<span class="fc" id="L382">        } catch (final ClassNotFoundException | IOException e) {</span>
+<span class="pc" id="L383">            Assertions.fail(String.format(&quot;An exception was thrown while deserializing the class '%s': '%s',&quot;,</span>
+<span class="fc" id="L384">                    object.getClass().getName(), e.toString()));</span>
         }
 <span class="nc" id="L386">        return null;</span>
     }
@@ -518,8 +518,8 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
 <span class="fc" id="L518">                return value;</span>
             });
 <span class="fc" id="L520">            Assertions.assertEquals(e, x);</span>
-<span class="nc" id="L521">        } catch (final Exception e) {</span>
-<span class="nc" id="L522">            JavaBeanTesterWorker.logger.trace(&quot;Do nothing class is not mutable&quot;, e);</span>
+<span class="fc" id="L521">        } catch (final Exception e) {</span>
+<span class="fc" id="L522">            JavaBeanTesterWorker.logger.trace(&quot;Do nothing class is not mutable&quot;, e);</span>
 <span class="fc" id="L523">        }</span>
 <span class="fc" id="L524">    }</span>
 
@@ -597,8 +597,8 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
 <span class="fc" id="L597">                return value;</span>
             });
 <span class="fc" id="L599">            Assertions.assertEquals(e, ext);</span>
-<span class="nc" id="L600">        } catch (final Exception e) {</span>
-<span class="nc" id="L601">            JavaBeanTesterWorker.logger.trace(&quot;Do nothing class is not mutable&quot;, e);</span>
+<span class="fc" id="L600">        } catch (final Exception e) {</span>
+<span class="fc" id="L601">            JavaBeanTesterWorker.logger.trace(&quot;Do nothing class is not mutable&quot;, e);</span>
 <span class="fc" id="L602">        }</span>
 <span class="fc" id="L603">    }</span>
 
@@ -680,11 +680,11 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
                         // Reset to original value
 <span class="fc" id="L681">                        setter.invoke(instance, original);</span>
 
-<span class="nc" id="L683">                    } catch (final IllegalAccessException | IllegalArgumentException | InvocationTargetException</span>
+<span class="fc" id="L683">                    } catch (final IllegalAccessException | IllegalArgumentException | InvocationTargetException</span>
                             | SecurityException e) {
-<span class="nc" id="L685">                        Assertions.fail(</span>
-<span class="nc" id="L686">                                String.format(&quot;An exception was thrown while testing the property (equals) '%s': '%s'&quot;,</span>
-<span class="nc" id="L687">                                        prop.getName(), e.toString()));</span>
+<span class="pc" id="L685">                        Assertions.fail(</span>
+<span class="fc" id="L686">                                String.format(&quot;An exception was thrown while testing the property (equals) '%s': '%s'&quot;,</span>
+<span class="fc" id="L687">                                        prop.getName(), e.toString()));</span>
 <span class="fc" id="L688">                    }</span>
                 }
             }
@@ -734,4 +734,4 @@ class JavaBeanTesterWorker&lt;T, E&gt; {
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

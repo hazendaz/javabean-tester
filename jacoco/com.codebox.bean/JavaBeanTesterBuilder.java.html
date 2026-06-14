@@ -19,12 +19,18 @@ import com.codebox.instance.ConstructorInstance;
 import java.util.Arrays;
 
 /**
- * The Class JavaBeanTesterBuilder.
+ * Fluent configuration object returned by {@link JavaBeanTester#builder(Class)}.
+ *
+ * &lt;p&gt;
+ * Configure optional checks by chaining methods such as {@link #checkEquals()}, {@link #checkSerializable()},
+ * {@link #loadData()}, or {@link #skip(String...)}, then finish with a terminal method such as {@link #test()},
+ * {@link #testInstance(Object)}, {@link #testEquals(Object, Object)}, {@link #testObjectMethods()}, or
+ * {@link #testPrivateConstructor()}.
  *
  * @param &lt;T&gt;
- *            the generic type
+ *            the type under test
  * @param &lt;E&gt;
- *            the element type
+ *            the extension type used for equality-related checks
  */
 public class JavaBeanTesterBuilder&lt;T, E&gt; {
 
@@ -37,9 +43,9 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @param clazz
      *            the clazz
      */
-<span class="fc" id="L40">    JavaBeanTesterBuilder(final Class&lt;T&gt; clazz) {</span>
-<span class="fc" id="L41">        this.worker = new JavaBeanTesterWorker&lt;&gt;(clazz);</span>
-<span class="fc" id="L42">    }</span>
+<span class="fc" id="L46">    JavaBeanTesterBuilder(final Class&lt;T&gt; clazz) {</span>
+<span class="fc" id="L47">        this.worker = new JavaBeanTesterWorker&lt;&gt;(clazz);</span>
+<span class="fc" id="L48">    }</span>
 
     /**
      * Instantiates a new java bean tester builder.
@@ -49,118 +55,118 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @param extension
      *            the extension
      */
-<span class="fc" id="L52">    JavaBeanTesterBuilder(final Class&lt;T&gt; clazz, final Class&lt;E&gt; extension) {</span>
-<span class="fc" id="L53">        this.worker = new JavaBeanTesterWorker&lt;&gt;(clazz, extension);</span>
-<span class="fc" id="L54">    }</span>
+<span class="fc" id="L58">    JavaBeanTesterBuilder(final Class&lt;T&gt; clazz, final Class&lt;E&gt; extension) {</span>
+<span class="fc" id="L59">        this.worker = new JavaBeanTesterWorker&lt;&gt;(clazz, extension);</span>
+<span class="fc" id="L60">    }</span>
 
     /**
-     * Check Clear.
+     * Enables {@code clear()} verification.
      *
-     * @return the java bean tester builder
+     * @return this builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; checkClear() {
-<span class="fc" id="L62">        return this.checkClear(true);</span>
+<span class="fc" id="L68">        return this.checkClear(true);</span>
     }
 
     /**
-     * Check Clear.
+     * Toggles {@code clear()} verification.
      *
      * @param value
-     *            the value
+     *            {@code true} to enable the check, {@code false} to disable it
      *
-     * @return the java bean tester builder
+     * @return this builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; checkClear(final boolean value) {
-<span class="fc bfc" id="L74" title="All 2 branches covered.">        this.worker.setCheckClear(value ? CheckClear.ON : CheckClear.OFF);</span>
-<span class="fc" id="L75">        return this;</span>
+<span class="fc bfc" id="L80" title="All 2 branches covered.">        this.worker.setCheckClear(value ? CheckClear.ON : CheckClear.OFF);</span>
+<span class="fc" id="L81">        return this;</span>
     }
 
     /**
-     * Check Constructor.
+     * Enables public-constructor verification.
      *
-     * @return the java bean tester builder
+     * @return this builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; checkConstructor() {
-<span class="fc" id="L84">        return this.checkConstructor(true);</span>
+<span class="fc" id="L90">        return this.checkConstructor(true);</span>
     }
 
     /**
-     * Check Constructor.
+     * Toggles public-constructor verification.
      *
      * @param value
-     *            the value
+     *            {@code true} to enable the check, {@code false} to disable it
      *
-     * @return the java bean tester builder
+     * @return this builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; checkConstructor(final boolean value) {
-<span class="fc bfc" id="L96" title="All 2 branches covered.">        this.worker.setCheckConstructor(value ? CheckConstructor.ON : CheckConstructor.OFF);</span>
-<span class="fc" id="L97">        return this;</span>
+<span class="fc bfc" id="L102" title="All 2 branches covered.">        this.worker.setCheckConstructor(value ? CheckConstructor.ON : CheckConstructor.OFF);</span>
+<span class="fc" id="L103">        return this;</span>
     }
 
     /**
-     * Check equals.
+     * Enables {@code equals}, {@code hashCode}, {@code toString}, and {@code canEqual} verification.
      *
-     * @return the java bean tester builder
+     * @return this builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; checkEquals() {
-<span class="fc" id="L106">        return this.checkEquals(true);</span>
+<span class="fc" id="L112">        return this.checkEquals(true);</span>
     }
 
     /**
-     * Check equals.
+     * Toggles {@code equals}, {@code hashCode}, {@code toString}, and {@code canEqual} verification.
      *
      * @param value
-     *            the value
+     *            {@code true} to enable the check, {@code false} to disable it
      *
-     * @return the java bean tester builder
+     * @return this builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; checkEquals(final boolean value) {
-<span class="fc bfc" id="L118" title="All 2 branches covered.">        this.worker.setCheckEquals(value ? CheckEquals.ON : CheckEquals.OFF);</span>
-<span class="fc" id="L119">        return this;</span>
+<span class="fc bfc" id="L124" title="All 2 branches covered.">        this.worker.setCheckEquals(value ? CheckEquals.ON : CheckEquals.OFF);</span>
+<span class="fc" id="L125">        return this;</span>
     }
 
     /**
-     * Check Serializable.
+     * Requires the type under test to be serializable and validates a serialization round-trip.
      *
-     * @return the java bean tester builder
+     * @return this builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; checkSerializable() {
-<span class="fc" id="L128">        return this.checkSerializable(true);</span>
+<span class="fc" id="L134">        return this.checkSerializable(true);</span>
     }
 
     /**
-     * Check Serializable.
+     * Toggles strict serializable validation.
      *
      * @param value
-     *            the value
+     *            {@code true} to require serialization support, {@code false} to skip the strict requirement
      *
-     * @return the java bean tester builder
+     * @return this builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; checkSerializable(final boolean value) {
-<span class="fc bfc" id="L140" title="All 2 branches covered.">        this.worker.setCheckSerializable(value ? CheckSerialize.ON : CheckSerialize.OFF);</span>
-<span class="fc" id="L141">        return this;</span>
+<span class="fc bfc" id="L146" title="All 2 branches covered.">        this.worker.setCheckSerializable(value ? CheckSerialize.ON : CheckSerialize.OFF);</span>
+<span class="fc" id="L147">        return this;</span>
     }
 
     /**
-     * Load data.
+     * Enables recursive sample-data generation for supported property types.
      *
-     * @return the java bean tester builder
+     * @return this builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; loadData() {
-<span class="fc" id="L150">        return this.loadData(true);</span>
+<span class="fc" id="L156">        return this.loadData(true);</span>
     }
 
     /**
-     * Load data.
+     * Toggles recursive sample-data generation for supported property types.
      *
      * @param value
-     *            the value
+     *            {@code true} to enable generated data, {@code false} to disable it
      *
-     * @return the java bean tester builder
+     * @return this builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; loadData(final boolean value) {
-<span class="fc bfc" id="L162" title="All 2 branches covered.">        this.worker.setLoadData(value ? LoadData.ON : LoadData.OFF);</span>
-<span class="fc" id="L163">        return this;</span>
+<span class="fc bfc" id="L168" title="All 2 branches covered.">        this.worker.setLoadData(value ? LoadData.ON : LoadData.OFF);</span>
+<span class="fc" id="L169">        return this;</span>
     }
 
     /**
@@ -172,67 +178,67 @@ public class JavaBeanTesterBuilder&lt;T, E&gt; {
      * @return the java bean tester builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; skipStrictSerializable() {
-<span class="fc" id="L175">        this.worker.setSkipStrictSerializable(SkipStrictSerialize.ON);</span>
-<span class="fc" id="L176">        return this;</span>
+<span class="fc" id="L181">        this.worker.setSkipStrictSerializable(SkipStrictSerialize.ON);</span>
+<span class="fc" id="L182">        return this;</span>
     }
 
     /**
-     * Skip.
+     * Skips the supplied bean properties during getter/setter validation.
      *
      * @param propertyNames
-     *            the property names
+     *            the bean property names to exclude
      *
-     * @return the java bean tester builder
+     * @return this builder
      */
     public JavaBeanTesterBuilder&lt;T, E&gt; skip(final String... propertyNames) {
-<span class="fc bfc" id="L188" title="All 2 branches covered.">        if (propertyNames != null) {</span>
-<span class="fc" id="L189">            this.worker.getSkipThese().addAll(Arrays.asList(propertyNames));</span>
+<span class="fc bfc" id="L194" title="All 2 branches covered.">        if (propertyNames != null) {</span>
+<span class="fc" id="L195">            this.worker.getSkipThese().addAll(Arrays.asList(propertyNames));</span>
         }
-<span class="fc" id="L191">        return this;</span>
+<span class="fc" id="L197">        return this;</span>
     }
 
     /**
-     * Test.
+     * Runs the configured bean validation flow.
      */
     public void test() {
-<span class="fc" id="L198">        this.worker.test();</span>
-<span class="fc" id="L199">    }</span>
+<span class="fc" id="L204">        this.worker.test();</span>
+<span class="fc" id="L205">    }</span>
 
     /**
-     * Private Constructor Test.
+     * Verifies that a private constructor can be exercised.
      */
     public void testPrivateConstructor() {
-<span class="fc" id="L205">        ConstructorInstance.inaccessible(this.worker.getClazz());</span>
-<span class="fc" id="L206">    }</span>
+<span class="fc" id="L211">        ConstructorInstance.inaccessible(this.worker.getClazz());</span>
+<span class="fc" id="L212">    }</span>
 
     /**
-     * Tests the equals/hashCode/toString methods of the specified class.
+     * Runs only the object-method checks for the configured class.
      */
     public void testObjectMethods() {
-<span class="fc" id="L212">        this.worker.equalsHashCodeToStringSymmetricTest();</span>
-<span class="fc" id="L213">    }</span>
+<span class="fc" id="L218">        this.worker.equalsHashCodeToStringSymmetricTest();</span>
+<span class="fc" id="L219">    }</span>
 
     /**
-     * Getter Setter Tests.
+     * Runs getter/setter checks against the supplied instance.
      *
      * @param instance
-     *            the instance of class under test.
+     *            the instance to populate and verify
      */
     public void testInstance(final T instance) {
-<span class="fc" id="L222">        this.worker.getterSetterTests(instance);</span>
-<span class="fc" id="L223">    }</span>
+<span class="fc" id="L228">        this.worker.getterSetterTests(instance);</span>
+<span class="fc" id="L229">    }</span>
 
     /**
-     * Test equals.
+     * Compares two prepared instances using the configured equality options.
      *
      * @param instance
-     *            the instance
+     *            the instance under test
      * @param expected
-     *            the expected
+     *            the expected comparison instance
      */
     public void testEquals(final T instance, final T expected) {
-<span class="fc" id="L234">        this.worker.equalsTests(instance, expected);</span>
-<span class="fc" id="L235">    }</span>
+<span class="fc" id="L240">        this.worker.equalsTests(instance, expected);</span>
+<span class="fc" id="L241">    }</span>
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

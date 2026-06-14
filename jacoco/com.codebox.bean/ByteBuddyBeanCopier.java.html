@@ -67,8 +67,8 @@ public final class ByteBuddyBeanCopier {
 <span class="fc" id="L67">                    String isMethodName = &quot;is&quot; + ByteBuddyBeanCopier.capitalize(property);</span>
                     try {
 <span class="fc" id="L69">                        Method isMethod = clazz.getMethod(isMethodName);</span>
-<span class="pc bpc" id="L70" title="1 of 2 branches missed.">                        if (isBooleanType(isMethod.getReturnType())) {</span>
-<span class="nc" id="L71">                            value = isMethod.invoke(source);</span>
+<span class="fc bfc" id="L70" title="All 2 branches covered.">                        if (isBooleanType(isMethod.getReturnType())) {</span>
+<span class="fc" id="L71">                            value = isMethod.invoke(source);</span>
                         }
 <span class="fc" id="L73">                    } catch (NoSuchMethodException ignored) {</span>
                         // No 'is' method, skip
@@ -137,10 +137,10 @@ public final class ByteBuddyBeanCopier {
 <span class="fc bfc" id="L137" title="All 2 branches covered.">        if (name.startsWith(&quot;get&quot;)) {</span>
 <span class="fc" id="L138">            return name.substring(3);</span>
         }
-<span class="pc bpc" id="L140" title="1 of 2 branches missed.">        if (name.startsWith(&quot;is&quot;)) {</span>
+<span class="fc bfc" id="L140" title="All 2 branches covered.">        if (name.startsWith(&quot;is&quot;)) {</span>
 <span class="fc" id="L141">            return name.substring(2);</span>
         }
-<span class="nc" id="L143">        throw new IllegalArgumentException(&quot;Not a getter method: &quot; + name);</span>
+<span class="fc" id="L143">        throw new IllegalArgumentException(&quot;Not a getter method: &quot; + name);</span>
     }
 
     /**
@@ -154,7 +154,7 @@ public final class ByteBuddyBeanCopier {
 <span class="pc bpc" id="L154" title="1 of 4 branches missed.">        if (name == null || name.isEmpty()) {</span>
 <span class="fc" id="L155">            return name;</span>
         }
-<span class="pc bpc" id="L157" title="1 of 6 branches missed.">        if (name.length() &gt; 1 &amp;&amp; Character.isUpperCase(name.charAt(1)) &amp;&amp; Character.isUpperCase(name.charAt(0))) {</span>
+<span class="fc bfc" id="L157" title="All 6 branches covered.">        if (name.length() &gt; 1 &amp;&amp; Character.isUpperCase(name.charAt(1)) &amp;&amp; Character.isUpperCase(name.charAt(0))) {</span>
 <span class="fc" id="L158">            return name;</span>
         }
 <span class="fc" id="L160">        return Character.toLowerCase(name.charAt(0)) + name.substring(1);</span>
@@ -192,4 +192,4 @@ public final class ByteBuddyBeanCopier {
     }
 
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.14.202510111229</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.15.202606040825</span></div></body></html>

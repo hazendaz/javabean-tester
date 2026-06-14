@@ -2,11 +2,11 @@ GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_
 javabean-tester,com.codebox.builders,ExtensionBuilder,0,174,0,2,0,26,0,7,0,6
 javabean-tester,com.codebox.instance,ConstructorInstance,6,54,1,1,1,14,1,2,0,2
 javabean-tester,com.codebox.instance,ClassInstance,9,178,0,16,0,35,0,12,0,4
-javabean-tester,com.codebox.bean,ByteBuddyBeanCopier,12,301,7,61,2,57,7,35,0,8
+javabean-tester,com.codebox.bean,ByteBuddyBeanCopier,0,313,4,64,0,59,4,38,0,8
 javabean-tester,com.codebox.bean,JavaBeanTester.new NamingStrategy.AbstractBase() {...},0,13,0,0,0,2,0,2,0,2
 javabean-tester,com.codebox.bean,JavaBeanTester.InstanceOfEqualsInterceptor,0,31,0,10,0,7,0,7,0,2
 javabean-tester,com.codebox.bean,ValueBuilder,0,438,0,109,0,101,0,69,0,14
-javabean-tester,com.codebox.bean,JavaBeanTesterWorker,155,1214,13,91,29,243,13,61,0,22
+javabean-tester,com.codebox.bean,JavaBeanTesterWorker,60,1309,13,91,8,264,13,61,0,22
 javabean-tester,com.codebox.bean,JavaBeanTester.CanEqualInterceptor,0,6,0,0,0,3,0,2,0,2
 javabean-tester,com.codebox.bean,JavaBeanTesterBuilder,0,130,0,12,0,36,0,25,0,19
 javabean-tester,com.codebox.bean,JavaBeanTester,0,75,0,4,0,15,0,5,0,3
