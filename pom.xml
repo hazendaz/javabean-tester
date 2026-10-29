@@ -750,6 +750,11 @@
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
                     <version>13.0.0</version>
+                    <configuration>
+                        <failOnError>false</failOnError>
+                        <nvdApiServerId>nvd</nvdApiServerId>
+                        <ossIndexServerId>ossindex</ossIndexServerId>
+                    </configuration>
                 </plugin>
 
                 <!-- Sonatype Provided Plugins -->
