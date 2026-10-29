@@ -1144,9 +1144,9 @@
 
         <!-- Run lombok-edge when necessary for newer support. -->
         <profile>
-            <id>jdk27on</id>
+            <id>jdk28on</id>
             <activation>
-                <jdk>[27,)</jdk>
+                <jdk>[28,)</jdk>
             </activation>
 
             <properties>
