@@ -178,7 +178,8 @@ public class ValueBuilder {
      */
     private static <T> Object setAlternateValues(final Class<T> clazz) {
         return ValueBuilder.setValues(clazz, "ALT_VALUE", 1, Boolean.FALSE, Integer.valueOf(2), Long.valueOf(2),
-                Double.valueOf(2.0), Float.valueOf(2.0F), Character.valueOf('N'), Byte.valueOf((byte) 2));
+                Double.valueOf(2.0), Float.valueOf(2.0F), Character.valueOf('N'), Byte.valueOf((byte) 2),
+                Short.valueOf((short) 2));
     }
 
     /**
@@ -192,7 +193,7 @@ public class ValueBuilder {
      * @return Object the Object to use for test.
      */
     private static <T> Object setNullValues(final Class<T> clazz) {
-        return ValueBuilder.setValues(clazz, null, 0, null, null, null, null, null, null, null);
+        return ValueBuilder.setValues(clazz, null, 0, null, null, null, null, null, null, null, null);
     }
 
     /**
@@ -207,7 +208,8 @@ public class ValueBuilder {
      */
     private static <T> Object setStandardValues(final Class<T> clazz) {
         return ValueBuilder.setValues(clazz, "TEST_VALUE", 1, Boolean.TRUE, Integer.valueOf(1), Long.valueOf(1),
-                Double.valueOf(1.0), Float.valueOf(1.0F), Character.valueOf('Y'), Byte.valueOf((byte) 1));
+                Double.valueOf(1.0), Float.valueOf(1.0F), Character.valueOf('Y'), Byte.valueOf((byte) 1),
+                Short.valueOf((short) 1));
     }
 
     /**
@@ -235,12 +237,13 @@ public class ValueBuilder {
      *            value of character object.
      * @param byteValue
      *            value of character object.
-     *
+     * @param shortValue
+     *            the short value
      * @return Object value determined by input class. If not found, returns null.
      */
     private static <T> Object setValues(final Class<T> clazz, final String string, final int arrayLength,
             final Boolean booleanValue, final Integer integerValue, final Long longValue, final Double doubleValue,
-            final Float floatValue, final Character characterValue, final Byte byteValue) {
+            final Float floatValue, final Character characterValue, final Byte byteValue, final Short shortValue) {
         if (clazz == String.class) {
             return string;
         }
@@ -267,6 +270,9 @@ public class ValueBuilder {
         }
         if (clazz == byte.class || clazz == Byte.class) {
             return ValueBuilder.initializeByte(clazz, byteValue);
+        }
+        if (clazz == short.class || clazz == Short.class) {
+            return ValueBuilder.initializeShort(clazz, shortValue);
         }
         return null;
     }
@@ -402,6 +408,25 @@ public class ValueBuilder {
             return Byte.valueOf((byte) -1);
         }
         return byteValue;
+    }
+
+    /**
+     * Initialize short.
+     *
+     * @param <T>
+     *            the generic type
+     * @param clazz
+     *            the clazz
+     * @param shortValue
+     *            the short value
+     *
+     * @return the object
+     */
+    private static <T> Object initializeShort(final Class<T> clazz, final Short shortValue) {
+        if (clazz == short.class && shortValue == null) {
+            return Short.valueOf((short) -1);
+        }
+        return shortValue;
     }
 
     /**

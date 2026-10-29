@@ -84,6 +84,9 @@ public class SampleBean {
     /** The byte wrapper. */
     private Byte byteWrapper;
 
+    /** The short wrapper. */
+    private Short shortWrapper;
+
     /** The byte array. */
     private Byte[] byteArray;
 
@@ -107,6 +110,9 @@ public class SampleBean {
 
     /** The byte primitive. */
     private byte bytePrimitive;
+
+    /** The short primitive. */
+    private short shortPrimitive;
 
     /** The big decimal. */
     private BigDecimal bigDecimal;

@@ -46,12 +46,20 @@ class JavaBeanTesterTest {
     }
 
     /**
-     * Load full bean.
+     * Load full bean with short assertion checks.
      */
     @Test
     void loadFullBean() {
         JavaBeanTester.builder(SampleBean.class).loadData().testInstance(this.sampleBean);
+        Assertions.assertNotNull(this.sampleBean.getBooleanWrapper());
+        Assertions.assertNotNull(this.sampleBean.getByteWrapper());
+        Assertions.assertNotNull(this.sampleBean.getCharacterWrapper());
         Assertions.assertNotNull(this.sampleBean.getDoubleWrapper());
+        Assertions.assertNotNull(this.sampleBean.getFloatWrapper());
+        Assertions.assertNotNull(this.sampleBean.getIntWrapper());
+        Assertions.assertNotNull(this.sampleBean.getLongWrapper());
+        Assertions.assertNotNull(this.sampleBean.getShortWrapper());
+        Assertions.assertNotNull(this.sampleBean.getByteArray());
     }
 
     /**
